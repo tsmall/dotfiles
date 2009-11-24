@@ -1,0 +1,17 @@
+# Common variables
+export EDITOR="mate -w"
+export PATH="/usr/local/bin:/usr/local/sbin:/Users/tsmall/Applications/go:$PATH:~/bin"
+
+# Bash customization
+export HISTCONTROL=ignoredups		# don't save duplicates in history
+
+# Environment variables required for the Go language
+export GOROOT=~/src/go
+export GOBIN=~/Applications/go
+export GOOS=darwin
+export GOARCH=386
+
+# Subversion
+# This is required for Subversion to be able to handle non-ASCII filenames,
+# which are sometimes in TextMate bundles.
+export LC_CTYPE=en_US.UTF-8

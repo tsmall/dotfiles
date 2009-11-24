@@ -1,0 +1,10 @@
+# Application launching
+alias ff="open -a Firefox"
+alias vlc="open -a VLC"
+
+# Custom commands
+# alias trash="mv $1 ~/.Trash/"
+
+# Top
+alias tu='top -o cpu' # cpu
+alias tm='top -o vsize' # memory
