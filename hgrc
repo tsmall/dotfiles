@@ -2,6 +2,5 @@
 username = Tom Small <tsmall3@gmail.com>
 
 [extensions]
-color=
 hgext.mq=
 hgext.record=
