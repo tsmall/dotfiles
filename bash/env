@@ -1,5 +1,5 @@
 # Common variables
-export EDITOR="mate -w"
+export EDITOR="emacsclient"
 export PATH="/usr/local/bin:/usr/local/sbin:/Users/tsmall/Applications/go:$PATH:~/bin"
 
 # Bash customization
