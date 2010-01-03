@@ -16,6 +16,7 @@
 (setq default-tab-width 4)
 (setq tab-width 4)
 (setq visible-bell t) ;; Disable beep
+(setq confirm-kill-emacs 'yes-or-no-p) ; Confirm quit
 
 ;; Turn off anti-aliasing
 ;; Note: To actually not use anti-aliasing I had to also run this command:
