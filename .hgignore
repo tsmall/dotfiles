@@ -1,4 +1,8 @@
 syntax:glob
 
+# Files
 *.elc
 *~
+
+# Directories
+emacs.d/url
