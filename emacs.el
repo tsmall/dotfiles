@@ -33,6 +33,12 @@
 (add-to-list 'load-path "~/.emacs.d/site-lisp")
 
 ;; -----------------------------------------------------------------------------
+;; org-mode
+
+(add-to-list 'auto-mode-alist '("\\.org\\'" . org-mode))
+(global-set-key "\C-ca" 'org-agenda)
+
+;; -----------------------------------------------------------------------------
 ;; Twitter
 
 (autoload 'twit-show-recent-tweets	"twit" "" t) ; most recent direct tweets (!)
