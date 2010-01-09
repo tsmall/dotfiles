@@ -13,7 +13,16 @@
 
 (add-to-list 'load-path "~/.emacs.d/site-lisp")
 
-(add-to-list 'load-path "~/.emacs.d/site-lisp")
+;; Put all backup files in a single directory
+(defun my-backup-file-name (fpath)
+  "Return a new file path of a given file path. If the new path's directory
+  does not exist, create them."
+  (let (backup-root bpath)
+	(setq backup-root "~/.emacs.d/backup")
+	(setq bpath (concat backup-root fpath "~"))
+	(make-directory (file-name-directory bpath) bpath)
+	bpath))
+(setq make-backup-file-name-function 'my-backup-file-name)
 
 ;; -----------------------------------------------------------------------------
 ;; org-mode
