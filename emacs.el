@@ -10,6 +10,7 @@
 (setq tab-width 4)
 (setq visible-bell t) ;; Disable beep
 (setq confirm-kill-emacs 'yes-or-no-p) ; Confirm quit
+(setq sentence-end-double-space nil) ; Wrap lines after only one space
 
 (add-to-list 'load-path "~/.emacs.d/site-lisp")
 
