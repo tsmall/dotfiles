@@ -3,6 +3,7 @@ syntax:glob
 # Files
 *.elc
 *~
+bash/local
 
 # Directories
 emacs.d/url
