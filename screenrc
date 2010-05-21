@@ -3,3 +3,6 @@ hardstatus string '%{= kG}[ %{G}%H %{g}][%= %{=kw}%?%-Lw%?%{r}(%{W}%n*%f%t%?(%u)
 
 # Default screens
 screen -t shell1  0
+
+# Use backslash (\) for command character instead of 'a'
+escape ^|\\
