@@ -1,29 +1,36 @@
 ;; -----------------------------------------------------------------------------
 ;; General customizations
 
-(setq transient-mark-mode t) ;; Highlight regions
-(setq line-number-mode t) ;; Display line numbers
-(setq column-number-mode t) ;; Display column numbers
-(blink-cursor-mode 0) ;; Don't blink the cursor
-(server-start) ;; Start the Emacs server
+(setq transient-mark-mode t)           ; Highlight regions
+(setq line-number-mode t)              ; Display line numbers
+(setq column-number-mode t)            ; Display column numbers
+(blink-cursor-mode 0)                  ; Don't blink the cursor
+(server-start)                         ; Start the Emacs server
 (setq default-tab-width 4)
 (setq tab-width 4)
-(setq visible-bell t) ;; Disable beep
+(setq visible-bell t)                  ; Disable beep
 (setq confirm-kill-emacs 'yes-or-no-p) ; Confirm quit
-(setq sentence-end-double-space nil) ; Wrap lines after only one space
+(setq sentence-end-double-space nil)   ; Wrap lines after only one space
 
 (add-to-list 'load-path "~/.emacs.d/site-lisp")
 
 ;; Put all backup files in a single directory
-(defun my-backup-file-name (fpath)
-  "Return a new file path of a given file path. If the new path's directory
-  does not exist, create them."
-  (let (backup-root bpath)
-	(setq backup-root "~/.emacs.d/backup")
-	(setq bpath (concat backup-root fpath "~"))
-	(make-directory (file-name-directory bpath) bpath)
-	bpath))
-(setq make-backup-file-name-function 'my-backup-file-name)
+;(defun my-backup-file-name (fpath)
+;  "Return a new file path of a given file path. If the new path's directory
+;  does not exist, create them."
+;  (let (backup-root bpath)
+;	(setq backup-root "~/.emacs.d/backup")
+;	(setq bpath (concat backup-root fpath "~"))
+;	(make-directory (file-name-directory bpath) bpath)
+;	bpath))
+;(setq make-backup-file-name-function 'my-backup-file-name)
+
+;; -----------------------------------------------------------------------------
+;; Color themes
+
+(require 'color-theme)
+(color-theme-initialize)
+(color-theme-almost-monokai)
 
 ;; -----------------------------------------------------------------------------
 ;; org-mode
@@ -55,6 +62,7 @@
 (autoload 'twit-remove-friend 		"twit" "" t) ; emove a frienda
 
 ;; -----------------------------------------------------------------------------
+;; Programming language modes
 
 ;; Erlang
 (require 'erlang-start)
@@ -65,4 +73,3 @@
 ;; JavaScript
 (autoload 'js2-mode "js2" nil t)
 (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
-
