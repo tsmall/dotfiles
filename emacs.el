@@ -41,27 +41,6 @@
 (setq org-log-done 'time)
 
 ;; -----------------------------------------------------------------------------
-;; Twitter
-
-(autoload 'twit-show-recent-tweets	"twit" "" t) ; most recent direct tweets (!)
-(autoload 'twit-show-at-tweets		"twit" "" t) ; directed to you
-(autoload 'twit-show-friends 		"twit" "" t) ; your friends
-(autoload 'twit-show-followers 		"twit" "" t) ; your followers
-
-(autoload 'twit-follow-recent-tweets	"twit" "" t) ; at idle, check at background
-
-(autoload 'twit-post			"twit" "" t)
-(autoload 'twit-post-region		"twit" "" t)
-(autoload 'twit-post-buffer		"twit" "" t)
-(autoload 'twit-direct			"twit" "" t) ; tweet to person
-
-(autoload 'twit-add-favorite		"twit" "" t) ; Add to favourite: (*) star
-(autoload 'twit-remove-favorite 	"twit" "" t)
-
-(autoload 'twit-add-friend  		"twit" "" t) ; follow a friend
-(autoload 'twit-remove-friend 		"twit" "" t) ; emove a frienda
-
-;; -----------------------------------------------------------------------------
 ;; Programming language modes
 
 ;; Erlang
