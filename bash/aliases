@@ -1,4 +1,6 @@
 alias dirs='dirs -v'
+alias ll='ls -l'
+alias ls='ls --color'
 
 # Emacs
 alias ec='emacsclient'
