@@ -3,7 +3,6 @@ set nocompatible                    " this has to be first
 syntax on                           " turn on syntax highlighting
 
 set hidden                          " allow switching away from modified buffers
-set autoindent                      " automatically indent to match the previous line
 set backspace=indent,eol,start      " make backspace work over indents and start/end of line
 set showcmd                         " display incomplete commands
 set title                           " update the terminal's title with Vim's info
