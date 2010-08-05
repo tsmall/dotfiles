@@ -43,7 +43,7 @@
 (setq org-log-done 'time)
 
 ;; -----------------------------------------------------------------------------
-;; Programming language modes
+;; Major modes
 
 ;; Erlang
 (require 'erlang-start)
@@ -54,3 +54,6 @@
 ;; JavaScript
 (autoload 'js2-mode "js2" nil t)
 (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
+
+;; MediaWiki
+;(require 'mediawiki.el)
