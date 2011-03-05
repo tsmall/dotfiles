@@ -8,7 +8,7 @@
 (server-start)                         ; Start the Emacs server
 (setq visible-bell t)                  ; Disable beep
 (setq confirm-kill-emacs 'yes-or-no-p) ; Confirm quit
-(setq sentence-end-double-space nil)   ; Wrap lines after only one space
+;(setq sentence-end-double-space nil)   ; Wrap lines after only one space
 
 (setq c-basic-offset 4)                ; Cause tab key to indent 4 places
 (setq tab-width 4)                     ; Interpret tab char as 4 places
@@ -17,15 +17,18 @@
 (add-to-list 'load-path "~/.emacs.d/site-lisp")
 
 ;; Put all backup files in a single directory
-;(defun my-backup-file-name (fpath)
-;  "Return a new file path of a given file path. If the new path's directory
-;  does not exist, create them."
-;  (let (backup-root bpath)
-;	(setq backup-root "~/.emacs.d/backup")
-;	(setq bpath (concat backup-root fpath "~"))
-;	(make-directory (file-name-directory bpath) bpath)
-;	bpath))
-;(setq make-backup-file-name-function 'my-backup-file-name)
+(defun my-backup-file-name (fpath)
+ "Return a new file path of a given file path. If the new path's directory
+ does not exist, create them."
+ (let (backup-root bpath)
+   (setq backup-root "~/.emacs.d/backup")
+   (setq bpath (concat backup-root fpath "~"))
+   (make-directory (file-name-directory bpath) bpath)
+   bpath))
+
+;; Since this function doesn't work in Windows, I can't enable it
+;; here.  Instead, copy this function into your local .emacs file:
+;; (setq make-backup-file-name-function 'my-backup-file-name)
 
 ;; -----------------------------------------------------------------------------
 ;; Color themes
