@@ -21,3 +21,11 @@ download_buffer_automatic_open_target = OPEN_NEW_BUFFER_BACKGROUND;
 
 // Show the XKCD title text in the page.
 xkcd_add_title = true;
+
+// Reload .conkerorrc with C-c r.
+interactive('reload-config',
+            function(I) {
+                load_rc();
+                I.window.minibuffer.message('config reloaded');
+            });
+define_key(default_global_keymap, 'C-c r', 'reload-config');
