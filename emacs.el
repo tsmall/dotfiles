@@ -48,6 +48,9 @@
 ;; -----------------------------------------------------------------------------
 ;; Programming language modes
 
+;; Clojure
+(require 'clojure-mode)
+
 ;; Erlang
 (require 'erlang-start)
 
