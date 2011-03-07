@@ -46,7 +46,7 @@
 (setq org-log-done 'time)
 
 ;; -----------------------------------------------------------------------------
-;; Programming language modes
+;; Major modes
 
 ;; Clojure
 (require 'clojure-mode)
