@@ -1,5 +1,6 @@
 ;; -----------------------------------------------------------------------------
 ;; General customizations
+;; -----------------------------------------------------------------------------
 
 (setq transient-mark-mode t)           ; Highlight regions
 (setq line-number-mode t)              ; Display line numbers
@@ -8,13 +9,16 @@
 (server-start)                         ; Start the Emacs server
 (setq visible-bell t)                  ; Disable beep
 (setq confirm-kill-emacs 'yes-or-no-p) ; Confirm quit
-;(setq sentence-end-double-space nil)   ; Wrap lines after only one space
 
 (setq c-basic-offset 4)                ; Cause tab key to indent 4 places
 (setq tab-width 4)                     ; Interpret tab char as 4 places
 (setq-default indent-tabs-mode nil)    ; Insert spaces instead of tabs
 
 (add-to-list 'load-path "~/.emacs.d/site-lisp")
+
+;; -----------------------------------------------------------------------------
+;; Custom functions
+;; -----------------------------------------------------------------------------
 
 ;; Put all backup files in a single directory
 (defun my-backup-file-name (fpath)
@@ -30,8 +34,6 @@
 ;; here.  Instead, copy this function into your local .emacs file:
 ;; (setq make-backup-file-name-function 'my-backup-file-name)
 
-;; -----------------------------------------------------------------------------
-;; Custom functions
 
 (defun clear-buffer ()
   (interactive)
@@ -41,21 +43,15 @@
 
 ;; -----------------------------------------------------------------------------
 ;; Color themes
+;; -----------------------------------------------------------------------------
 
 (require 'color-theme)
 (color-theme-initialize)
 (color-theme-almost-monokai)
 
 ;; -----------------------------------------------------------------------------
-;; org-mode
-
-(add-to-list 'auto-mode-alist '("\\.org\\'" . org-mode))
-(global-set-key "\C-ca" 'org-agenda)
-(setq org-M-RET-may-split-line nil)
-(setq org-log-done 'time)
-
-;; -----------------------------------------------------------------------------
 ;; Major modes
+;; -----------------------------------------------------------------------------
 
 ;; Clojure
 (require 'clojure-mode)
@@ -73,3 +69,9 @@
 ;; Markdown
 (autoload 'markdown-mode "markdown-mode.el"
   "Major mode for editing Markdown files" t)
+
+;; Org
+(add-to-list 'auto-mode-alist '("\\.org\\'" . org-mode))
+(global-set-key "\C-ca" 'org-agenda)
+(setq org-M-RET-may-split-line nil)
+(setq org-log-done 'time)
