@@ -31,6 +31,15 @@
 ;; (setq make-backup-file-name-function 'my-backup-file-name)
 
 ;; -----------------------------------------------------------------------------
+;; Custom functions
+
+(defun clear-buffer ()
+  (interactive)
+  (delete-region 1 (point-max)))
+
+(global-set-key "\C-cl" 'clear-buffer)
+
+;; -----------------------------------------------------------------------------
 ;; Color themes
 
 (require 'color-theme)
