@@ -24,8 +24,10 @@ xkcd_add_title = true;
 
 // Reload .conkerorrc with C-c r.
 interactive('reload-config',
+            'Reload the configuration file.',
             function(I) {
                 load_rc();
                 I.window.minibuffer.message('config reloaded');
             });
 define_key(default_global_keymap, 'C-c r', 'reload-config');
+
