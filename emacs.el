@@ -70,10 +70,22 @@
 (autoload 'markdown-mode "markdown-mode.el"
   "Major mode for editing Markdown files" t)
 
+;; Multi-web-mode
+(require 'multi-web-mode)
+(setq mweb-default-major-mode 'html-mode)
+(setq mweb-tags '((php-mode "<\\?php\\|<\\? \\|<\\?=" "\\?>")
+                  (javascript-mode "<script[^>]*>" "</script>")
+                  (css-mode "<style +type=\"text/css\"[^>]*>" "</style>")))
+(setq mweb-filename-extensions '("php" "html"))
+(multi-web-global-mode 1)
+
 ;; OCaml
 (setq auto-mode-alist
           (cons '("\\.ml[iylp]?$" . caml-mode) auto-mode-alist))
 (autoload 'caml-mode "caml" "Major mode for editing Caml code." t)
 (autoload 'run-caml "inf-caml" "Run an inferior Caml process." t)
 (if window-system (require 'caml-font))
+
+;; PHP
+(require 'php-mode)
 
