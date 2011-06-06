@@ -68,6 +68,11 @@
 ;; Go
 (require 'go-mode-load)
 
+;; Haskell
+(load "~/etc/dotfiles/emacs.d/site-lisp/haskell-mode/haskell-site-file")
+(add-hook 'haskell-mode-hook 'turn-on-haskell-doc-mode)
+(add-hook 'haskell-mode-hook 'turn-on-haskell-indentation)
+
 ;; JavaScript
 (autoload 'js2-mode "js2" nil t)
 (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
@@ -76,8 +81,28 @@
 (autoload 'markdown-mode "markdown-mode.el"
   "Major mode for editing Markdown files" t)
 
+;; Multi-web-mode
+(require 'multi-web-mode)
+(setq mweb-default-major-mode 'html-mode)
+(setq mweb-tags '((php-mode "<\\?php\\|<\\? \\|<\\?=" "\\?>")
+                  (javascript-mode "<script[^>]*>" "</script>")
+                  (css-mode "<style +type=\"text/css\"[^>]*>" "</style>")))
+(setq mweb-filename-extensions '("php" "html"))
+(multi-web-global-mode 1)
+
+;; OCaml
+(setq auto-mode-alist
+          (cons '("\\.ml[iylp]?$" . caml-mode) auto-mode-alist))
+(autoload 'caml-mode "caml" "Major mode for editing Caml code." t)
+(autoload 'run-caml "inf-caml" "Run an inferior Caml process." t)
+(if window-system (require 'caml-font))
+
 ;; Org
 (add-to-list 'auto-mode-alist '("\\.org\\'" . org-mode))
 (global-set-key "\C-ca" 'org-agenda)
 (setq org-M-RET-may-split-line nil)
 (setq org-log-done 'time)
+
+;; PHP
+(require 'php-mode)
+
