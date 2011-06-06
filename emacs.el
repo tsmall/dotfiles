@@ -20,6 +20,12 @@
 ;; Custom functions
 ;; -----------------------------------------------------------------------------
 
+(defun eshell/clear ()
+  "Clear the eshell buffer, like 'clear' in bash."
+  (interactive)
+  (let ((inhibit-read-only t))
+    (erase-buffer)))
+
 ;; Put all backup files in a single directory
 (defun my-backup-file-name (fpath)
  "Return a new file path of a given file path. If the new path's directory
