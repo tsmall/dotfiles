@@ -1,5 +1,3 @@
-syntax:glob
-
 # Files
 .DS_Store
 *.elc
