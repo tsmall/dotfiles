@@ -59,9 +59,6 @@
 ;; Major modes
 ;; -----------------------------------------------------------------------------
 
-;; Clojure
-(require 'clojure-mode)
-
 ;; Erlang
 (require 'erlang-start)
 
@@ -102,6 +99,12 @@
 (global-set-key "\C-ca" 'org-agenda)
 (setq org-M-RET-may-split-line nil)
 (setq org-log-done 'time)
+
+;; package.el
+(require 'package)
+(add-to-list 'package-archives
+	     '("marmalade" . "http://marmalade-repo.org/packages/"))
+(package-initialize)
 
 ;; PHP
 (require 'php-mode)
