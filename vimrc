@@ -40,7 +40,7 @@ if has("gui_running")
     set guioptions-=T               " disable the toolbar
     colorscheme molokai 
 else
-    colorscheme impact
+    "colorscheme impact
 endif
 
 " Show hidden characters (tabs and spaces) when you press the leader key
