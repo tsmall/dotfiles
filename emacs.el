@@ -75,12 +75,12 @@ If the new path's directory does not exist, create them."
 ;; Custom key bindings
 ;; -----------------------------------------------------------------------------
 
-(global-set-key "\C-c-" 'insert-comment-line)
-(global-set-key "\C-ca" 'org-agenda)
-(global-set-key "\C-cd" 'pgg-decrypt-region)
-(global-set-key "\C-ce" 'pgg-encrypt-symmetric-region)
-(global-set-key "\C-cl" 'clear-buffer)
-(global-set-key "\C-cw" 'trs-copy-buffer-to-clipboard)
+(global-set-key (kbd "C-c -") 'insert-comment-line)
+(global-set-key (kbd "C-c a") 'org-agenda)
+(global-set-key (kbd "C-c d") 'pgg-decrypt-region)
+(global-set-key (kbd "C-c e") 'pgg-encrypt-symmetric-region)
+(global-set-key (kbd "C-c l") 'clear-buffer)
+(global-set-key (kbd "C-c w") 'trs-copy-buffer-to-clipboard)
 
 
 ;; pomodoro
