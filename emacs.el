@@ -47,6 +47,18 @@
 
 (global-set-key "\C-cl" 'clear-buffer)
 
+(require 'pomodoro)
+
+;; -----------------------------------------------------------------------------
+;; Custom key bindings
+;; -----------------------------------------------------------------------------
+
+;; pomodoro
+(global-set-key (kbd "C-c p p") 'pomodoro-start)
+(global-set-key (kbd "C-c p s") 'pomodoro-start-short-break)
+(global-set-key (kbd "C-c p l") 'pomodoro-start-long-break)
+(global-set-key (kbd "C-c p r") 'pomodoro-remaining-time)
+
 ;; -----------------------------------------------------------------------------
 ;; Color themes
 ;; -----------------------------------------------------------------------------
