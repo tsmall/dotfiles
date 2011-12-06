@@ -1,6 +1,19 @@
+;;; emacs.el --- Tom's Emacs Customizations
+;;
+;; Put these lines in your ~/.emacs file to load this file and all of its
+;; libraries:
+;;
+;;   (add-to-list 'load-path "~/etc/dotfiles/emacs.d/site-lisp")
+;;   (load "~/etc/dotfiles/emacs.el")
+
+;;; Code:
+
 ;; -----------------------------------------------------------------------------
 ;; General customizations
 ;; -----------------------------------------------------------------------------
+
+(add-to-list 'default-frame-alist '(height . 47))
+(add-to-list 'default-frame-alist '(width . 100))
 
 (setq transient-mark-mode t)           ; Highlight regions
 (setq line-number-mode t)              ; Display line numbers
@@ -9,12 +22,13 @@
 (server-start)                         ; Start the Emacs server
 (setq visible-bell t)                  ; Disable beep
 (setq confirm-kill-emacs 'yes-or-no-p) ; Confirm quit
+(tool-bar-mode nil)                    ; Disable tool bar
+(set-scroll-bar-mode 'right)           ; Keep scroll bars on right
+(ido-mode t)                           ; Turn on ido-mode
 
 (setq c-basic-offset 4)                ; Cause tab key to indent 4 places
 (setq tab-width 4)                     ; Interpret tab char as 4 places
 (setq-default indent-tabs-mode nil)    ; Insert spaces instead of tabs
-
-(add-to-list 'load-path "~/.emacs.d/site-lisp")
 
 ;; -----------------------------------------------------------------------------
 ;; Custom functions
@@ -26,26 +40,46 @@
   (let ((inhibit-read-only t))
     (erase-buffer)))
 
-;; Put all backup files in a single directory
 (defun my-backup-file-name (fpath)
- "Return a new file path of a given file path. If the new path's directory
- does not exist, create them."
- (let (backup-root bpath)
-   (setq backup-root "~/.emacs.d/backup")
-   (setq bpath (concat backup-root fpath "~"))
-   (make-directory (file-name-directory bpath) bpath)
-   bpath))
+  "Return a new file path of a given FPATH.
+If the new path's directory does not exist, create them."
+  (let (backup-root bpath)
+    (setq backup-root "~/.emacs.d/backup")
+    (setq bpath (concat backup-root fpath "~"))
+    (make-directory (file-name-directory bpath) bpath)
+    bpath))
 
 ;; Since this function doesn't work in Windows, I can't enable it
 ;; here.  Instead, copy this function into your local .emacs file:
 ;; (setq make-backup-file-name-function 'my-backup-file-name)
 
-
 (defun clear-buffer ()
+  "Clear the contents of the current buffer."
   (interactive)
   (delete-region 1 (point-max)))
 
+(defun insert-comment-line ()
+  "Insert '-' characters from point to column 80."
+  (interactive)
+  (insert (make-string (- 80 (current-column)) ?-)))
+
+(require 'pomodoro)
+
+;; -----------------------------------------------------------------------------
+;; Custom key bindings
+;; -----------------------------------------------------------------------------
+
+(global-set-key "\C-c-" 'insert-comment-line)
+(global-set-key "\C-ca" 'org-agenda)
+(global-set-key "\C-cd" 'pgg-decrypt-region)
+(global-set-key "\C-ce" 'pgg-encrypt-symmetric-region)
 (global-set-key "\C-cl" 'clear-buffer)
+
+;; pomodoro
+(global-set-key (kbd "C-c p p") 'pomodoro-start)
+(global-set-key (kbd "C-c p s") 'pomodoro-start-short-break)
+(global-set-key (kbd "C-c p l") 'pomodoro-start-long-break)
+(global-set-key (kbd "C-c p r") 'pomodoro-remaining-time)
 
 ;; -----------------------------------------------------------------------------
 ;; Color themes
@@ -69,6 +103,10 @@
 (load "~/etc/dotfiles/emacs.d/site-lisp/haskell-mode/haskell-site-file")
 (add-hook 'haskell-mode-hook 'turn-on-haskell-doc-mode)
 (add-hook 'haskell-mode-hook 'turn-on-haskell-indentation)
+
+;; Jabber
+(add-to-list 'load-path "~/etc/dotfiles/emacs.d/site-lisp/emacs-jabber-0.8.0")
+(load "jabber-autoloads")
 
 ;; JavaScript
 (autoload 'js2-mode "js2" nil t)
@@ -96,9 +134,11 @@
 
 ;; Org
 (add-to-list 'auto-mode-alist '("\\.org\\'" . org-mode))
-(global-set-key "\C-ca" 'org-agenda)
+(add-hook 'org-mode-hook 'turn-on-auto-fill)
+(add-hook 'org-mode-hook (lambda () (setq comment-start nil)))
 (setq org-M-RET-may-split-line nil)
 (setq org-log-done 'time)
+(setq org-todo-keywords '((type "TODO" "WAIT" "PROJ" "|" "DONE")))
 
 ;; package.el
 (require 'package)
@@ -109,3 +149,4 @@
 ;; PHP
 (require 'php-mode)
 
+;;; emacs.el ends here
