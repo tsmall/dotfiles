@@ -70,6 +70,10 @@
 (add-hook 'haskell-mode-hook 'turn-on-haskell-doc-mode)
 (add-hook 'haskell-mode-hook 'turn-on-haskell-indentation)
 
+;; Jabber
+(add-to-list 'load-path "~/etc/dotfiles/emacs.d/site-lisp/emacs-jabber-0.8.0")
+(load "jabber-autoloads")
+
 ;; JavaScript
 (autoload 'js2-mode "js2" nil t)
 (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
