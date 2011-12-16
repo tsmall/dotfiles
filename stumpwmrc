@@ -1,0 +1,53 @@
+;-*- lisp -*-
+
+(set-prefix-key (kbd "C-i"))
+(setf *mouse-focus-policy* :click)  ;; options: :click, :ignore, :sloppy
+
+
+;; System management commands --------------------------------------------------
+
+(defcommand disable-monitor () ()
+  "Disable my 2nd monitor at work."
+  (run-shell-command "xrandr --output VGA1 --off"))
+
+(defcommand enable-monitor () ()
+  "Enable my 2nd monitor at work."
+  (run-shell-command "xrandr --output VGA1 --mode '1920x1080' --above LVDS1"))
+
+(defcommand lock-screen () ()
+  "Lock the screen."
+  (run-shell-command "gnome-screensaver-command --lock"))
+
+
+;; App shortcut commands -------------------------------------------------------
+
+(defcommand chrome () ()
+  "Start or switch to Chrome."
+  (run-or-raise "google-chrome" '(:class "Google-chrome")))
+
+(defcommand firefox () ()
+  "Start or switch to Firefox."
+  (run-or-raise "firefox" '(:class "Firefox")))
+
+(defcommand pandora () ()
+  "Start or switch to Pandora in Chrome web app window."
+  (run-or-raise "google-chrome --app=http://www.pandora.com"
+                '(:class "Google-chrome" :instance "pandora" :title "Pandora")))
+
+(defcommand rdio () ()
+  "Start or switch to Rdio in Chrome web app window."
+  (run-or-raise "google-chrome --app=http://rdio.com"
+                '(:class "Google-chrome" :instance "rdio" :title "Rdio")))
+
+
+;; Keyboard bindings -----------------------------------------------------------
+
+(defvar *app-launch-bindings*
+  (let ((m (make-sparse-keymap)))
+    (define-key m (kbd "c") "chrome")
+    (define-key m (kbd "f") "firefox")
+    (define-key m (kbd "p") "pandora")
+    (define-key m (kbd "r") "rdio")
+    m))
+
+(define-key *root-map* (kbd "l") '*app-launch-bindings*)
