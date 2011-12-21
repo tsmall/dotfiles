@@ -51,6 +51,40 @@ run the command."
     (save-buffer)
     (message (format "Successfully switched to %s." hostname))))
 
+(defun op-open-or-switch-to-mysql-buffer ()
+  "Switch to the *mysql* buffer, creating it if it doesn't exist."
+  (interactive)
+  (let ((mysql-buffer (get-buffer "*mysql*")))
+    (if (not mysql-buffer)
+        (progn
+          (setf mysql-buffer (generate-new-buffer "*mysql*"))
+          (shell mysql-buffer)
+          (sleep-for 1)
+          (with-current-buffer mysql-buffer
+            (toggle-truncate-lines)
+            (goto-char (point-max))
+            (insert "cd; mysql-local")
+            (comint-send-input))))
+    (switch-to-buffer mysql-buffer)))
+
+(defun op-open-or-switch-to-log-buffer ()
+  "Switch to the *log* buffer, creating it if it doesn't exist."
+  (interactive)
+  (let ((log-buffer (get-buffer "*logs*")))
+    (if (not log-buffer)
+        (progn
+          (setf log-buffer (generate-new-buffer "*logs*"))
+          (shell log-buffer)
+          (sleep-for 1)
+          (with-current-buffer log-buffer
+            (toggle-truncate-lines)
+            (hi-lock-line-face-buffer "-->" 'hi-yellow)
+            (hi-lock-line-face-buffer "ERROR" 'hi-red-b)
+            (goto-char (point-max))
+            (insert "cd ~/Projects/Offerpop/Log; tail -fn 0 log.txt")
+            (comint-send-input))))
+    (switch-to-buffer log-buffer)))
+
 (provide 'offerpop)
 
 ;;; offerpop.el ends here
