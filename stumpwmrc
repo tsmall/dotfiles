@@ -18,6 +18,18 @@
   "Lock the screen."
   (run-shell-command "gnome-screensaver-command --lock"))
 
+(defcommand mute () ()
+  "Mute all sound."
+  (run-shell-command "amixer set Master mute"))
+
+(defcommand unmute () ()
+  "Unmute the sound."
+  (run-shell-command "amixer set Master unmute"))
+
+(defcommand volume (level) ((:string "Level: "))
+  "Set the volume to level."
+  (run-shell-command (format nil "amixer set Master ~a" level)))
+
 
 ;; App shortcut commands -------------------------------------------------------
 
