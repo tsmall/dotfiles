@@ -1,5 +1,7 @@
 ;-*- lisp -*-
 
+(in-package :stumpwm)
+
 (set-prefix-key (kbd "C-i"))
 (setf *mouse-focus-policy* :click)  ;; options: :click, :ignore, :sloppy
 
@@ -37,9 +39,17 @@
   "Start or switch to Chrome."
   (run-or-raise "google-chrome" '(:class "Google-chrome")))
 
+(defcommand conkeror () ()
+  "Start or switch to Conkeror."
+  (run-or-raise "conkeror" '(:class "conkeror")))
+
 (defcommand firefox () ()
   "Start or switch to Firefox."
   (run-or-raise "firefox" '(:class "Firefox")))
+
+(defcommand luakit () ()
+  "Start or switch to luakit."
+  (run-or-raise "luakit" '(:class "luakit")))
 
 (defcommand pandora () ()
   "Start or switch to Pandora in Chrome web app window."
