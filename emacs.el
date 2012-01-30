@@ -115,6 +115,7 @@ If the new path's directory does not exist, create them."
 ;; Jabber
 (add-to-list 'load-path "~/etc/dotfiles/emacs.d/site-lisp/emacs-jabber-0.8.0")
 (load "jabber-autoloads")
+(setq jabber-chat-fill-long-lines nil)
 
 ;; JavaScript
 (autoload 'js2-mode "js2" nil t)
