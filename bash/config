@@ -39,3 +39,7 @@ BCYAN='\e[46m'
 BWHITE='\e[47m'
 
 PS1="\n$GREEN\u$NO_COLOR:$CYAN\w$NO_COLOR\n-> "
+
+
+# Turn on extended pattern matching
+shopt -s extglob

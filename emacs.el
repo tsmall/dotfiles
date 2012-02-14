@@ -69,6 +69,24 @@ If the new path's directory does not exist, create them."
   (clipboard-kill-ring-save (point-min) (point-max))
   (message "Copied."))
 
+;; Taken verbatim from the Emacs wiki:
+;; http://www.emacswiki.org/emacs/IncrementNumber
+(defun trs-increment-number-decimal (&optional arg)
+  "Increment the number forward from point by 'arg'."
+  (interactive "p*")
+  (save-excursion
+    (save-match-data
+      (let (inc-by field-width answer)
+        (setq inc-by (if arg arg 1))
+        (skip-chars-backward "0123456789")
+        (when (re-search-forward "[0-9]+" nil t)
+          (setq field-width (- (match-end 0) (match-beginning 0)))
+          (setq answer (+ (string-to-number (match-string 0) 10) inc-by))
+          (when (< answer 0)
+            (setq answer (+ (expt 10 field-width) answer)))
+          (replace-match (format (concat "%0" (int-to-string field-width) "d")
+                                 answer)))))))
+
 (require 'pomodoro)
 
 ;; -----------------------------------------------------------------------------
@@ -76,6 +94,7 @@ If the new path's directory does not exist, create them."
 ;; -----------------------------------------------------------------------------
 
 (global-set-key (kbd "C-c -") 'insert-comment-line)
+(global-set-key (kbd "C-c i") 'trs-increment-number-decimal)
 (global-set-key (kbd "C-c a") 'org-agenda)
 (global-set-key (kbd "C-c d") 'pgg-decrypt-region)
 (global-set-key (kbd "C-c e") 'pgg-encrypt-symmetric-region)
