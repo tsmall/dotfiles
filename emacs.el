@@ -30,6 +30,7 @@
 (setq c-basic-offset 4)                ; Cause tab key to indent 4 places
 (setq tab-width 4)                     ; Interpret tab char as 4 places
 (setq-default indent-tabs-mode nil)    ; Insert spaces instead of tabs
+(setq sgml-basic-offset 4)             ; Also use 4 spaces for HTML
 
 ;; -----------------------------------------------------------------------------
 ;; Custom functions
