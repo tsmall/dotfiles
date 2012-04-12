@@ -85,6 +85,27 @@ run the command."
             (comint-send-input))))
     (switch-to-buffer log-buffer)))
 
+(defun op-setup-for-code-review ()
+  "Configure the current buffer's environment for code review."
+  (interactive)
+  (linum-mode)
+  (hl-line-mode)
+  (cd "~/Projects/Offerpop"))
+
+(defun op-setup-svn-incoming ()
+  "Configure the current buffer's environment for svn-incoming output."
+  (interactive)
+  (let ((rev-regexp "r[0-9]+")
+        (rm-regexp "\\(RM\\|rm\\)[^0-9\n]*[0-9]+"))
+    ;; Remove any highlighting that may already be there.
+    (hi-lock-unface-buffer rev-regexp)
+    (hi-lock-unface-buffer rm-regexp)
+
+    ;; Now set it up.
+    (hl-line-mode 1)
+    (hi-lock-face-buffer rev-regexp 'hi-yellow)
+    (hi-lock-face-buffer rm-regexp 'hi-blue)))
+
 (provide 'offerpop)
 
 ;;; offerpop.el ends here
