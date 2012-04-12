@@ -89,6 +89,14 @@ If the new path's directory does not exist, create them."
           (replace-match (format (concat "%0" (int-to-string field-width) "d")
                                  answer)))))))
 
+(defun trs-count-matches-in-line (regexp)
+  "Search for all REGEXP matches in the current line.
+Display the number of matches and save it to the kill ring."
+  (interactive "sRegexp to match: ")
+  (let ((matches (count-matches regexp (line-beginning-position) (line-end-position))))
+    (message "Matches: %s" matches)
+    (kill-new (format "%s" matches))))
+
 (require 'pomodoro)
 
 ;; -----------------------------------------------------------------------------
@@ -96,6 +104,7 @@ If the new path's directory does not exist, create them."
 ;; -----------------------------------------------------------------------------
 
 (global-set-key (kbd "C-c -") 'insert-comment-line)
+(global-set-key (kbd "C-c #") 'trs-count-matches-in-line)
 (global-set-key (kbd "C-c i") 'trs-increment-number-decimal)
 (global-set-key (kbd "C-c a") 'org-agenda)
 (global-set-key (kbd "C-c d") 'pgg-decrypt-region)
