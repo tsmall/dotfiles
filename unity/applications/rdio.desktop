@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+StartupNotify=true
+Terminal=false
+Name=Rdio
+GenericName=Rdio
+Comment=Rdio Subscription Music Service
+Icon=/home/tom/.local/share/icons/rdio.png
+Exec=google-chrome --app="https://rdio.com" --user-data-dir=/home/tom/.config/google-chrome/CustomProfiles/rdio
+Categories=Web;Music;

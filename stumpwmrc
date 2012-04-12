@@ -61,6 +61,10 @@
   (run-or-raise "google-chrome --app=http://rdio.com"
                 '(:class "Google-chrome" :instance "rdio" :title "Rdio")))
 
+(defcommand terminator () ()
+  "Start or switch to Terminator."
+  (run-or-raise "terminator" '(:class "Terminator" :instance "term")))
+
 
 ;; Keyboard bindings -----------------------------------------------------------
 
@@ -70,6 +74,7 @@
     (define-key m (kbd "f") "firefox")
     (define-key m (kbd "p") "pandora")
     (define-key m (kbd "r") "rdio")
+    (define-key m (kbd "t") "terminator")
     m))
 
 (define-key *root-map* (kbd "l") '*app-launch-bindings*)

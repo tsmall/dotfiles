@@ -25,10 +25,12 @@
 (tool-bar-mode nil)                    ; Disable tool bar
 (set-scroll-bar-mode 'right)           ; Keep scroll bars on right
 (ido-mode t)                           ; Turn on ido-mode
+(fset 'yes-or-no-p 'y-or-n-p)          ; Make answering yes or no easier
 
 (setq c-basic-offset 4)                ; Cause tab key to indent 4 places
 (setq tab-width 4)                     ; Interpret tab char as 4 places
 (setq-default indent-tabs-mode nil)    ; Insert spaces instead of tabs
+(setq sgml-basic-offset 4)             ; Also use 4 spaces for HTML
 
 ;; -----------------------------------------------------------------------------
 ;; Custom functions
@@ -87,6 +89,14 @@ If the new path's directory does not exist, create them."
           (replace-match (format (concat "%0" (int-to-string field-width) "d")
                                  answer)))))))
 
+(defun trs-count-matches-in-line (regexp)
+  "Search for all REGEXP matches in the current line.
+Display the number of matches and save it to the kill ring."
+  (interactive "sRegexp to match: ")
+  (let ((matches (count-matches regexp (line-beginning-position) (line-end-position))))
+    (message "Matches: %s" matches)
+    (kill-new (format "%s" matches))))
+
 (require 'pomodoro)
 
 ;; -----------------------------------------------------------------------------
@@ -94,6 +104,7 @@ If the new path's directory does not exist, create them."
 ;; -----------------------------------------------------------------------------
 
 (global-set-key (kbd "C-c -") 'insert-comment-line)
+(global-set-key (kbd "C-c #") 'trs-count-matches-in-line)
 (global-set-key (kbd "C-c i") 'trs-increment-number-decimal)
 (global-set-key (kbd "C-c a") 'org-agenda)
 (global-set-key (kbd "C-c d") 'pgg-decrypt-region)
@@ -116,6 +127,9 @@ If the new path's directory does not exist, create them."
 (color-theme-initialize)
 (color-theme-almost-monokai)
 
+;; Set the hl-line face's background color to work well with this theme.
+(set-face-attribute 'hl-line nil :background "gray25")
+
 ;; -----------------------------------------------------------------------------
 ;; Major modes
 ;; -----------------------------------------------------------------------------
@@ -135,6 +149,10 @@ If the new path's directory does not exist, create them."
 (add-to-list 'load-path "~/etc/dotfiles/emacs.d/site-lisp/emacs-jabber-0.8.0")
 (load "jabber-autoloads")
 (setq jabber-chat-fill-long-lines nil)
+(add-hook 'jabber-chat-mode-hook
+          (lambda ()
+            (toggle-word-wrap)
+            (turn-on-flyspell)))
 
 ;; JavaScript
 (autoload 'js2-mode "js2" nil t)
@@ -163,10 +181,9 @@ If the new path's directory does not exist, create them."
 ;; Org
 (add-to-list 'auto-mode-alist '("\\.org\\'" . org-mode))
 (add-hook 'org-mode-hook 'turn-on-auto-fill)
-(add-hook 'org-mode-hook (lambda () (setq comment-start nil)))
 (setq org-M-RET-may-split-line nil)
 (setq org-log-done 'time)
-(setq org-todo-keywords '((type "TODO" "WAIT" "PROJ" "|" "DONE")))
+(setq org-todo-keywords '((type "TODO" "PROJ" "WAIT" "|" "DONE")))
 
 ;; package.el
 (require 'package)
