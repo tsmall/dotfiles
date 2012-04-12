@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+StartupNotify=true
+Terminal=false
+Name=Pandora
+GenericName=Pandora
+Comment=Pandora Internet Radio
+Icon=/home/tom/.local/share/icons/pandora.png
+Exec=google-chrome --app="http://pandora.com" --user-data-dir=/home/tom/.config/google-chrome/CustomProfiles/pandora
+Categories=Web;Music;
