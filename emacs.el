@@ -25,6 +25,7 @@
 (tool-bar-mode nil)                    ; Disable tool bar
 (set-scroll-bar-mode 'right)           ; Keep scroll bars on right
 (ido-mode t)                           ; Turn on ido-mode
+(fset 'yes-or-no-p 'y-or-n-p)          ; Make answering yes or no easier
 
 (setq c-basic-offset 4)                ; Cause tab key to indent 4 places
 (setq tab-width 4)                     ; Interpret tab char as 4 places
