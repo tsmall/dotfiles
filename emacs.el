@@ -149,6 +149,10 @@ Display the number of matches and save it to the kill ring."
 (add-to-list 'load-path "~/etc/dotfiles/emacs.d/site-lisp/emacs-jabber-0.8.0")
 (load "jabber-autoloads")
 (setq jabber-chat-fill-long-lines nil)
+(add-hook 'jabber-chat-mode-hook
+          (lambda ()
+            (toggle-word-wrap)
+            (turn-on-flyspell)))
 
 ;; JavaScript
 (autoload 'js2-mode "js2" nil t)
