@@ -84,12 +84,14 @@
   (setq pomodoro-current-timer (run-at-time length nil 
                                             (lambda () (progn (pomodoro-show-message pomodoro-current-message)
                                                               (setq pomodoro-current-timer nil))))))
-
 (defun pomodoro-show-message (msg)
   "Show the MSG string to the user."
-  (pomodoro-show-dbus-message msg))
+  (cond ((string= system-type "gnu/linux") ("gnu/linux" (pomodoro-show-dbus-message msg)))
+        ((string= system-type "darwin") (pomodoro-show-growl-message msg))
+        (t (message msg))))
 
-(defun pomodoro-show-dbus-message (body)
+(defun pomodoro-show-dbus-message (msg)
+  "Show the MSG string to the user via Ubuntu's notification service."
   (let ((app-name "emacs")
         (replaces-id 0)
         (app-icon "")
@@ -105,10 +107,17 @@
                       replaces-id
                       app-icon
                       summary
-                      body
+                      msg
                       actions
                       hints
                       ':int32 5000)))
+
+(defun pomodoro-show-growl-message (msg)
+  "Show the MSG string to the user via Growl."
+  (start-process "growl" nil "growlnotify"
+                 "-a" "Emacs"
+                 "-t" "Pomodoro"
+                 "-m" msg))
 
 (provide 'pomodoro)
 
