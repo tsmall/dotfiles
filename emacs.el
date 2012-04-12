@@ -127,6 +127,9 @@ Display the number of matches and save it to the kill ring."
 (color-theme-initialize)
 (color-theme-almost-monokai)
 
+;; Set the hl-line face's background color to work well with this theme.
+(set-face-attribute 'hl-line nil :background "gray25")
+
 ;; -----------------------------------------------------------------------------
 ;; Major modes
 ;; -----------------------------------------------------------------------------
