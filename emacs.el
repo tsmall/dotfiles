@@ -181,7 +181,6 @@ Display the number of matches and save it to the kill ring."
 ;; Org
 (add-to-list 'auto-mode-alist '("\\.org\\'" . org-mode))
 (add-hook 'org-mode-hook 'turn-on-auto-fill)
-(add-hook 'org-mode-hook (lambda () (setq comment-start nil)))
 (setq org-M-RET-may-split-line nil)
 (setq org-log-done 'time)
 (setq org-todo-keywords '((type "TODO" "WAIT" "PROJ" "|" "DONE")))
