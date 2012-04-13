@@ -63,7 +63,7 @@ run the command."
           (with-current-buffer mysql-buffer
             (toggle-truncate-lines)
             (goto-char (point-max))
-            (insert "cd; mysql-local")
+            (insert "cd; db local")
             (comint-send-input))))
     (switch-to-buffer mysql-buffer)))
 
