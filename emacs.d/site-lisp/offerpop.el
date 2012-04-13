@@ -81,7 +81,7 @@ run the command."
             (hi-lock-line-face-buffer "-->" 'hi-yellow)
             (hi-lock-line-face-buffer "ERROR" 'hi-red-b)
             (goto-char (point-max))
-            (insert "cd ~/Projects/Offerpop/Log; tail -fn 0 log.txt")
+            (insert "cd ~/Projects/Offerpop/Log; tail -fn 0 offerpop.log")
             (comint-send-input))))
     (switch-to-buffer log-buffer)))
 
