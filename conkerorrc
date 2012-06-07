@@ -2,10 +2,11 @@
 define_webjump("hn", "http://news.ycombinator.com");
 
 // Programming webjumps
+define_webjump("css", "https://developer.mozilla.org/en/CSS/CSS_Reference");
 define_webjump("django", "https://docs.djangoproject.com/en/1.1/");
 define_webjump("dom", "https://developer.mozilla.org/en/Gecko_DOM_Reference");
 define_webjump("html", "https://developer.mozilla.org/en/HTML");
-define_webjump("js", "https://developer.mozilla.org/en/JavaScript");
+define_webjump("js", "https://developer.mozilla.org/en/JavaScript/Reference");
 define_webjump("mysql", "http://dev.mysql.com/doc/refman/5.1/en/index.html");
 define_webjump("python", "http://docs.python.org/release/2.5.4/");
 
