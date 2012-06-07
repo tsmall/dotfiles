@@ -7,9 +7,10 @@
 
 ;;; Commentary:
 ;; 
-;; This library implements a Pomodoro timer for Emacs in Emacs-Lisp.  It is only
-;; intended to be used in Emacs in Ubuntu, since it uses dbus to show a message
-;; when the timer runs out.
+;; This library implements a Pomodoro timer for Emacs in Emacs-Lisp.  It uses
+;; either Ubuntu's d-bus based message notification system, Mac OS X's Growl
+;; notification system, or Emacs's notification system to indicate when a timer
+;; has ended.
 ;;
 ;; This library doesn't define any key mappings, but these are recommended:
 ;;
@@ -86,7 +87,7 @@
                                                               (setq pomodoro-current-timer nil))))))
 (defun pomodoro-show-message (msg)
   "Show the MSG string to the user."
-  (cond ((string= system-type "gnu/linux") ("gnu/linux" (pomodoro-show-dbus-message msg)))
+  (cond ((string= system-type "gnu/linux") (pomodoro-show-dbus-message msg))
         ((string= system-type "darwin") (pomodoro-show-growl-message msg))
         (t (message msg))))
 
