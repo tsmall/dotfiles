@@ -167,7 +167,7 @@ Display the number of matches and save it to the kill ring."
 (setq mweb-default-major-mode 'html-mode)
 (setq mweb-tags '((php-mode "<\\?php\\|<\\? \\|<\\?=" "\\?>")
                   (javascript-mode "<script[^>]*>" "</script>")
-                  (css-mode "<style +type=\"text/css\"[^>]*>" "</style>")))
+                  (css-mode "<style[^>]*>" "</style>")))
 (setq mweb-filename-extensions '("php" "html"))
 (multi-web-global-mode 1)
 
