@@ -106,6 +106,30 @@ run the command."
     (hi-lock-face-buffer rev-regexp 'hi-yellow)
     (hi-lock-face-buffer rm-regexp 'hi-blue)))
 
+;;; Redmine
+
+(defvar op-redmine-base-url "http://redmine.offerpop.com/"
+  "Base URL for Offerpop's Redmine site.")
+
+(defun op-redmine-goto-issue ()
+  "Go to the Redmine issue identified by the number at point."
+  (interactive)
+  (let ((issue-num (op-redmine-parse-issue-word (word-at-point))))
+    (browse-url (op-redmine-issue-url issue-num))))
+
+(defun op-redmine-parse-issue-word (word)
+  "Return just the issue number from the Redmine issue WORD."
+  (if (string-prefix-p "rm" word t)
+      (substring word 2)
+    word))
+
+(defun op-redmine-issue-url (issue-num)
+  "Return URL to Redmine issue with number ISSUE-NUM."
+  (let ((issue-num-str (if (numberp issue-num)
+                           (number-to-string issue-num)
+                         issue-num)))
+    (concat op-redmine-base-url "issues/" issue-num-str)))
+
 (provide 'offerpop)
 
 ;;; offerpop.el ends here
