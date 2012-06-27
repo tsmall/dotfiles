@@ -98,6 +98,7 @@ Display the number of matches and save it to the kill ring."
     (kill-new (format "%s" matches))))
 
 (require 'pomodoro)
+(require 'util)
 
 ;; -----------------------------------------------------------------------------
 ;; Custom key bindings
