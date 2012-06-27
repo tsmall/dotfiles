@@ -103,6 +103,8 @@ Display the number of matches and save it to the kill ring."
 ;; Custom key bindings
 ;; -----------------------------------------------------------------------------
 
+(global-set-key (kbd "<f8>") 'deft)
+
 (global-set-key (kbd "C-c -") 'insert-comment-line)
 (global-set-key (kbd "C-c #") 'trs-count-matches-in-line)
 (global-set-key (kbd "C-c i") 'trs-increment-number-decimal)
@@ -125,6 +127,10 @@ Display the number of matches and save it to the kill ring."
 ;; -----------------------------------------------------------------------------
 ;; Major modes
 ;; -----------------------------------------------------------------------------
+
+;; Deft
+(add-to-list 'load-path "~/etc/dotfiles/emacs.d/site-lisp/deft")
+(require 'deft)
 
 ;; Erlang
 (require 'erlang-start)
