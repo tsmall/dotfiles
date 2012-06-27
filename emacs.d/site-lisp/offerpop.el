@@ -20,12 +20,30 @@ Assumes that there is a shell buffer named '*shell:root*'
 that is already running as root, which is used to actually
 run the command."
   (interactive)
+  (op--run-sudo-command "service apache2 restart")
+  (message "Successfully restarted apache."))
+
+(defun op-restart-memcached ()
+  "Restart the local Apache server.
+
+Assumes that there is a shell buffer named '*shell:root*'
+that is already running as root, which is used to actually
+run the command."
+  (interactive)
+  (op--run-sudo-command "service memcached restart")
+  (message "Successfully restarted memcached."))
+
+(defun op--run-sudo-command (command)
+  "Run a shell command that requires sudo access.
+
+Assumes that there is a shell buffer named '*shell:root*'
+that is already running as root, which is used to actually
+run the command."
   (save-current-buffer
     (set-buffer (get-buffer "*shell:root*"))
     (goto-char (point-max))
-    (insert "service apache2 restart")
-    (comint-send-input))
-  (message "Successfully restarted apache."))
+    (insert command)
+    (comint-send-input)))
 
 (defun op-comment-line (regexp comment-string)
   "Comment the first line in the current buffer matching REGEXP with COMMENT-CHAR."
