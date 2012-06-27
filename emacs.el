@@ -22,7 +22,7 @@
 (server-start)                         ; Start the Emacs server
 (setq visible-bell t)                  ; Disable beep
 (setq confirm-kill-emacs 'yes-or-no-p) ; Confirm quit
-(tool-bar-mode nil)                    ; Disable tool bar
+(tool-bar-mode -1)                     ; Disable tool bar
 (set-scroll-bar-mode nil)              ; Hide the scroll bars
 (ido-mode t)                           ; Turn on ido-mode
 (fset 'yes-or-no-p 'y-or-n-p)          ; Make answering yes or no easier
