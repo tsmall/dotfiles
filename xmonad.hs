@@ -36,7 +36,7 @@ myXmonadPrompt c =
 
 
 --------------------------------------------------------------------------------
--- Keyb bindings
+-- Key bindings
 --
 myKeys = [
   -- Lock the screen.
