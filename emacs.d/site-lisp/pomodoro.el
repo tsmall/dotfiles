@@ -24,6 +24,8 @@
 
 ;;; Code:
 
+(require 'notifications)
+
 (defvar pomodoro-length "25 min"
   "Length of time for a single pomodoro.")
 
@@ -93,25 +95,8 @@
 
 (defun pomodoro-show-dbus-message (msg)
   "Show the MSG string to the user via Ubuntu's notification service."
-  (let ((app-name "emacs")
-        (replaces-id 0)
-        (app-icon "")
-        (summary "Pomodoro")
-        (actions '(:array))
-        (hints '(:array :signature "{sv}")))
-    (dbus-call-method :session
-                      "org.freedesktop.Notifications"  ; service
-                      "/org/freedesktop/Notifications" ; path
-                      "org.freedesktop.Notifications"  ; interface
-                      "Notify"                         ; method
-                      app-name
-                      replaces-id
-                      app-icon
-                      summary
-                      msg
-                      actions
-                      hints
-                      ':int32 5000)))
+  (notifications-notify :title "Pomodoro"
+                        :body msg))
 
 (defun pomodoro-show-growl-message (msg)
   "Show the MSG string to the user via Growl."

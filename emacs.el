@@ -22,7 +22,7 @@
 (server-start)                         ; Start the Emacs server
 (setq visible-bell t)                  ; Disable beep
 (setq confirm-kill-emacs 'yes-or-no-p) ; Confirm quit
-(tool-bar-mode nil)                    ; Disable tool bar
+(tool-bar-mode -1)                     ; Disable tool bar
 (set-scroll-bar-mode nil)              ; Hide the scroll bars
 (ido-mode t)                           ; Turn on ido-mode
 (fset 'yes-or-no-p 'y-or-n-p)          ; Make answering yes or no easier
@@ -98,10 +98,13 @@ Display the number of matches and save it to the kill ring."
     (kill-new (format "%s" matches))))
 
 (require 'pomodoro)
+(require 'util)
 
 ;; -----------------------------------------------------------------------------
 ;; Custom key bindings
 ;; -----------------------------------------------------------------------------
+
+(global-set-key (kbd "<f8>") 'deft)
 
 (global-set-key (kbd "C-c -") 'insert-comment-line)
 (global-set-key (kbd "C-c #") 'trs-count-matches-in-line)
@@ -112,6 +115,9 @@ Display the number of matches and save it to the kill ring."
 (global-set-key (kbd "C-c l") 'clear-buffer)
 (global-set-key (kbd "C-c w") 'trs-copy-buffer-to-clipboard)
 
+;; Scrolling
+(global-set-key (kbd "C-S-n") 'scroll-up-line)
+(global-set-key (kbd "C-S-p") 'scroll-down-line)
 
 ;; pomodoro
 (global-set-key (kbd "C-c p p") 'pomodoro-start)
@@ -120,19 +126,12 @@ Display the number of matches and save it to the kill ring."
 (global-set-key (kbd "C-c p r") 'pomodoro-remaining-time)
 
 ;; -----------------------------------------------------------------------------
-;; Color themes
-;; -----------------------------------------------------------------------------
-
-(require 'color-theme)
-(color-theme-initialize)
-(color-theme-almost-monokai)
-
-;; Set the hl-line face's background color to work well with this theme.
-(set-face-attribute 'hl-line nil :background "gray25")
-
-;; -----------------------------------------------------------------------------
 ;; Major modes
 ;; -----------------------------------------------------------------------------
+
+;; Deft
+(add-to-list 'load-path "~/etc/dotfiles/emacs.d/site-lisp/deft")
+(require 'deft)
 
 ;; Erlang
 (require 'erlang-start)
@@ -153,6 +152,12 @@ Display the number of matches and save it to the kill ring."
           (lambda ()
             (toggle-word-wrap)
             (turn-on-flyspell)))
+
+;; Jabber font colors (assuming monokai theme)
+(require 'jabber)
+(set-face-attribute 'jabber-roster-user-away nil :foreground "royal blue")
+(set-face-attribute 'jabber-roster-user-online nil :foreground "deep sky blue" :weight 'normal)
+(set-face-attribute 'jabber-chat-prompt-local nil :foreground "royal blue")
 
 ;; JavaScript
 (autoload 'js2-mode "js2" nil t)
@@ -189,7 +194,6 @@ Display the number of matches and save it to the kill ring."
 (require 'package)
 (add-to-list 'package-archives
 	     '("marmalade" . "http://marmalade-repo.org/packages/"))
-(package-initialize)
 
 ;; PHP
 (require 'php-mode)

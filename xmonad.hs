@@ -1,8 +1,11 @@
+import Data.Ratio ((%))
 import XMonad
 import XMonad.Actions.CopyWindow(copy)
 import XMonad.Actions.DynamicWorkspaces
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.ManageDocks
+import XMonad.Layout.Grid
+import XMonad.Layout.IM
 import XMonad.Prompt
 import XMonad.Prompt.XMonad
 import qualified XMonad.StackSet as W
@@ -36,7 +39,7 @@ myXmonadPrompt c =
 
 
 --------------------------------------------------------------------------------
--- Keyb bindings
+-- Key bindings
 --
 myKeys = [
   -- Lock the screen.
@@ -57,14 +60,49 @@ myKeys = [
 
 
 --------------------------------------------------------------------------------
+-- Window rules
+--
+-- To find the property name associated with a program, use
+-- `xprop | grep WM_CLASS` and click on the client you're interested in.
+myManageHook = composeAll . concat $
+  [ [ className =? c --> doFloat | c <- myCFloats ],
+    [ title     =? t --> doFloat | t <- myTFloats ] ]
+  where
+    myCFloats = [ "Gimp", "Shutter", "VirtualBox" ]
+    myTFloats = [ "Aurora Preferences"
+                , "About Aurora"
+                , "Firefox Preferences"
+                , "Downloads"
+                , "Cookies"
+                , "Library"
+                ]
+
+
+--------------------------------------------------------------------------------
+-- Layouts
+--
+imLayout = withIM ratio rosters chatLayout where
+  ratio = 1%7
+  rosters = (ClassName "Empathy") `And` (Role "contact_list")
+  chatLayout = Grid
+
+myLayout = avoidStruts (
+  Tall 1 (3/100) (1/2) |||
+  Mirror (Tall 1 (3/100) (1/2)) |||
+  Full |||
+  imLayout
+  )
+
+
+--------------------------------------------------------------------------------
 -- Main
 --
 main = do
   xmproc <- spawnPipe "/usr/bin/xmobar /home/tom/.xmobarrc"
   xmonad $ defaultConfig
    { modMask = mod4Mask
-   , manageHook = manageDocks <+> manageHook defaultConfig
-   , layoutHook = avoidStruts  $  layoutHook defaultConfig
+   , manageHook = manageDocks <+> myManageHook
+   , layoutHook = myLayout
    , logHook = dynamicLogWithPP xmobarPP
                    { ppOutput = hPutStrLn xmproc
                    , ppTitle = xmobarColor "green" "" . shorten 50
