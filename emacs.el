@@ -120,17 +120,6 @@ Display the number of matches and save it to the kill ring."
 (global-set-key (kbd "C-c p r") 'pomodoro-remaining-time)
 
 ;; -----------------------------------------------------------------------------
-;; Color themes
-;; -----------------------------------------------------------------------------
-
-(require 'color-theme)
-(color-theme-initialize)
-(color-theme-almost-monokai)
-
-;; Set the hl-line face's background color to work well with this theme.
-(set-face-attribute 'hl-line nil :background "gray25")
-
-;; -----------------------------------------------------------------------------
 ;; Major modes
 ;; -----------------------------------------------------------------------------
 
@@ -153,6 +142,12 @@ Display the number of matches and save it to the kill ring."
           (lambda ()
             (toggle-word-wrap)
             (turn-on-flyspell)))
+
+;; Jabber font colors (assuming monokai theme)
+(require 'jabber)
+(set-face-attribute 'jabber-roster-user-away nil :foreground "royal blue")
+(set-face-attribute 'jabber-roster-user-online nil :foreground "deep sky blue" :weight 'normal)
+(set-face-attribute 'jabber-chat-prompt-local nil :foreground "royal blue")
 
 ;; JavaScript
 (autoload 'js2-mode "js2" nil t)
@@ -189,7 +184,6 @@ Display the number of matches and save it to the kill ring."
 (require 'package)
 (add-to-list 'package-archives
 	     '("marmalade" . "http://marmalade-repo.org/packages/"))
-(package-initialize)
 
 ;; PHP
 (require 'php-mode)
