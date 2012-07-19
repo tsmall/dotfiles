@@ -14,21 +14,13 @@
 ;;; Code:
 
 (defun op-restart-apache ()
-  "Restart the local Apache server.
-
-Assumes that there is a shell buffer named '*shell:root*'
-that is already running as root, which is used to actually
-run the command."
+  "Restart the local Apache server."
   (interactive)
   (op--run-sudo-command "service apache2 restart")
   (message "Successfully restarted apache."))
 
 (defun op-restart-memcached ()
-  "Restart the local Apache server.
-
-Assumes that there is a shell buffer named '*shell:root*'
-that is already running as root, which is used to actually
-run the command."
+  "Restart the local Apache server."
   (interactive)
   (op--run-sudo-command "service memcached restart")
   (message "Successfully restarted memcached."))
@@ -36,14 +28,12 @@ run the command."
 (defun op--run-sudo-command (command)
   "Run a shell command that requires sudo access.
 
-Assumes that there is a shell buffer named '*shell:root*'
-that is already running as root, which is used to actually
-run the command."
-  (save-current-buffer
-    (set-buffer (get-buffer "*shell:root*"))
-    (goto-char (point-max))
-    (insert command)
-    (comint-send-input)))
+Note that you have to have sudo set up to not require a password
+for the command that you want to run, as this function won't prompt
+the user for their password."
+  (let ((sudo-command (concat "sudo " command)))
+    (start-process command "*op-sudo-output*"
+                   "bash" "-c" sudo-command)))
 
 (defun op-comment-line (regexp comment-string)
   "Comment the first line in the current buffer matching REGEXP with COMMENT-CHAR."
