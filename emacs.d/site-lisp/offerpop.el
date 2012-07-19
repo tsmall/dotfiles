@@ -138,6 +138,33 @@ the user for their password."
                          issue-num)))
     (concat op-redmine-base-url "issues/" issue-num-str)))
 
+;;; Django
+
+(defun op-open-or-switch-to-django-buffer ()
+  "Switch to the *django* buffer, creating it if it doesn't exist.
+
+The *django* buffer is used to run the Django development server in
+a shell.  Running it an Emacs shell buffer instead of a terminal
+makes it possible to easily control it with simple keyboard shortcuts
+and to get a full view of its log."
+  (interactive)
+  (flet ((run (command)
+              (insert command)
+              (comint-send-input)))
+    (let ((django-buffer (get-buffer "*django*")))
+      (if (not django-buffer)
+          (progn
+            (setf django-buffer (generate-new-buffer "*django*"))
+            (shell django-buffer)
+            (sleep-for 1)
+            (with-current-buffer django-buffer
+              (toggle-truncate-lines)
+              (goto-char (point-max))
+              (run "cd ~/Projects/Offerpop")
+              (run ". ~/Projects/OfferpopDashboard/bin/activate")
+              (run "python dashboard/manage.py runserver --pythonpath=/home/tom/Projects/Offerpop --settings=dashboard.settings")))
+        (switch-to-buffer django-buffer)))))
+
 (provide 'offerpop)
 
 ;;; offerpop.el ends here
