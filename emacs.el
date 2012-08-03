@@ -32,6 +32,10 @@
 (setq-default indent-tabs-mode nil)    ; Insert spaces instead of tabs
 (setq sgml-basic-offset 4)             ; Also use 4 spaces for HTML
 
+;; uniquify buffers
+(require 'uniquify)
+(setq uniquify-buffer-name-style 'forward)
+
 ;; -----------------------------------------------------------------------------
 ;; Custom functions
 ;; -----------------------------------------------------------------------------
