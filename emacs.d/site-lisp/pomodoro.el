@@ -32,7 +32,7 @@
 (defvar pomodoro-short-break-length "5 min"
   "Length of time for a short break.")
 
-(defvar pomodoro-long-break-length "10 min"
+(defvar pomodoro-long-break-length "15 min"
   "Length of time for a long break.")
 
 (defvar pomodoro-current-timer nil

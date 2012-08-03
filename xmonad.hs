@@ -98,6 +98,7 @@ myLayout = avoidStruts (
 -- Main
 --
 main = do
+  spawn "setxkbmap -option ctrl:nocaps"
   xmproc <- spawnPipe "/usr/bin/xmobar /home/tom/.xmobarrc"
   xmonad $ defaultConfig
    { modMask = mod4Mask

@@ -32,6 +32,10 @@
 (setq-default indent-tabs-mode nil)    ; Insert spaces instead of tabs
 (setq sgml-basic-offset 4)             ; Also use 4 spaces for HTML
 
+;; uniquify buffers
+(require 'uniquify)
+(setq uniquify-buffer-name-style 'forward)
+
 ;; -----------------------------------------------------------------------------
 ;; Custom functions
 ;; -----------------------------------------------------------------------------
@@ -105,6 +109,7 @@ Display the number of matches and save it to the kill ring."
 ;; -----------------------------------------------------------------------------
 
 (global-set-key (kbd "<f8>") 'deft)
+(global-set-key (kbd "<f9>") 'eshell)
 
 (global-set-key (kbd "C-c -") 'insert-comment-line)
 (global-set-key (kbd "C-c #") 'trs-count-matches-in-line)
@@ -183,12 +188,8 @@ Display the number of matches and save it to the kill ring."
 (autoload 'run-caml "inf-caml" "Run an inferior Caml process." t)
 (if window-system (require 'caml-font))
 
-;; Org
-(add-to-list 'auto-mode-alist '("\\.org\\'" . org-mode))
-(add-hook 'org-mode-hook 'turn-on-auto-fill)
-(setq org-M-RET-may-split-line nil)
-(setq org-log-done 'time)
-(setq org-todo-keywords '((type "TODO" "PROJ" "WAIT" "|" "DONE")))
+;; org
+(load "~/etc/dotfiles/emacs.d/settings/org-mode.el")
 
 ;; package.el
 (require 'package)

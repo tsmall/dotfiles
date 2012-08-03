@@ -1,0 +1,11 @@
+{
+	"auto_complete": false,
+	"font_face": "Ubuntu Mono",
+	"font_size": 11.0,
+	"highlight_line": true,
+	"ignored_packages":
+	[
+		"Vintage"
+	],
+	"translate_tabs_to_spaces": true
+}
