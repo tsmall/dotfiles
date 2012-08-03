@@ -109,6 +109,7 @@ Display the number of matches and save it to the kill ring."
 ;; -----------------------------------------------------------------------------
 
 (global-set-key (kbd "<f8>") 'deft)
+(global-set-key (kbd "<f9>") 'eshell)
 
 (global-set-key (kbd "C-c -") 'insert-comment-line)
 (global-set-key (kbd "C-c #") 'trs-count-matches-in-line)
