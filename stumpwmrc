@@ -36,6 +36,11 @@
   "Lock the screen."
   (run-shell-command "gnome-screensaver-command --lock"))
 
+(defcommand suspend () ()
+  "Suspend the computer."
+  (run-shell-command "sudo pm-suspend")
+  (lock-screen))
+
 (defcommand mute () ()
   "Mute all sound."
   (run-shell-command "amixer set Master mute"))
