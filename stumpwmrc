@@ -89,7 +89,7 @@
 
 ;; Keyboard bindings -----------------------------------------------------------
 
-(defvar *app-launch-bindings*
+(defparameter *app-launch-bindings*
   (let ((m (make-sparse-keymap)))
     (define-key m (kbd "c") "chrome")
     (define-key m (kbd "f") "firefox")
