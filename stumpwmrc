@@ -8,6 +8,19 @@
 (setf *mouse-focus-policy* :sloppy)  ;; options: :click, :ignore, :sloppy
 (run-shell-command "setxkbmap -option ctrl:nocaps")
 
+;; Mode line -------------------------------------------------------------------
+
+(setf *screen-mode-line-format*
+      (list '(:eval (string-trim
+                     '(#\newline)
+                     (run-shell-command "date +'%a %b %d %H:%M'" t)))
+            " | "
+            '(:eval (string-trim
+                     '(#\space #\newline)
+                     (run-shell-command "acpi | cut -d ',' -f 2" t)))
+            " |%w"))
+
+(setf *mode-line-timeout* 1)
 
 ;; System management commands --------------------------------------------------
 
