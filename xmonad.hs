@@ -15,13 +15,6 @@ import System.IO
 
 
 --------------------------------------------------------------------------------
--- Workspaces
--- The default number of workspaces (virtual screens) and their names.
---
--- myWorkspaces = ["1:notes","2:web","3:code","4:vm","5","6","7","8:media"] ++ map show [6..9]
-
-
---------------------------------------------------------------------------------
 -- Promptable actions
 --
 myXmonadPrompt :: XPConfig -> X ()
