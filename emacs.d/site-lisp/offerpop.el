@@ -138,7 +138,7 @@ the user for their password."
                          issue-num)))
     (concat op-redmine-base-url "issues/" issue-num-str)))
 
-;;; Django
+;;; Django, Celery, etc.
 
 (defun op-open-or-switch-to-django-buffer ()
   "Switch to the *django* buffer, creating it if it doesn't exist.
@@ -148,22 +148,40 @@ a shell.  Running it an Emacs shell buffer instead of a terminal
 makes it possible to easily control it with simple keyboard shortcuts
 and to get a full view of its log."
   (interactive)
-  (flet ((run (command)
-              (insert command)
-              (comint-send-input)))
-    (let ((django-buffer (get-buffer "*django*")))
-      (if (not django-buffer)
-          (progn
-            (setf django-buffer (generate-new-buffer "*django*"))
-            (shell django-buffer)
-            (sleep-for 1)
-            (with-current-buffer django-buffer
-              (toggle-truncate-lines)
-              (goto-char (point-max))
-              (run "cd ~/Projects/Offerpop")
-              (run ". ~/Projects/OfferpopDashboard/bin/activate")
-              (run "python dashboard/manage.py runserver --pythonpath=/home/tom/Projects/Offerpop --settings=dashboard.settings")))
-        (switch-to-buffer django-buffer)))))
+  (let ((commands '("cd ~/Projects/Offerpop"
+                    "dashenv"
+                    "python dashboard/manage.py runserver")))
+    (op--open-or-switch-to-shell-buffer "*django*" commands)))
+
+(defun op-open-or-switch-to-celery-buffer ()
+  "Switch to the *celery* buffer, creating it if it doesn't exist.
+
+The *celery* buffer is used to host the Celery distributed message
+queue daemon in a shell."
+  (interactive)
+  (let ((commands '("cd ~/Projects/Offerpop"
+                    "dashenv"
+                    "python dashboard/manage.py celery worker -l INFO")))
+    (op--open-or-switch-to-shell-buffer "*celery*" commands)))
+
+(defun op--open-or-switch-to-shell-buffer (buffer-name commands)
+  (let ((buffer (get-buffer buffer-name)))
+    (if (not buffer)
+        (progn
+          (setf buffer (generate-new-buffer buffer-name))
+          (shell buffer)
+          (sleep-for 1)
+          (with-current-buffer buffer
+            (toggle-truncate-lines)
+            (goto-char (point-max))
+            (dolist (command commands)
+              (op--run-shell-command command))))
+      (switch-to-buffer buffer))))
+
+(defun op--run-shell-command (command)
+  "Run COMMAND in the active shell (comint) buffer."
+  (insert command)
+  (comint-send-input))
 
 (provide 'offerpop)
 
