@@ -56,6 +56,10 @@
 
 ;; App shortcut commands -------------------------------------------------------
 
+(defcommand aurora () ()
+  "Start or switch to Firefox Aurora."
+  (run-or-raise "aurora" '(:class "Firefox" :title "Aurora")))
+
 (defcommand chrome () ()
   "Start or switch to Chrome."
   (run-or-raise "google-chrome" '(:class "Google-chrome")))
@@ -95,6 +99,7 @@
 
 (defparameter *app-launch-bindings*
   (let ((m (make-sparse-keymap)))
+    (define-key m (kbd "a") "aurora")
     (define-key m (kbd "c") "chrome")
     (define-key m (kbd "f") "firefox")
     (define-key m (kbd "p") "pandora")
