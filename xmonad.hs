@@ -68,7 +68,7 @@ myManageHook = composeAll . concat $
   [ [ className =? c --> doFloat | c <- myCFloats ],
     [ title     =? t --> doFloat | t <- myTFloats ] ]
   where
-    myCFloats = [ "Gimp", "Shutter", "VirtualBox" ]
+    myCFloats = [ "Gimp", "Shutter", "Skype", "VirtualBox" ]
     myTFloats = [ "Aurora Preferences"
                 , "About Aurora"
                 , "Firefox Preferences"
