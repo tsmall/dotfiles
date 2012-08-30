@@ -56,6 +56,20 @@
 
 ;; App shortcut commands -------------------------------------------------------
 
+(defun run-web-app (name url)
+  "Launch a stand-alone web app via Chrome."
+  (let* ((instance (string-downcase name))
+         (title (string-capitalize name))
+         (profile-dir "/home/tom/.config/google-chrome/CustomProfiles")
+         (profile-path (format nil "~a/~a" profile-dir instance)))
+    (run-or-raise (format nil "google-chrome --app=~a --user-data-dir=~a"
+                          url profile-path)
+                  `(:class "Google-chrome" :instance ,instance :title ,title))))
+
+(defcommand aurora () ()
+  "Start or switch to Firefox Aurora."
+  (run-or-raise "aurora" '(:class "Firefox" :title "Aurora")))
+
 (defcommand chrome () ()
   "Start or switch to Chrome."
   (run-or-raise "google-chrome" '(:class "Google-chrome")))
@@ -73,14 +87,12 @@
   (run-or-raise "luakit" '(:class "luakit")))
 
 (defcommand pandora () ()
-  "Start or switch to Pandora in Chrome web app window."
-  (run-or-raise "google-chrome --app=http://www.pandora.com"
-                '(:class "Google-chrome" :instance "pandora" :title "Pandora")))
+  "Start or switch to Pandora."
+  (run-web-app "pandora" "http://www.pandora.com"))
 
 (defcommand rdio () ()
-  "Start or switch to Rdio in Chrome web app window."
-  (run-or-raise "google-chrome --app=http://rdio.com"
-                '(:class "Google-chrome" :instance "rdio" :title "Rdio")))
+  "Start or switch to Rdio."
+  (run-web-app "rdio" "http://rdio.com"))
 
 (defcommand sublime () ()
   "Start or switch to Sublime."
@@ -90,17 +102,24 @@
   "Start or switch to Terminator."
   (run-or-raise "terminator" '(:class "Terminator" :instance "term")))
 
+(defcommand workflowy () ()
+  "Start or switch to WorkFlowy."
+  (run-web-app "workflowy" "https://workflowy.com"))
+
 
 ;; Keyboard bindings -----------------------------------------------------------
 
 (defparameter *app-launch-bindings*
   (let ((m (make-sparse-keymap)))
+    (define-key m (kbd "a") "aurora")
     (define-key m (kbd "c") "chrome")
     (define-key m (kbd "f") "firefox")
+    (define-key m (kbd "k") "conkeror")
     (define-key m (kbd "p") "pandora")
     (define-key m (kbd "r") "rdio")
     (define-key m (kbd "s") "sublime")
     (define-key m (kbd "t") "terminator")
+    (define-key m (kbd "w") "workflowy")
     m))
 
 (define-key *root-map* (kbd "l") '*app-launch-bindings*)
