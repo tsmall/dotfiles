@@ -13,6 +13,8 @@
 
 ;;; Code:
 
+;;; Managing Services ---------------------------------------------------------
+
 (defun op-restart-apache ()
   "Restart the local Apache server."
   (interactive)
@@ -34,6 +36,8 @@ the user for their password."
   (let ((sudo-command (concat "sudo " command)))
     (start-process command "*op-sudo-output*"
                    "bash" "-c" sudo-command)))
+
+;;; Managing the hosts file ---------------------------------------------------
 
 (defun op-comment-line (regexp comment-string)
   "Comment the first line in the current buffer matching REGEXP with COMMENT-CHAR."
@@ -58,6 +62,8 @@ the user for their password."
     (op-uncomment-line (format "# %s$" hostname) "#")
     (save-buffer)
     (message (format "Successfully switched to %s." hostname))))
+
+;;; Shell Buffers -------------------------------------------------------------
 
 (defun op-open-or-switch-to-mysql-buffer ()
   "Switch to the *mysql* buffer, creating it if it doesn't exist."
@@ -92,53 +98,6 @@ the user for their password."
             (insert "cd ~/Projects/Offerpop/Log; tail -fn 0 offerpop.log")
             (comint-send-input))))
     (switch-to-buffer log-buffer)))
-
-(defun op-setup-for-code-review ()
-  "Configure the current buffer's environment for code review."
-  (interactive)
-  (linum-mode)
-  (hl-line-mode)
-  (cd "~/Projects/Offerpop"))
-
-(defun op-setup-svn-incoming ()
-  "Configure the current buffer's environment for svn-incoming output."
-  (interactive)
-  (let ((rev-regexp "r[0-9]+")
-        (rm-regexp "\\(RM\\|rm\\)[^0-9\n]*[0-9]+"))
-    ;; Remove any highlighting that may already be there.
-    (hi-lock-unface-buffer rev-regexp)
-    (hi-lock-unface-buffer rm-regexp)
-
-    ;; Now set it up.
-    (hl-line-mode 1)
-    (hi-lock-face-buffer rev-regexp 'hi-yellow)
-    (hi-lock-face-buffer rm-regexp 'hi-blue)))
-
-;;; Redmine
-
-(defvar op-redmine-base-url "http://redmine.offerpop.com/"
-  "Base URL for Offerpop's Redmine site.")
-
-(defun op-redmine-goto-issue ()
-  "Go to the Redmine issue identified by the number at point."
-  (interactive)
-  (let ((issue-num (op-redmine-parse-issue-word (word-at-point))))
-    (browse-url (op-redmine-issue-url issue-num))))
-
-(defun op-redmine-parse-issue-word (word)
-  "Return just the issue number from the Redmine issue WORD."
-  (if (string-prefix-p "rm" word t)
-      (substring word 2)
-    word))
-
-(defun op-redmine-issue-url (issue-num)
-  "Return URL to Redmine issue with number ISSUE-NUM."
-  (let ((issue-num-str (if (numberp issue-num)
-                           (number-to-string issue-num)
-                         issue-num)))
-    (concat op-redmine-base-url "issues/" issue-num-str)))
-
-;;; Django, Celery, etc.
 
 (defun op-open-or-switch-to-django-buffer ()
   "Switch to the *django* buffer, creating it if it doesn't exist.
@@ -182,6 +141,53 @@ queue daemon in a shell."
   "Run COMMAND in the active shell (comint) buffer."
   (insert command)
   (comint-send-input))
+
+;;; Useful Helpers ------------------------------------------------------------
+
+(defun op-setup-for-code-review ()
+  "Configure the current buffer's environment for code review."
+  (interactive)
+  (linum-mode)
+  (hl-line-mode)
+  (cd "~/Projects/Offerpop"))
+
+(defun op-setup-svn-incoming ()
+  "Configure the current buffer's environment for svn-incoming output."
+  (interactive)
+  (let ((rev-regexp "r[0-9]+")
+        (rm-regexp "\\(RM\\|rm\\)[^0-9\n]*[0-9]+"))
+    ;; Remove any highlighting that may already be there.
+    (hi-lock-unface-buffer rev-regexp)
+    (hi-lock-unface-buffer rm-regexp)
+
+    ;; Now set it up.
+    (hl-line-mode 1)
+    (hi-lock-face-buffer rev-regexp 'hi-yellow)
+    (hi-lock-face-buffer rm-regexp 'hi-blue)))
+
+;;; Redmine -------------------------------------------------------------------
+
+(defvar op-redmine-base-url "http://redmine.offerpop.com/"
+  "Base URL for Offerpop's Redmine site.")
+
+(defun op-redmine-goto-issue ()
+  "Go to the Redmine issue identified by the number at point."
+  (interactive)
+  (let ((issue-num (op-redmine-parse-issue-word (word-at-point))))
+    (browse-url (op-redmine-issue-url issue-num))))
+
+(defun op-redmine-parse-issue-word (word)
+  "Return just the issue number from the Redmine issue WORD."
+  (if (string-prefix-p "rm" word t)
+      (substring word 2)
+    word))
+
+(defun op-redmine-issue-url (issue-num)
+  "Return URL to Redmine issue with number ISSUE-NUM."
+  (let ((issue-num-str (if (numberp issue-num)
+                           (number-to-string issue-num)
+                         issue-num)))
+    (concat op-redmine-base-url "issues/" issue-num-str)))
 
 (provide 'offerpop)
 
