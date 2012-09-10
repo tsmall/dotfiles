@@ -60,8 +60,33 @@ the user for their password."
     (set-buffer (get-buffer "hosts"))
     (op-comment-line "^[^#][[:digit:]].+offerpop\.com" "#")
     (op-uncomment-line (format "# %s$" hostname) "#")
+    (if (string= hostname "qa")
+        (op-replace-ip-address-at-point (op-get-ip-for-qa)))
     (save-buffer)
     (message (format "Successfully switched to %s." hostname))))
+
+(defun op-get-ip-for-domain (domain-name)
+  "Get the IP address for DOMAIN-NAME."
+  (let* ((lookup-command (concat "host" " " domain-name))
+         (host-output (shell-command-to-string lookup-command))
+         (first-line (car (split-string host-output "\n"))))
+    (car (last (split-string first-line)))))
+
+(defun op-get-ip-for-qa ()
+  "Get the IP address of our QA server's load balancer."
+  (op-get-ip-for-domain "qa-elb.p.offerpop.com"))
+
+(defun op-replace-ip-address-at-point (new-ip-address)
+  "Replace the IP address at point with NEW-IP-ADDRESS.
+
+The point must be at the start of the IP address for this
+function to work correctly."
+  (let (ip-address-start-point ip-address-end-point)
+    (setq ip-address-start-point (point))
+    (forward-word 4)
+    (setq ip-address-end-point (point))
+    (delete-region ip-address-start-point ip-address-end-point)
+    (insert new-ip-address)))
 
 ;;; Shell Buffers -------------------------------------------------------------
 
