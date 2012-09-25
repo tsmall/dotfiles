@@ -12,6 +12,7 @@ import XMonad.Prompt
 import XMonad.Prompt.XMonad
 import qualified XMonad.StackSet as W
 import XMonad.Util.EZConfig(additionalKeys)
+import XMonad.Util.NamedScratchpad
 import XMonad.Util.Run(spawnPipe)
 import System.IO
 
@@ -27,8 +28,7 @@ myXmonadPrompt c =
              , ("renameWorkspace", renameWorkspace defaultXPConfig)
              , ("removeWorkspace", removeWorkspace)
                
-             , ("connectMonitor", spawn "xrandr --output VGA1 --mode '1920x1080' --above LVDS1")
-             , ("disconnectMonitor", spawn "xrandr --output VGA1 --off")
+             , ("sublime", namedScratchpadAction scratchpads "sublime")
              ]
   in xmonadPromptC cmds c
 
@@ -42,6 +42,9 @@ myKeys = [
 
   -- Start the interactive prompt to ask for one of my custom-defined commands.
   ((mod4Mask, xK_x), myXmonadPrompt defaultXPConfig),
+  
+  -- Show my Sublime text editor scratchpad.
+  ((mod4Mask, xK_s), namedScratchpadAction scratchpads "sublime"),
 
   -- Mute volume.
   ((0, 0x1008FF12), spawn "amixer -q set Master toggle"),
@@ -51,6 +54,14 @@ myKeys = [
 
   -- Increase volume.
   ((0, 0x1008FF13), spawn "amixer -q set Master 5%+")
+  ]
+
+
+--------------------------------------------------------------------------------
+-- Scratchpads
+--
+scratchpads = [
+  NS "sublime" "sublime" (className =? "Sublime") (customFloating $ W.RationalRect (1/6) (1/6) (2/3) (2/3))
   ]
 
 
@@ -99,7 +110,7 @@ main = do
   xmproc <- spawnPipe "/usr/bin/xmobar /home/tom/.xmobarrc"
   xmonad $ defaultConfig
    { modMask = mod4Mask
-   , manageHook = manageDocks <+> myManageHook
+   , manageHook = manageDocks <+> myManageHook <+> namedScratchpadManageHook scratchpads
    , layoutHook = myLayout
    , logHook = dynamicLogWithPP xmobarPP
                    { ppOutput = hPutStrLn xmproc
