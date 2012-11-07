@@ -134,7 +134,7 @@ and to get a full view of its log."
   (interactive)
   (let ((commands '("cd ~/Projects/Offerpop"
                     "dashenv"
-                    "python dashboard/manage.py runserver")))
+                    "python manage.py runserver")))
     (op--open-or-switch-to-shell-buffer "*django*" commands)))
 
 (defun op-open-or-switch-to-celery-buffer ()
@@ -145,7 +145,7 @@ queue daemon in a shell."
   (interactive)
   (let ((commands '("cd ~/Projects/Offerpop"
                     "dashenv"
-                    "python dashboard/manage.py celery worker -l INFO")))
+                    "python manage.py celery worker -l INFO")))
     (op--open-or-switch-to-shell-buffer "*celery*" commands)))
 
 (defun op--open-or-switch-to-shell-buffer (buffer-name commands)
