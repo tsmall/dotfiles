@@ -164,3 +164,17 @@
 (define-key *top-map* (kbd "XF86AudioRaiseVolume") "volume 5%+")
 
 (define-key *root-map* (kbd "d") "dmenu-launcher")
+
+;; Slime ----------------------------------------------------------------------
+
+;; Load swank.
+;; *prefix-key* ; swank will kick this off
+(load "/home/tom/Sources/slime/swank-loader.lisp")
+(swank-loader:init)
+(defcommand swank () ()
+  (setf stumpwm:*top-level-error-action* :break)
+  (swank:create-server :port 4005
+                       :style swank:*communication-style*
+                       :dont-close t)
+  (echo-string (current-screen)
+	       "Starting swank. M-x slime-connect RET RET, then (in-package stumpwm)."))
