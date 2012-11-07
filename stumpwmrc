@@ -47,6 +47,8 @@
   "Restore the desktop wallpaper settings."
   (run-shell-command "nitrogen --restore"))
 
+;; Sound commands
+
 (defcommand mute () ()
   "Mute all sound."
   (run-shell-command "amixer set Master mute"))
@@ -58,7 +60,6 @@
 (defcommand volume (level) ((:string "Level: "))
   "Set the volume to level."
   (run-shell-command (format nil "amixer set Master ~a" level)))
-
 
 ;; App shortcut commands -------------------------------------------------------
 
