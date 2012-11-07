@@ -1,14 +1,23 @@
-// Webjump shortcuts
+// Webjumps -------------------------------------------------------------------
+
+// Fun
 define_webjump("hn", "http://news.ycombinator.com");
 
-// Programming webjumps
+// Programming
+define_webjump("backbone", "http://documentcloud.github.com/backbone/");
+define_webjump("bootstrap", "http://twitter.github.com/bootstrap/");
 define_webjump("css", "https://developer.mozilla.org/en/CSS/CSS_Reference");
-define_webjump("django", "https://docs.djangoproject.com/en/1.1/");
+define_webjump("django", "https://docs.djangoproject.com/en/");
 define_webjump("dom", "https://developer.mozilla.org/en/Gecko_DOM_Reference");
+define_webjump("graphapi", "https://developers.facebook.com/docs/reference/api/");
 define_webjump("html", "https://developer.mozilla.org/en/HTML");
+define_webjump("jqapi", "http://jqapi.com");
 define_webjump("js", "https://developer.mozilla.org/en/JavaScript/Reference");
 define_webjump("mysql", "http://dev.mysql.com/doc/refman/5.1/en/index.html");
-define_webjump("python", "http://docs.python.org/release/2.5.4/");
+define_webjump("requirejs", "http://requirejs.org/docs/api.html");
+define_webjump("python", "http://docs.python.org");
+define_webjump("python2.5", "http://docs.python.org/release/2.5.4/");
+define_webjump("underscore", "http://documentcloud.github.com/underscore/");
 
 // Make all new buffers blank.
 homepage = "about:blank";
