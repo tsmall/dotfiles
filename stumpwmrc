@@ -116,6 +116,15 @@
   "Use dmenu to launch an application."
   (run-shell-command "dmenu_run"))
 
+;; Window management ----------------------------------------------------------
+
+(defcommand vsplit-third () ()
+  "Split the current frame to 2/3 of the screen, vertically."
+  (split-frame (current-group) :column 2/3))
+
+(defcommand hsplit-third () ()
+  "Split the current frame to 2/3 of the screen, horizontally."
+  (split-frame (current-group) :row 2/3))
 
 ;; Keyboard bindings -----------------------------------------------------------
 
