@@ -158,6 +158,8 @@ bar {
 # My Customizations
 # ------------------------------------------------------------------------------
 
+exec --no-startup-id setxkbmap -option ctrl:nocaps
+
 # Desktop Wallpaper
 #
 # As recommended on the i3 FAQ site, I'm using the nitrogen program to configure
