@@ -41,6 +41,12 @@
   (run-shell-command "sudo pm-suspend")
   (lock-screen))
 
+;; Desktop wallpaper
+
+(defcommand wallpaper-restore () ()
+  "Restore the desktop wallpaper settings."
+  (run-shell-command "nitrogen --restore"))
+
 (defcommand mute () ()
   "Mute all sound."
   (run-shell-command "amixer set Master mute"))
