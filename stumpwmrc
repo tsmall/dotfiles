@@ -112,6 +112,10 @@
   "Start or switch to WorkFlowy."
   (run-web-app "workflowy" "https://workflowy.com"))
 
+(defcommand dmenu-launcher () ()
+  "Use dmenu to launch an application."
+  (run-shell-command "dmenu_run"))
+
 
 ;; Keyboard bindings -----------------------------------------------------------
 
@@ -149,3 +153,5 @@
 
 (define-key *top-map* (kbd "XF86AudioLowerVolume") "volume 5%-")
 (define-key *top-map* (kbd "XF86AudioRaiseVolume") "volume 5%+")
+
+(define-key *root-map* (kbd "d") "dmenu-launcher")
