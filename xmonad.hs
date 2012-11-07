@@ -48,14 +48,15 @@ myKeys = [
   -- Show my Sublime text editor scratchpad.
   ((mod4Mask, xK_s), namedScratchpadAction scratchpads "sublime"),
 
-  -- Mute volume.
-  ((0, 0x1008FF12), spawn "amixer -q set Master toggle"),
 
-  -- Decrease volume.
-  ((0, 0x1008FF11), spawn "amixer -q set Master 5%-"),
-
-  -- Increase volume.
-  ((0, 0x1008FF13), spawn "amixer -q set Master 5%+")
+  -- Volume
+  -- Implementing these here overrides gnome-settings-daemon's handling of them,
+  -- and since that includes the notification feedback, I'm commenting these out
+  -- and letting it do its thing.
+  --
+  -- ((0, 0x1008FF12), spawn "amixer -q set Master toggle"),  -- mute
+  -- ((0, 0x1008FF11), spawn "amixer -q set Master 5%-"),     -- volume down
+  -- ((0, 0x1008FF13), spawn "amixer -q set Master 5%+")      -- volume up
   ]
 
 
