@@ -111,6 +111,9 @@ Display the number of matches and save it to the kill ring."
 (global-set-key (kbd "<f8>") 'deft)
 (global-set-key (kbd "<f9>") 'eshell)
 
+(global-set-key (kbd "C-c [") 'flymake-goto-prev-error)
+(global-set-key (kbd "C-c ]") 'flymake-goto-next-error)
+(global-set-key (kbd "C-c \\") 'flymake-display-err-menu-for-current-line)
 (global-set-key (kbd "C-c -") 'insert-comment-line)
 (global-set-key (kbd "C-c #") 'trs-count-matches-in-line)
 (global-set-key (kbd "C-c i") 'trs-increment-number-decimal)
