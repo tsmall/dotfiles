@@ -173,6 +173,8 @@ for_window [title="Aurora Preferences"] floating enable
 # Scratchpad
 bindsym $mod+Shift+minus move scratchpad
 bindsym $mod+minus scratchpad show
+bindsym $mod+Shift+s [class="Sublime"] scratchpad show
+bindsym $mod+Shift+m [title="(Pandora|Rdio)"] scratchpad show
 
 # Multiple Monitor Workspace Movement
 bindsym $mod+Mod1+Up move workspace to output up
