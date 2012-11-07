@@ -169,6 +169,7 @@ exec --no-startup-id nitrogen --restore
 # Floating Windows
 for_window [title="About Aurora"] floating enable
 for_window [title="Aurora Preferences"] floating enable
+for_window [class="Shutter"] floating enable
 
 # Scratchpad
 bindsym $mod+Shift+minus move scratchpad
