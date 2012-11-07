@@ -38,16 +38,14 @@ myXmonadPrompt c =
 -- Key bindings
 --
 myKeys = [
-  -- Lock the screen.
-  ((mod4Mask .|. shiftMask, xK_l), spawn "gnome-screensaver-command --lock"),
+  ((mod4Mask .|. shiftMask, xK_l), spawn "xscreensaver-command -lock"),
   ((mod4Mask, xK_d), spawn "dmenu_run"),
 
-  -- Start the interactive prompt to ask for one of my custom-defined commands.
-  ((mod4Mask, xK_x), myXmonadPrompt defaultXPConfig),
-  
-  -- Show my Sublime text editor scratchpad.
+  -- Scratchpads
   ((mod4Mask, xK_s), namedScratchpadAction scratchpads "sublime"),
 
+  -- Start the interactive prompt to ask for one of my custom-defined commands.
+  ((mod4Mask, xK_x), myXmonadPrompt defaultXPConfig)
 
   -- Volume
   -- Implementing these here overrides gnome-settings-daemon's handling of them,
