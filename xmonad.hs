@@ -40,6 +40,7 @@ myXmonadPrompt c =
 myKeys = [
   -- Lock the screen.
   ((mod4Mask .|. shiftMask, xK_l), spawn "gnome-screensaver-command --lock"),
+  ((mod4Mask, xK_d), spawn "dmenu_run"),
 
   -- Start the interactive prompt to ask for one of my custom-defined commands.
   ((mod4Mask, xK_x), myXmonadPrompt defaultXPConfig),
