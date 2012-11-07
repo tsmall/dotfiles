@@ -1,24 +1,28 @@
-// Webjump shortcuts
+// Webjumps -------------------------------------------------------------------
+
+// Fun
 define_webjump("hn", "http://news.ycombinator.com");
 
-// Programming webjumps
+// Programming
+define_webjump("backbone", "http://documentcloud.github.com/backbone/");
+define_webjump("bootstrap", "http://twitter.github.com/bootstrap/");
 define_webjump("css", "https://developer.mozilla.org/en/CSS/CSS_Reference");
-define_webjump("django", "https://docs.djangoproject.com/en/1.1/");
+define_webjump("django", "https://docs.djangoproject.com/en/");
 define_webjump("dom", "https://developer.mozilla.org/en/Gecko_DOM_Reference");
+define_webjump("graphapi", "https://developers.facebook.com/docs/reference/api/");
 define_webjump("html", "https://developer.mozilla.org/en/HTML");
+define_webjump("jqapi", "http://jqapi.com");
 define_webjump("js", "https://developer.mozilla.org/en/JavaScript/Reference");
 define_webjump("mysql", "http://dev.mysql.com/doc/refman/5.1/en/index.html");
-define_webjump("python", "http://docs.python.org/release/2.5.4/");
+define_webjump("requirejs", "http://requirejs.org/docs/api.html");
+define_webjump("python", "http://docs.python.org");
+define_webjump("python2.5", "http://docs.python.org/release/2.5.4/");
+define_webjump("underscore", "http://documentcloud.github.com/underscore/");
+
+// General Settings -----------------------------------------------------------
 
 // Make all new buffers blank.
 homepage = "about:blank";
-
-// Automatically save the browsing session. This is done automatically
-// by just requiring the "session.js" script.
-require("session.js");
-
-// Automatically restore the last auto-saved session.
-session_auto_save_auto_load = true;
 
 // Load URLs from the command line in new buffers instead of new windows.
 url_remoting_fn = load_url_in_new_buffer;
@@ -27,8 +31,29 @@ url_remoting_fn = load_url_in_new_buffer;
 // in new windows.
 download_buffer_automatic_open_target = OPEN_NEW_BUFFER_BACKGROUND;
 
+// Session Management ---------------------------------------------------------
+
+// Automatically save the browsing session. This is done automatically
+// by just requiring the "session.js" script.
+require("session.js");
+
+// Automatically restore the last auto-saved session.
+session_auto_save_auto_load = true;
+
+// Modes ----------------------------------------------------------------------
+
 // Show the XKCD title text in the page.
 xkcd_add_title = true;
+
+// Bind the keys 1 through 9 to Google search results.
+require("google-search-results.js");
+google_search_bind_number_shortcuts();
+
+// Bind the "n" key to the next page link.
+define_key(google_search_results_keymap, "n", "follow",
+           $browser_object = browser_object_relationship_next);
+
+// Custom Commands ------------------------------------------------------------
 
 // Reload .conkerorrc with C-c r.
 interactive('reload-config',

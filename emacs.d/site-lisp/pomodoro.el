@@ -1,6 +1,6 @@
 ;;; pomodoro.el --- A Pomodoro timer in Emacs-Lisp
 
-;; Copyright (C) 2011 Tom Small <tsmall3@gmail.com>
+;; Copyright (C) 2012 Tom Small <tsmall3@gmail.com>
 
 ;; Author: Tom Small <tsmall3@gmail.com>
 ;; Created: 29 Nov 2011

@@ -26,11 +26,11 @@
 
 (defcommand disable-monitor () ()
   "Disable my 2nd monitor at work."
-  (run-shell-command "xrandr --output VGA1 --off"))
+  (run-shell-command "monitor off"))
 
 (defcommand enable-monitor () ()
   "Enable my 2nd monitor at work."
-  (run-shell-command "xrandr --output VGA1 --mode '1920x1080' --above LVDS1"))
+  (run-shell-command "monitor on"))
 
 (defcommand lock-screen () ()
   "Lock the screen."
@@ -40,6 +40,14 @@
   "Suspend the computer."
   (run-shell-command "sudo pm-suspend")
   (lock-screen))
+
+;; Desktop wallpaper
+
+(defcommand wallpaper-restore () ()
+  "Restore the desktop wallpaper settings."
+  (run-shell-command "nitrogen --restore"))
+
+;; Sound commands
 
 (defcommand mute () ()
   "Mute all sound."
@@ -52,7 +60,6 @@
 (defcommand volume (level) ((:string "Level: "))
   "Set the volume to level."
   (run-shell-command (format nil "amixer set Master ~a" level)))
-
 
 ;; App shortcut commands -------------------------------------------------------
 
@@ -106,6 +113,19 @@
   "Start or switch to WorkFlowy."
   (run-web-app "workflowy" "https://workflowy.com"))
 
+(defcommand dmenu-launcher () ()
+  "Use dmenu to launch an application."
+  (run-shell-command "dmenu_run"))
+
+;; Window management ----------------------------------------------------------
+
+(defcommand vsplit-third () ()
+  "Split the current frame to 2/3 of the screen, vertically."
+  (split-frame (current-group) :column 2/3))
+
+(defcommand hsplit-third () ()
+  "Split the current frame to 2/3 of the screen, horizontally."
+  (split-frame (current-group) :row 2/3))
 
 ;; Keyboard bindings -----------------------------------------------------------
 
@@ -143,3 +163,19 @@
 
 (define-key *top-map* (kbd "XF86AudioLowerVolume") "volume 5%-")
 (define-key *top-map* (kbd "XF86AudioRaiseVolume") "volume 5%+")
+
+(define-key *root-map* (kbd "d") "dmenu-launcher")
+
+;; Slime ----------------------------------------------------------------------
+
+;; Load swank.
+;; *prefix-key* ; swank will kick this off
+(load "/home/tom/Sources/slime/swank-loader.lisp")
+(swank-loader:init)
+(defcommand swank () ()
+  (setf stumpwm:*top-level-error-action* :break)
+  (swank:create-server :port 4005
+                       :style swank:*communication-style*
+                       :dont-close t)
+  (echo-string (current-screen)
+	       "Starting swank. M-x slime-connect RET RET, then (in-package stumpwm)."))

@@ -6,6 +6,7 @@ import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.ManageDocks
 import XMonad.Layout.Grid
 import XMonad.Layout.IM
+import XMonad.Layout.SimpleFloat
 import XMonad.Layout.Tabbed
 import XMonad.Layout.TwoPane
 import XMonad.Prompt
@@ -37,23 +38,23 @@ myXmonadPrompt c =
 -- Key bindings
 --
 myKeys = [
-  -- Lock the screen.
-  ((mod4Mask .|. shiftMask, xK_l), spawn "gnome-screensaver-command --lock"),
+  ((mod4Mask .|. shiftMask, xK_l), spawn "xscreensaver-command -lock"),
+  ((mod4Mask, xK_d), spawn "dmenu_run"),
 
-  -- Start the interactive prompt to ask for one of my custom-defined commands.
-  ((mod4Mask, xK_x), myXmonadPrompt defaultXPConfig),
-  
-  -- Show my Sublime text editor scratchpad.
+  -- Scratchpads
   ((mod4Mask, xK_s), namedScratchpadAction scratchpads "sublime"),
 
-  -- Mute volume.
-  ((0, 0x1008FF12), spawn "amixer -q set Master toggle"),
+  -- Start the interactive prompt to ask for one of my custom-defined commands.
+  ((mod4Mask, xK_x), myXmonadPrompt defaultXPConfig)
 
-  -- Decrease volume.
-  ((0, 0x1008FF11), spawn "amixer -q set Master 5%-"),
-
-  -- Increase volume.
-  ((0, 0x1008FF13), spawn "amixer -q set Master 5%+")
+  -- Volume
+  -- Implementing these here overrides gnome-settings-daemon's handling of them,
+  -- and since that includes the notification feedback, I'm commenting these out
+  -- and letting it do its thing.
+  --
+  -- ((0, 0x1008FF12), spawn "amixer -q set Master toggle"),  -- mute
+  -- ((0, 0x1008FF11), spawn "amixer -q set Master 5%-"),     -- volume down
+  -- ((0, 0x1008FF13), spawn "amixer -q set Master 5%+")      -- volume up
   ]
 
 
@@ -98,7 +99,8 @@ myLayout = avoidStruts (
   Full |||
   imLayout |||
   TwoPane (3/100) (1/2) |||
-  simpleTabbed
+  simpleTabbed |||
+  simpleFloat
   )
 
 
