@@ -26,11 +26,11 @@
 
 (defcommand disable-monitor () ()
   "Disable my 2nd monitor at work."
-  (run-shell-command "xrandr --output VGA1 --off"))
+  (run-shell-command "monitor off"))
 
 (defcommand enable-monitor () ()
   "Enable my 2nd monitor at work."
-  (run-shell-command "xrandr --output VGA1 --mode '1920x1080' --above LVDS1"))
+  (run-shell-command "monitor on"))
 
 (defcommand lock-screen () ()
   "Lock the screen."
