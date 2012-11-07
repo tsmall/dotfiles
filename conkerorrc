@@ -19,15 +19,10 @@ define_webjump("python", "http://docs.python.org");
 define_webjump("python2.5", "http://docs.python.org/release/2.5.4/");
 define_webjump("underscore", "http://documentcloud.github.com/underscore/");
 
+// General Settings -----------------------------------------------------------
+
 // Make all new buffers blank.
 homepage = "about:blank";
-
-// Automatically save the browsing session. This is done automatically
-// by just requiring the "session.js" script.
-require("session.js");
-
-// Automatically restore the last auto-saved session.
-session_auto_save_auto_load = true;
 
 // Load URLs from the command line in new buffers instead of new windows.
 url_remoting_fn = load_url_in_new_buffer;
@@ -36,8 +31,22 @@ url_remoting_fn = load_url_in_new_buffer;
 // in new windows.
 download_buffer_automatic_open_target = OPEN_NEW_BUFFER_BACKGROUND;
 
+// Session Management ---------------------------------------------------------
+
+// Automatically save the browsing session. This is done automatically
+// by just requiring the "session.js" script.
+require("session.js");
+
+// Automatically restore the last auto-saved session.
+session_auto_save_auto_load = true;
+
+// Modes ----------------------------------------------------------------------
+
 // Show the XKCD title text in the page.
 xkcd_add_title = true;
+
+
+// Custom Commands ------------------------------------------------------------
 
 // Reload .conkerorrc with C-c r.
 interactive('reload-config',
