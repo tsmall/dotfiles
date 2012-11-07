@@ -6,6 +6,7 @@ import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.ManageDocks
 import XMonad.Layout.Grid
 import XMonad.Layout.IM
+import XMonad.Layout.SimpleFloat
 import XMonad.Layout.Tabbed
 import XMonad.Layout.TwoPane
 import XMonad.Prompt
@@ -98,7 +99,8 @@ myLayout = avoidStruts (
   Full |||
   imLayout |||
   TwoPane (3/100) (1/2) |||
-  simpleTabbed
+  simpleTabbed |||
+  simpleFloat
   )
 
 
