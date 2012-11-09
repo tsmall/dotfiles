@@ -88,7 +88,7 @@ myFloatHooks = concat $
   [ [ className =? c --> doFloat | c <- myCFloats ],
     [ title     =? t --> doFloat | t <- myTFloats ] ]
   where
-    myCFloats = [ "Gimp", "Shutter", "Skype", "VirtualBox" ]
+    myCFloats = [ "Gimp", "MPlayer", "Shutter", "Skype", "VirtualBox" ]
     myTFloats = [ "Aurora Preferences"
                 , "About Aurora"
                 , "Firefox Preferences"
