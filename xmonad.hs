@@ -24,6 +24,12 @@ import System.IO
 myTerminal = "/usr/bin/urxvt"
 
 
+-------------------------------------------------------------------------------
+-- Workspaces
+--
+myWorkspaces = ["1:web","2:todo","3:code","4:chat"] ++ map show [5..9]
+
+
 --------------------------------------------------------------------------------
 -- Promptable actions
 --
@@ -118,6 +124,7 @@ main = do
   xmproc <- spawnPipe "/usr/bin/xmobar /home/tom/.xmobarrc"
   xmonad $ defaultConfig
    { modMask = mod4Mask
+   , workspaces = myWorkspaces
    , terminal = myTerminal
    , manageHook = manageDocks <+> myManageHook <+> namedScratchpadManageHook scratchpads
    , layoutHook = myLayout
