@@ -18,6 +18,12 @@ import XMonad.Util.Run(spawnPipe)
 import System.IO
 
 
+-------------------------------------------------------------------------------
+-- Terminal
+--
+myTerminal = "/usr/bin/urxvt"
+
+
 --------------------------------------------------------------------------------
 -- Promptable actions
 --
@@ -112,6 +118,7 @@ main = do
   xmproc <- spawnPipe "/usr/bin/xmobar /home/tom/.xmobarrc"
   xmonad $ defaultConfig
    { modMask = mod4Mask
+   , terminal = myTerminal
    , manageHook = manageDocks <+> myManageHook <+> namedScratchpadManageHook scratchpads
    , layoutHook = myLayout
    , logHook = dynamicLogWithPP xmobarPP
