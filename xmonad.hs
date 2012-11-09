@@ -82,7 +82,9 @@ scratchpads = [
 --
 -- To find the property name associated with a program, use
 -- `xprop | grep WM_CLASS` and click on the client you're interested in.
-myManageHook = composeAll . concat $
+--
+myShiftHooks = [ className =? "Instantbird-bin" --> doShift "4:chat" ]
+myFloatHooks = concat $
   [ [ className =? c --> doFloat | c <- myCFloats ],
     [ title     =? t --> doFloat | t <- myTFloats ] ]
   where
@@ -94,6 +96,7 @@ myManageHook = composeAll . concat $
                 , "Cookies"
                 , "Library"
                 ]
+myManageHook = composeAll (myShiftHooks ++ myFloatHooks)
 
 
 --------------------------------------------------------------------------------
@@ -101,7 +104,7 @@ myManageHook = composeAll . concat $
 --
 imLayout = withIM ratio rosters chatLayout where
   ratio = 1%7
-  rosters = (ClassName "Empathy") `And` (Role "contact_list")
+  rosters = (ClassName "Instantbird-bin") `And` (Role "blist")
   chatLayout = Grid
 
 myLayout = avoidStruts (
