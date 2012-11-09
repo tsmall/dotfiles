@@ -41,8 +41,6 @@ myXmonadPrompt c =
              , ("copyToWorkspace", withWorkspace defaultXPConfig (windows . copy))
              , ("renameWorkspace", renameWorkspace defaultXPConfig)
              , ("removeWorkspace", removeWorkspace)
-               
-             , ("sublime", namedScratchpadAction scratchpads "sublime")
              ]
   in xmonadPromptC cmds c
 
