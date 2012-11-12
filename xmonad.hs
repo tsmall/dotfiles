@@ -3,6 +3,7 @@ import XMonad
 import XMonad.Actions.CopyWindow(copy)
 import XMonad.Actions.DynamicWorkspaces
 import XMonad.Hooks.DynamicLog
+import XMonad.Hooks.EwmhDesktops
 import XMonad.Hooks.ManageDocks
 import XMonad.Layout.Grid
 import XMonad.Layout.IM
@@ -18,6 +19,18 @@ import XMonad.Util.Run(spawnPipe)
 import System.IO
 
 
+-------------------------------------------------------------------------------
+-- Terminal
+--
+myTerminal = "/usr/bin/urxvt"
+
+
+-------------------------------------------------------------------------------
+-- Workspaces
+--
+myWorkspaces = ["1:web","2:todo","3:code","4:chat"] ++ map show [5..9]
+
+
 --------------------------------------------------------------------------------
 -- Promptable actions
 --
@@ -28,8 +41,6 @@ myXmonadPrompt c =
              , ("copyToWorkspace", withWorkspace defaultXPConfig (windows . copy))
              , ("renameWorkspace", renameWorkspace defaultXPConfig)
              , ("removeWorkspace", removeWorkspace)
-               
-             , ("sublime", namedScratchpadAction scratchpads "sublime")
              ]
   in xmonadPromptC cmds c
 
@@ -71,11 +82,13 @@ scratchpads = [
 --
 -- To find the property name associated with a program, use
 -- `xprop | grep WM_CLASS` and click on the client you're interested in.
-myManageHook = composeAll . concat $
+--
+myShiftHooks = [ className =? "Instantbird-bin" --> doShift "4:chat" ]
+myFloatHooks = concat $
   [ [ className =? c --> doFloat | c <- myCFloats ],
     [ title     =? t --> doFloat | t <- myTFloats ] ]
   where
-    myCFloats = [ "Gimp", "Shutter", "Skype", "VirtualBox" ]
+    myCFloats = [ "Gimp", "MPlayer", "Shutter", "Skype", "VirtualBox" ]
     myTFloats = [ "Aurora Preferences"
                 , "About Aurora"
                 , "Firefox Preferences"
@@ -83,6 +96,7 @@ myManageHook = composeAll . concat $
                 , "Cookies"
                 , "Library"
                 ]
+myManageHook = composeAll (myShiftHooks ++ myFloatHooks)
 
 
 --------------------------------------------------------------------------------
@@ -90,7 +104,7 @@ myManageHook = composeAll . concat $
 --
 imLayout = withIM ratio rosters chatLayout where
   ratio = 1%7
-  rosters = (ClassName "Empathy") `And` (Role "contact_list")
+  rosters = (ClassName "Instantbird-bin") `And` (Role "blist")
   chatLayout = Grid
 
 myLayout = avoidStruts (
@@ -112,8 +126,11 @@ main = do
   xmproc <- spawnPipe "/usr/bin/xmobar /home/tom/.xmobarrc"
   xmonad $ defaultConfig
    { modMask = mod4Mask
+   , workspaces = myWorkspaces
+   , terminal = myTerminal
    , manageHook = manageDocks <+> myManageHook <+> namedScratchpadManageHook scratchpads
    , layoutHook = myLayout
+   , handleEventHook = fullscreenEventHook
    , logHook = dynamicLogWithPP xmobarPP
                    { ppOutput = hPutStrLn xmproc
                    , ppTitle = xmobarColor "green" "" . shorten 50
