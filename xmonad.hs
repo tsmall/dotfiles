@@ -5,8 +5,10 @@ import XMonad.Actions.DynamicWorkspaces
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.EwmhDesktops
 import XMonad.Hooks.ManageDocks
+import XMonad.Hooks.ManageHelpers(isFullscreen, doFullFloat)
 import XMonad.Layout.Grid
 import XMonad.Layout.IM
+import XMonad.Layout.NoBorders(smartBorders)
 import XMonad.Layout.SimpleFloat
 import XMonad.Layout.Tabbed
 import XMonad.Layout.TwoPane
@@ -96,7 +98,8 @@ myFloatHooks = concat $
                 , "Cookies"
                 , "Library"
                 ]
-myManageHook = composeAll (myShiftHooks ++ myFloatHooks)
+myFullscreenHooks = [isFullscreen --> (doF W.focusDown <+> doFullFloat)]
+myManageHook = composeAll (myShiftHooks ++ myFloatHooks ++ myFullscreenHooks)
 
 
 --------------------------------------------------------------------------------
@@ -129,7 +132,7 @@ main = do
    , workspaces = myWorkspaces
    , terminal = myTerminal
    , manageHook = manageDocks <+> myManageHook <+> namedScratchpadManageHook scratchpads
-   , layoutHook = myLayout
+   , layoutHook = smartBorders (myLayout)
    , handleEventHook = fullscreenEventHook
    , logHook = dynamicLogWithPP xmobarPP
                    { ppOutput = hPutStrLn xmproc
