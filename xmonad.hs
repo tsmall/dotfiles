@@ -88,16 +88,14 @@ scratchpads = [
 --
 myShiftHooks = [ className =? "Instantbird" --> doShift chatWorkspace ]
 myFloatHooks = concat $
-  [ [ className =? c --> doFloat | c <- myCFloats ],
-    [ title     =? t --> doFloat | t <- myTFloats ] ]
+  [ [ className =? c --> doFloat | c <- myCFloats ]
+  , [ title     =? t --> doFloat | t <- myTFloats ]
+  , [(className =? "Firefox" <&&> resource =? "Dialog") --> doFloat]
+  ]
   where
-    myCFloats = [ "Gimp", "MPlayer", "Shutter", "Skype", "VirtualBox" ]
-    myTFloats = [ "Aurora Preferences"
-                , "About Aurora"
-                , "Firefox Preferences"
+    myCFloats = [ "Gimp", "MPlayer", "Shutter", "Skype", "VirtualBox", "xpad" ]
+    myTFloats = [ "About Aurora"
                 , "Downloads"
-                , "Cookies"
-                , "Library"
                 ]
 myFullscreenHooks = [isFullscreen --> (doF W.focusDown <+> doFullFloat)]
 myManageHook = composeAll (myShiftHooks ++ myFloatHooks ++ myFullscreenHooks)
