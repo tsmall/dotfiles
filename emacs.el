@@ -147,10 +147,11 @@ Display the number of matches and save it to the kill ring."
 ;; Go
 (require 'go-mode-load)
 
-;; Haskell
-(load "~/etc/dotfiles/emacs.d/site-lisp/haskell-mode/haskell-site-file")
-(add-hook 'haskell-mode-hook 'turn-on-haskell-doc-mode)
-(add-hook 'haskell-mode-hook 'turn-on-haskell-indentation)
+;; haskell-mode (this should be installed with ELPA)
+(ignore-errors
+  (require 'haskell-mode)
+  (add-hook 'haskell-mode-hook 'turn-on-haskell-doc-mode)
+  (add-hook 'haskell-mode-hook 'turn-on-haskell-indentation))
 
 ;; Jabber
 (add-to-list 'load-path "~/etc/dotfiles/emacs.d/site-lisp/emacs-jabber-0.8.0")

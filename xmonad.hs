@@ -1,24 +1,36 @@
+import qualified Data.Map as M
 import Data.Ratio ((%))
+import Text.Printf (printf)
+import System.IO
 import XMonad
-import XMonad.Actions.CopyWindow(copy)
+import XMonad.Actions.CopyWindow (copy)
 import XMonad.Actions.DynamicWorkspaces
+import qualified XMonad.Actions.Submap as SM
+import XMonad.Actions.WindowGo (runOrRaise)
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.EwmhDesktops
 import XMonad.Hooks.ManageDocks
-import XMonad.Hooks.ManageHelpers(isFullscreen, doFullFloat)
+import XMonad.Hooks.ManageHelpers (isFullscreen, doFullFloat)
+import XMonad.Hooks.UrgencyHook
 import XMonad.Layout.Grid
 import XMonad.Layout.IM
-import XMonad.Layout.NoBorders(smartBorders)
+import XMonad.Layout.NoBorders (smartBorders)
 import XMonad.Layout.SimpleFloat
 import XMonad.Layout.Tabbed
 import XMonad.Layout.TwoPane
 import XMonad.Prompt
 import XMonad.Prompt.XMonad
 import qualified XMonad.StackSet as W
-import XMonad.Util.EZConfig(additionalKeys)
+import XMonad.Util.EZConfig (additionalKeys, mkKeymap)
 import XMonad.Util.NamedScratchpad
-import XMonad.Util.Run(spawnPipe)
-import System.IO
+import XMonad.Util.Run (spawnPipe)
+
+
+-------------------------------------------------------------------------------
+-- Helper Functions
+--
+runElisp :: String -> X ()
+runElisp elisp = spawn $ printf "emacsclient --eval '%s'" elisp
 
 
 -------------------------------------------------------------------------------
@@ -30,7 +42,8 @@ myTerminal = "/usr/bin/urxvt"
 -------------------------------------------------------------------------------
 -- Workspaces
 --
-myWorkspaces = ["1:web","2:todo","3:code","4:chat"] ++ map show [5..9]
+chatWorkspace = "4:chat"
+myWorkspaces = ["1:web","2:code","3:ref",chatWorkspace] ++ map show [5..9]
 
 
 --------------------------------------------------------------------------------
@@ -43,40 +56,70 @@ myXmonadPrompt c =
              , ("copyToWorkspace", withWorkspace defaultXPConfig (windows . copy))
              , ("renameWorkspace", renameWorkspace defaultXPConfig)
              , ("removeWorkspace", removeWorkspace)
+
+             , ("lock", spawn "xscreensaver-command -lock")
+
+             , ("pomodoroStart", runElisp "(pomodoro-start)")
+             , ("pomodoroStartShortBreak", runElisp "(pomodoro-start-short-break)")
+             , ("pomodoroStartLongBreak", runElisp "(pomodoro-start-long-break)")
              ]
   in xmonadPromptC cmds c
 
 
 --------------------------------------------------------------------------------
+-- Run or Raise shortcuts
+--
+runOrRaiseAurora = runOrRaise "aurora" (className =? "Firefox")
+runOrRaiseChrome = runOrRaise "google-chrome" (className =? "Google-chrome")
+runOrRaiseEmacs = runOrRaise "emacs" (className =? "Emacs")
+
+
+--------------------------------------------------------------------------------
 -- Key bindings
 --
-myKeys = [
-  ((mod4Mask .|. shiftMask, xK_l), spawn "xscreensaver-command -lock"),
-  ((mod4Mask, xK_d), spawn "dmenu_run"),
+myKeys = [ ((mod4Mask, xK_d), spawn "dmenu_run")
+         , ((mod4Mask .|. shiftMask, xK_l), launchKeymap)
+         , ((mod4Mask, xK_s), scratchpadKeymap)
+         , ((mod4Mask, xK_x), myXmonadPrompt defaultXPConfig)
 
-  -- Scratchpads
-  ((mod4Mask, xK_s), namedScratchpadAction scratchpads "sublime"),
+           -- Quick App Shortcuts
+         , ((mod4Mask, xK_F1), runOrRaiseEmacs)
+         , ((mod4Mask, xK_F2), runOrRaiseChrome)
+         , ((mod4Mask, xK_F3), runOrRaiseAurora)
 
-  -- Start the interactive prompt to ask for one of my custom-defined commands.
-  ((mod4Mask, xK_x), myXmonadPrompt defaultXPConfig)
+           -- Volume
+         , ((0, 0x1008FF12), spawn "amixer -q set Master toggle")  -- mute
+         , ((0, 0x1008FF11), spawn "amixer -q set Master 5%-")     -- volume down
+         , ((0, 0x1008FF13), spawn "amixer -q set Master 5%+")     -- volume up
 
-  -- Volume
-  -- Implementing these here overrides gnome-settings-daemon's handling of them,
-  -- and since that includes the notification feedback, I'm commenting these out
-  -- and letting it do its thing.
-  --
-  -- ((0, 0x1008FF12), spawn "amixer -q set Master toggle"),  -- mute
-  -- ((0, 0x1008FF11), spawn "amixer -q set Master 5%-"),     -- volume down
-  -- ((0, 0x1008FF13), spawn "amixer -q set Master 5%+")      -- volume up
-  ]
+           -- Music Control
+         , ((0, 0x1008ff14), spawn "mpc toggle")
+         , ((0, 0x1008ff15), spawn "mpc pause")
+         , ((0, 0x1008ff16), spawn "mpc prev")
+         , ((0, 0x1008ff17), spawn "mpc next")
+         ]
+  where launchKeymap = SM.submap . M.fromList $ [
+          ((0, xK_a), runOrRaiseAurora),
+          ((0, xK_c), runOrRaiseChrome),
+          ((0, xK_e), runOrRaiseEmacs)
+          ]
+        scratchpadKeymap = SM.submap . M.fromList $ [
+          ((0, xK_g), namedScratchpadAction scratchpads "google-music"),
+          ((0, xK_p), namedScratchpadAction scratchpads "pandora"),
+          ((0, xK_r), namedScratchpadAction scratchpads "rdio")
+          ]
 
 
 --------------------------------------------------------------------------------
 -- Scratchpads
 --
-scratchpads = [
-  NS "sublime" "sublime" (className =? "Sublime") (customFloating $ W.RationalRect (1/6) (1/6) (2/3) (2/3))
-  ]
+scratchpads = [ webappScratchpad "google-music"
+              , webappScratchpad "pandora"
+              , webappScratchpad "rdio"
+              ]
+  where
+    webappScratchpad exe = NS exe exe (className =? exe) scratchpadFloat
+    scratchpadFloat = (customFloating $ W.RationalRect 0.1 0.1 0.8 0.8)
 
 
 --------------------------------------------------------------------------------
@@ -85,18 +128,16 @@ scratchpads = [
 -- To find the property name associated with a program, use
 -- `xprop | grep WM_CLASS` and click on the client you're interested in.
 --
-myShiftHooks = [ className =? "Instantbird-bin" --> doShift "4:chat" ]
+myShiftHooks = [ className =? "Instantbird" --> doShift chatWorkspace ]
 myFloatHooks = concat $
-  [ [ className =? c --> doFloat | c <- myCFloats ],
-    [ title     =? t --> doFloat | t <- myTFloats ] ]
+  [ [ className =? c --> doFloat | c <- myCFloats ]
+  , [ title     =? t --> doFloat | t <- myTFloats ]
+  , [(className =? "Firefox" <&&> resource =? "Dialog") --> doFloat]
+  ]
   where
-    myCFloats = [ "Gimp", "MPlayer", "Shutter", "Skype", "VirtualBox" ]
-    myTFloats = [ "Aurora Preferences"
-                , "About Aurora"
-                , "Firefox Preferences"
+    myCFloats = [ "Gimp", "MPlayer", "Shutter", "Skype", "VirtualBox", "xpad" ]
+    myTFloats = [ "About Aurora"
                 , "Downloads"
-                , "Cookies"
-                , "Library"
                 ]
 myFullscreenHooks = [isFullscreen --> (doF W.focusDown <+> doFullFloat)]
 myManageHook = composeAll (myShiftHooks ++ myFloatHooks ++ myFullscreenHooks)
@@ -107,7 +148,7 @@ myManageHook = composeAll (myShiftHooks ++ myFloatHooks ++ myFullscreenHooks)
 --
 imLayout = withIM ratio rosters chatLayout where
   ratio = 1%7
-  rosters = (ClassName "Instantbird-bin") `And` (Role "blist")
+  rosters = (ClassName "Instantbird") `And` (Title "Instantbird")
   chatLayout = Grid
 
 myLayout = avoidStruts (
@@ -124,10 +165,17 @@ myLayout = avoidStruts (
 --------------------------------------------------------------------------------
 -- Main
 --
-main = do
+xinit :: IO ()
+xinit = do
   spawn "setxkbmap -option ctrl:nocaps"
+  spawn "xsetroot -cursor_name left_ptr"
+  spawn "synclient TapButton1=0 TapButton2=0 TapButton3=0"
+  spawn "xrdb -merge ~/.Xdefaults"
+
+main = do
+  xinit
   xmproc <- spawnPipe "/usr/bin/xmobar /home/tom/.xmobarrc"
-  xmonad $ defaultConfig
+  xmonad $ withUrgencyHook NoUrgencyHook defaultConfig
    { modMask = mod4Mask
    , workspaces = myWorkspaces
    , terminal = myTerminal
@@ -137,5 +185,6 @@ main = do
    , logHook = dynamicLogWithPP xmobarPP
                    { ppOutput = hPutStrLn xmproc
                    , ppTitle = xmobarColor "green" "" . shorten 50
+                   , ppUrgent = xmobarColor "yellow" "red" . xmobarStrip
                    }
    } `additionalKeys` myKeys
