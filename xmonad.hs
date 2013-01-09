@@ -108,7 +108,7 @@ myManageHook = composeAll (myShiftHooks ++ myFloatHooks ++ myFullscreenHooks)
 --
 imLayout = withIM ratio rosters chatLayout where
   ratio = 1%7
-  rosters = (ClassName "Instantbird-bin") `And` (Role "blist")
+  rosters = (ClassName "Instantbird") `And` (Title "Instantbird")
   chatLayout = Grid
 
 myLayout = avoidStruts (
