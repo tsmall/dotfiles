@@ -57,6 +57,8 @@ myXmonadPrompt c =
              , ("renameWorkspace", renameWorkspace defaultXPConfig)
              , ("removeWorkspace", removeWorkspace)
 
+             , ("lock", spawn "xscreensaver-command -lock")
+
              , ("pomodoroStart", runElisp "(pomodoro-start)")
              , ("pomodoroStartShortBreak", runElisp "(pomodoro-start-short-break)")
              , ("pomodoroStartLongBreak", runElisp "(pomodoro-start-long-break)")
