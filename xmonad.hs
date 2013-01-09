@@ -125,8 +125,15 @@ myLayout = avoidStruts (
 --------------------------------------------------------------------------------
 -- Main
 --
-main = do
+xinit :: IO ()
+xinit = do
   spawn "setxkbmap -option ctrl:nocaps"
+  spawn "xsetroot -cursor_name left_ptr"
+  spawn "synclient TapButton1=0 TapButton2=0 TapButton3=0"
+  spawn "xrdb -merge ~/.Xdefaults"
+
+main = do
+  xinit
   xmproc <- spawnPipe "/usr/bin/xmobar /home/tom/.xmobarrc"
   xmonad $ defaultConfig
    { modMask = mod4Mask
