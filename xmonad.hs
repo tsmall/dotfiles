@@ -30,7 +30,8 @@ myTerminal = "/usr/bin/urxvt"
 -------------------------------------------------------------------------------
 -- Workspaces
 --
-myWorkspaces = ["1:web","2:todo","3:code","4:chat"] ++ map show [5..9]
+chatWorkspace = "4:chat"
+myWorkspaces = ["1:web","2:code","3:ref",chatWorkspace] ++ map show [5..9]
 
 
 --------------------------------------------------------------------------------
@@ -85,7 +86,7 @@ scratchpads = [
 -- To find the property name associated with a program, use
 -- `xprop | grep WM_CLASS` and click on the client you're interested in.
 --
-myShiftHooks = [ className =? "Instantbird-bin" --> doShift "4:chat" ]
+myShiftHooks = [ className =? "Instantbird" --> doShift chatWorkspace ]
 myFloatHooks = concat $
   [ [ className =? c --> doFloat | c <- myCFloats ],
     [ title     =? t --> doFloat | t <- myTFloats ] ]
