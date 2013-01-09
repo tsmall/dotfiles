@@ -87,9 +87,13 @@ myKeys = [
 --------------------------------------------------------------------------------
 -- Scratchpads
 --
-scratchpads = [
-  NS "sublime" "sublime" (className =? "Sublime") (customFloating $ W.RationalRect (1/6) (1/6) (2/3) (2/3))
-  ]
+scratchpads = [ webappScratchpad "google-music"
+              , webappScratchpad "pandora"
+              , webappScratchpad "rdio"
+              ]
+  where
+    webappScratchpad exe = NS exe exe (className =? exe) scratchpadFloat
+    scratchpadFloat = (customFloating $ W.RationalRect 0.1 0.1 0.8 0.8)
 
 
 --------------------------------------------------------------------------------
