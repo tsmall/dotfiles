@@ -135,7 +135,7 @@ xinit = do
 main = do
   xinit
   xmproc <- spawnPipe "/usr/bin/xmobar /home/tom/.xmobarrc"
-  xmonad $ defaultConfig
+  xmonad $ withUrgencyHook NoUrgencyHook defaultConfig
    { modMask = mod4Mask
    , workspaces = myWorkspaces
    , terminal = myTerminal
@@ -145,5 +145,6 @@ main = do
    , logHook = dynamicLogWithPP xmobarPP
                    { ppOutput = hPutStrLn xmproc
                    , ppTitle = xmobarColor "green" "" . shorten 50
+                   , ppUrgent = xmobarColor "yellow" "red" . xmobarStrip
                    }
    } `additionalKeys` myKeys
