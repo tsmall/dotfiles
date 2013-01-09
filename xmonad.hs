@@ -3,6 +3,7 @@ import Text.Printf (printf)
 import XMonad
 import XMonad.Actions.CopyWindow(copy)
 import XMonad.Actions.DynamicWorkspaces
+import XMonad.Actions.WindowGo (runOrRaise)
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.EwmhDesktops
 import XMonad.Hooks.ManageDocks
@@ -58,6 +59,14 @@ myXmonadPrompt c =
              , ("pomodoroStartLongBreak", runElisp "(pomodoro-start-long-break)")
              ]
   in xmonadPromptC cmds c
+
+
+--------------------------------------------------------------------------------
+-- Run or Raise shortcuts
+--
+runOrRaiseAurora = runOrRaise "aurora" (className =? "Firefox")
+runOrRaiseChrome = runOrRaise "google-chrome" (className =? "Google-chrome")
+runOrRaiseEmacs = runOrRaise "emacs" (className =? "Emacs")
 
 
 --------------------------------------------------------------------------------
