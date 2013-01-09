@@ -1,8 +1,10 @@
+import qualified Data.Map as M
 import Data.Ratio ((%))
 import Text.Printf (printf)
 import XMonad
 import XMonad.Actions.CopyWindow(copy)
 import XMonad.Actions.DynamicWorkspaces
+import qualified XMonad.Actions.Submap as SM
 import XMonad.Actions.WindowGo (runOrRaise)
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.EwmhDesktops
@@ -72,25 +74,37 @@ runOrRaiseEmacs = runOrRaise "emacs" (className =? "Emacs")
 --------------------------------------------------------------------------------
 -- Key bindings
 --
-myKeys = [
-  ((mod4Mask .|. shiftMask, xK_l), spawn "xscreensaver-command -lock"),
-  ((mod4Mask, xK_d), spawn "dmenu_run"),
+myKeys = [ ((mod4Mask, xK_d), spawn "dmenu_run")
+         , ((mod4Mask .|. shiftMask, xK_l), launchKeymap)
+         , ((mod4Mask, xK_s), scratchpadKeymap)
+         , ((mod4Mask, xK_x), myXmonadPrompt defaultXPConfig)
 
-  -- Scratchpads
-  ((mod4Mask, xK_s), namedScratchpadAction scratchpads "sublime"),
+           -- Quick App Shortcuts
+         , ((mod4Mask, xK_F1), runOrRaiseEmacs)
+         , ((mod4Mask, xK_F2), runOrRaiseChrome)
+         , ((mod4Mask, xK_F3), runOrRaiseAurora)
 
-  -- Start the interactive prompt to ask for one of my custom-defined commands.
-  ((mod4Mask, xK_x), myXmonadPrompt defaultXPConfig)
+           -- Volume
+         , ((0, 0x1008FF12), spawn "amixer -q set Master toggle")  -- mute
+         , ((0, 0x1008FF11), spawn "amixer -q set Master 5%-")     -- volume down
+         , ((0, 0x1008FF13), spawn "amixer -q set Master 5%+")     -- volume up
 
-  -- Volume
-  -- Implementing these here overrides gnome-settings-daemon's handling of them,
-  -- and since that includes the notification feedback, I'm commenting these out
-  -- and letting it do its thing.
-  --
-  -- ((0, 0x1008FF12), spawn "amixer -q set Master toggle"),  -- mute
-  -- ((0, 0x1008FF11), spawn "amixer -q set Master 5%-"),     -- volume down
-  -- ((0, 0x1008FF13), spawn "amixer -q set Master 5%+")      -- volume up
-  ]
+           -- Music Control
+         , ((0, 0x1008ff14), spawn "mpc toggle")
+         , ((0, 0x1008ff15), spawn "mpc pause")
+         , ((0, 0x1008ff16), spawn "mpc prev")
+         , ((0, 0x1008ff17), spawn "mpc next")
+         ]
+  where launchKeymap = SM.submap . M.fromList $ [
+          ((0, xK_a), runOrRaiseAurora),
+          ((0, xK_c), runOrRaiseChrome),
+          ((0, xK_e), runOrRaiseEmacs)
+          ]
+        scratchpadKeymap = SM.submap . M.fromList $ [
+          ((0, xK_g), namedScratchpadAction scratchpads "google-music"),
+          ((0, xK_p), namedScratchpadAction scratchpads "pandora"),
+          ((0, xK_r), namedScratchpadAction scratchpads "rdio")
+          ]
 
 
 --------------------------------------------------------------------------------
