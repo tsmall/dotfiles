@@ -1,28 +1,29 @@
 import qualified Data.Map as M
 import Data.Ratio ((%))
 import Text.Printf (printf)
+import System.IO
 import XMonad
-import XMonad.Actions.CopyWindow(copy)
+import XMonad.Actions.CopyWindow (copy)
 import XMonad.Actions.DynamicWorkspaces
 import qualified XMonad.Actions.Submap as SM
 import XMonad.Actions.WindowGo (runOrRaise)
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.EwmhDesktops
 import XMonad.Hooks.ManageDocks
-import XMonad.Hooks.ManageHelpers(isFullscreen, doFullFloat)
+import XMonad.Hooks.ManageHelpers (isFullscreen, doFullFloat)
+import XMonad.Hooks.UrgencyHook
 import XMonad.Layout.Grid
 import XMonad.Layout.IM
-import XMonad.Layout.NoBorders(smartBorders)
+import XMonad.Layout.NoBorders (smartBorders)
 import XMonad.Layout.SimpleFloat
 import XMonad.Layout.Tabbed
 import XMonad.Layout.TwoPane
 import XMonad.Prompt
 import XMonad.Prompt.XMonad
 import qualified XMonad.StackSet as W
-import XMonad.Util.EZConfig(additionalKeys)
+import XMonad.Util.EZConfig (additionalKeys, mkKeymap)
 import XMonad.Util.NamedScratchpad
-import XMonad.Util.Run(spawnPipe)
-import System.IO
+import XMonad.Util.Run (spawnPipe)
 
 
 -------------------------------------------------------------------------------
