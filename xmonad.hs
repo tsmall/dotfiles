@@ -1,4 +1,5 @@
 import Data.Ratio ((%))
+import Text.Printf (printf)
 import XMonad
 import XMonad.Actions.CopyWindow(copy)
 import XMonad.Actions.DynamicWorkspaces
@@ -19,6 +20,13 @@ import XMonad.Util.EZConfig(additionalKeys)
 import XMonad.Util.NamedScratchpad
 import XMonad.Util.Run(spawnPipe)
 import System.IO
+
+
+-------------------------------------------------------------------------------
+-- Helper Functions
+--
+runElisp :: String -> X ()
+runElisp elisp = spawn $ printf "emacsclient --eval '%s'" elisp
 
 
 -------------------------------------------------------------------------------
@@ -44,6 +52,10 @@ myXmonadPrompt c =
              , ("copyToWorkspace", withWorkspace defaultXPConfig (windows . copy))
              , ("renameWorkspace", renameWorkspace defaultXPConfig)
              , ("removeWorkspace", removeWorkspace)
+
+             , ("pomodoroStart", runElisp "(pomodoro-start)")
+             , ("pomodoroStartShortBreak", runElisp "(pomodoro-start-short-break)")
+             , ("pomodoroStartLongBreak", runElisp "(pomodoro-start-long-break)")
              ]
   in xmonadPromptC cmds c
 
