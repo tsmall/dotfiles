@@ -3,6 +3,7 @@
 *.elc
 *~
 bash/local
+sawfish/custom
 
 # Directories
 emacs.d/url
