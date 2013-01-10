@@ -1,0 +1,68 @@
+;; -*-lisp-*-
+
+(require 'jump-or-exec)
+
+;; -----------------------------------------------------------------------------
+;; Helper Functions
+;; -----------------------------------------------------------------------------
+
+(define (run-cmd command)
+    "Runs a command asynchronously, detached from the Sawfish process."
+  (format standard-error ">> %s\n" command)
+  (system (concat command " & disown -a")))
+
+(define (mpc command)
+    "Runs COMMAND through the mpc client."
+  (run-cmd (format nil "mpc %s" command)))
+
+(define (run-or-raise title command)
+    "Switches to program TITLE or runs COMMAND to start it if it's not running."
+  (jump-or-exec title
+                (lambda () (run-cmd command))
+                (lambda (wind) (display-window wind))))
+
+(define (set-volume vol)
+    "Sets the volume for the master sound card to VOL."
+  (run-cmd (format nil "amixer -q set Master %s" vol)))
+
+;; -----------------------------------------------------------------------------
+;; Initialization
+;; -----------------------------------------------------------------------------
+
+(run-cmd "setxkbmap -option ctrl:nocaps")
+(run-cmd "xsetroot -cursor_name left_ptr")
+(run-cmd "synclient TapButton1=0 TapButton2=0 TapButton3=0")
+(run-cmd "xrdb -merge ~/.Xdefaults")
+
+;; TODO: This should be in a local settings file.
+;; (setq xterm-program "terminator")
+
+;; -----------------------------------------------------------------------------
+;; Key Bindings
+;; -----------------------------------------------------------------------------
+
+(define apps-keymap (make-keymap))
+(bind-keys apps-keymap
+  "a" '(run-or-raise "Aurora" "aurora")
+  "c" '(run-or-raise "Google Chrome" "google-chrome")
+  "e" '(run-or-raise "emacs" "emacs")
+  "g" '(run-or-raise "Google Play" "google-music")
+  "p" '(run-or-raise "Pandora" "pandora")
+  "r" '(run-or-raise "Rdio" "rdio")
+  "s" '(run-or-raise "Sublime" "sublime"))
+
+(bind-keys root-window-keymap "Button3-Click" 'popup-window-list)
+
+(bind-keys global-keymap
+  "XF86AudioMute"        '(set-volume "toggle")
+  "XF86AudioRaiseVolume" '(set-volume "5%+")
+  "XF86AudioLowerVolume" '(set-volume "5%-")
+  "XF86AudioPlay"        '(mpc "toggle")
+  "XF86AudioStop"        '(mpc "stop")
+  "XF86AudioNext"        '(mpc "next")
+  "XF86AudioPrev"        '(mpc "prev"))
+
+(bind-keys global-keymap
+  "W-e"    '(run-or-raise "emacs" "emacs")
+  "W-l"    apps-keymap
+  "W-S-l"  '(run-cmd "xscreensaver-command -lock"))

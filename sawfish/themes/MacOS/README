@@ -1,0 +1,24 @@
+Traditional MacOS theme, based on System 7 screenshots.
+
+Initial draft made with sawfish-themer, and hacked up by hand to
+correctly handle varying text widths in the title bar.  Some of the
+code for that was borrowed from microGUI and Chromium.
+
+Note especially the fact that you can't resize a window by grabbing
+the borders!
+
+MacOS has a lot of different types of windows that all get lumped in
+as 'transient' under X (modal dialogs, modeless dialogs, palettes,
+etc).  This theme has a pretty conservative approach to transients (in
+"transient" and "shaded-transient"), but look at its handling for
+"shaped-transient" windows for an alternate approach.  This theme is
+not totally accurate, because I don't have access to a Mac for
+thorough testing.  I'd love to hear about any improvements.
+
+If anyone has a traditional MacOS gtk theme (pref. engine), I'd love
+to hear about that, too.  All the ones I can find are MacOS8 pixmap
+themes.
+
+Created by Jason F. McBrayer
+jmcbray@carcosa.net
+No useful URL, sorry.
