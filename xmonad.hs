@@ -77,6 +77,14 @@ runOrRaiseEmacs = runOrRaise "emacs" (className =? "Emacs")
 --------------------------------------------------------------------------------
 -- Key bindings
 --
+xK_XF86AudioMute = 0x1008FF12
+xK_XF86AudioLowerVolume = 0x1008FF11
+xK_XF86AudioRaiseVolume = 0x1008FF13
+xK_XF86AudioPlay = 0x1008FF14
+xK_XF86AudioStop = 0x1008FF15
+xK_XF86AudioPrev = 0x1008FF16
+xK_XF86AudioNext = 0x1008FF17
+
 myKeys = [ ((mod4Mask, xK_d), spawn "dmenu_run")
          , ((mod4Mask .|. shiftMask, xK_l), launchKeymap)
          , ((mod4Mask, xK_s), scratchpadKeymap)
@@ -88,15 +96,15 @@ myKeys = [ ((mod4Mask, xK_d), spawn "dmenu_run")
          , ((mod4Mask, xK_F3), runOrRaiseAurora)
 
            -- Volume
-         , ((0, 0x1008FF12), spawn "amixer -q set Master toggle")  -- mute
-         , ((0, 0x1008FF11), spawn "amixer -q set Master 5%-")     -- volume down
-         , ((0, 0x1008FF13), spawn "amixer -q set Master 5%+")     -- volume up
+         , ((0, xK_XF86AudioMute), spawn "amixer -q set Master toggle")
+         , ((0, xK_XF86AudioLowerVolume), spawn "amixer -q set Master 5%-")
+         , ((0, xK_XF86AudioRaiseVolume), spawn "amixer -q set Master 5%+")
 
            -- Music Control
-         , ((0, 0x1008ff14), spawn "mpc toggle")
-         , ((0, 0x1008ff15), spawn "mpc pause")
-         , ((0, 0x1008ff16), spawn "mpc prev")
-         , ((0, 0x1008ff17), spawn "mpc next")
+         , ((0, xK_XF86AudioPlay), spawn "mpc toggle")
+         , ((0, xK_XF86AudioStop), spawn "mpc pause")
+         , ((0, xK_XF86AudioPrev), spawn "mpc prev")
+         , ((0, xK_XF86AudioNext), spawn "mpc next")
          ]
   where launchKeymap = SM.submap . M.fromList $ [
           ((0, xK_a), runOrRaiseAurora),
