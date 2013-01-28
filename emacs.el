@@ -141,66 +141,51 @@ Display the number of matches and save it to the kill ring."
 (add-to-list 'load-path "~/etc/dotfiles/emacs.d/site-lisp/deft")
 (require 'deft)
 
-;; Erlang
-(require 'erlang-start)
-
-;; Go
-(require 'go-mode-load)
-
-;; haskell-mode (this should be installed with ELPA)
-(ignore-errors
-  (require 'haskell-mode)
-  (add-hook 'haskell-mode-hook 'turn-on-haskell-doc-mode)
-  (add-hook 'haskell-mode-hook 'turn-on-haskell-indentation))
-
-;; Jabber
-(add-to-list 'load-path "~/etc/dotfiles/emacs.d/site-lisp/emacs-jabber-0.8.0")
-(load "jabber-autoloads")
-(setq jabber-chat-fill-long-lines nil)
-(add-hook 'jabber-chat-mode-hook
-          (lambda ()
-            (toggle-word-wrap)
-            (turn-on-flyspell)))
-
-;; Jabber font colors (assuming monokai theme)
-(require 'jabber)
-(set-face-attribute 'jabber-roster-user-away nil :foreground "royal blue")
-(set-face-attribute 'jabber-roster-user-online nil :foreground "deep sky blue" :weight 'normal)
-(set-face-attribute 'jabber-chat-prompt-local nil :foreground "royal blue")
-
-;; JavaScript
-(autoload 'js2-mode "js2" nil t)
-(add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
-
-;; Markdown
-(autoload 'markdown-mode "markdown-mode.el"
-  "Major mode for editing Markdown files" t)
-
-;; Multi-web-mode
-(require 'multi-web-mode)
-(setq mweb-default-major-mode 'html-mode)
-(setq mweb-tags '((php-mode "<\\?php\\|<\\? \\|<\\?=" "\\?>")
-                  (javascript-mode "<script[^>]*>" "</script>")
-                  (css-mode "<style[^>]*>" "</style>")))
-(setq mweb-filename-extensions '("php" "html"))
-(multi-web-global-mode 1)
-
-;; OCaml
-(setq auto-mode-alist
-          (cons '("\\.ml[iylp]?$" . caml-mode) auto-mode-alist))
-(autoload 'caml-mode "caml" "Major mode for editing Caml code." t)
-(autoload 'run-caml "inf-caml" "Run an inferior Caml process." t)
-(if window-system (require 'caml-font))
+;; Diff
+(require 'diff-mode)
+(set-face-attribute 'diff-added nil :foreground "green3")
+(set-face-attribute 'diff-removed nil :foreground "red3")
+(set-face-attribute 'diff-changed nil :foreground "purple")
 
 ;; org
 (load "~/etc/dotfiles/emacs.d/settings/org-mode.el")
 
-;; package.el
+;; -----------------------------------------------------------------------------
+;; Package Configuration
+;; -----------------------------------------------------------------------------
+
 (require 'package)
 (add-to-list 'package-archives
-	     '("marmalade" . "http://marmalade-repo.org/packages/"))
+             '("marmalade" . "http://marmalade-repo.org/packages/"))
 
-;; PHP
-(require 'php-mode)
+(package-initialize)
+(setq package-enable-at-startup nil)
+
+(ignore-errors
+  ;; caml-mode
+  (setq auto-mode-alist
+        (cons '("\\.ml[iylp]?$" . caml-mode) auto-mode-alist))
+  (autoload 'caml-mode "caml" "Major mode for editing Caml code." t)
+  (autoload 'run-caml "inf-caml" "Run an inferior Caml process." t)
+  (if window-system (require 'caml-font))
+
+  ;; haskell-mode
+  (require 'haskell-mode)
+  (add-hook 'haskell-mode-hook 'turn-on-haskell-doc-mode)
+  (add-hook 'haskell-mode-hook 'turn-on-haskell-indentation)
+
+  ;; jabber
+  (require 'jabber)
+  (set-face-attribute 'jabber-roster-user-away nil :foreground "royal blue")
+  (set-face-attribute 'jabber-roster-user-online nil :foreground "deep sky blue" :weight 'normal)
+  (set-face-attribute 'jabber-chat-prompt-local nil :foreground "royal blue")
+  (setq jabber-chat-fill-long-lines nil)
+  (add-hook 'jabber-chat-mode-hook
+            (lambda ()
+              (toggle-word-wrap)
+              (turn-on-flyspell)))
+
+  ;; js2-mode
+  (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode)))
 
 ;;; emacs.el ends here
