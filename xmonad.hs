@@ -30,7 +30,7 @@ import XMonad.Util.Run (spawnPipe)
 -- Helper Functions
 --
 runElisp :: String -> X ()
-runElisp elisp = spawn $ printf "emacsclient --eval '%s'" elisp
+runElisp = spawn . printf "emacsclient --eval '%s'"
 
 
 -------------------------------------------------------------------------------
@@ -174,11 +174,11 @@ myLayout = avoidStruts (
 -- Main
 --
 xinit :: IO ()
-xinit = do
-  spawn "setxkbmap -option ctrl:nocaps"
-  spawn "xsetroot -cursor_name left_ptr"
-  spawn "synclient TapButton1=0 TapButton2=0 TapButton3=0"
-  spawn "xrdb -merge ~/.Xdefaults"
+xinit = mapM_ spawn [ "setxkbmap -option ctrl:nocaps"
+                    , "xsetroot -cursor_name left_ptr"
+                    , "synclient TapButton1=0 TapButton2=0 TapButton3=0"
+                    , "xrdb -merge ~/.Xdefaults"
+                    ]
 
 main = do
   xinit
