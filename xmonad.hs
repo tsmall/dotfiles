@@ -12,9 +12,11 @@ import XMonad.Hooks.EwmhDesktops
 import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.ManageHelpers (isFullscreen, doFullFloat)
 import XMonad.Hooks.UrgencyHook
+import XMonad.Layout.Gaps
 import XMonad.Layout.Grid
 import XMonad.Layout.IM
 import XMonad.Layout.NoBorders (smartBorders)
+import XMonad.Layout.PerWorkspace
 import XMonad.Layout.SimpleFloat
 import XMonad.Layout.Tabbed
 import XMonad.Layout.TwoPane
@@ -30,7 +32,19 @@ import XMonad.Util.Run (spawnPipe)
 -- Helper Functions
 --
 runElisp :: String -> X ()
-runElisp elisp = spawn $ printf "emacsclient --eval '%s'" elisp
+runElisp = spawn . printf "emacsclient --eval '%s'"
+
+toggleVolume :: X ()
+toggleVolume = toggle ["Headphone", "Master"]
+  where toggle outputs = mapM_ spawn $ map amixerCmd outputs
+        amixerCmd = printf "amixer -q set %s toggle"
+
+
+-------------------------------------------------------------------------------
+-- Modifier Key
+--
+myModMask :: KeyMask
+myModMask = mod4Mask
 
 
 -------------------------------------------------------------------------------
@@ -42,8 +56,8 @@ myTerminal = "/usr/bin/urxvt"
 -------------------------------------------------------------------------------
 -- Workspaces
 --
-chatWorkspace = "4:chat"
-myWorkspaces = ["1:web","2:code","3:ref",chatWorkspace] ++ map show [5..9]
+chatWorkspace = "8:chat"
+myWorkspaces = ["1:web","2:code"] ++ map show [3..7] ++ [chatWorkspace] ++ map show [9]
 
 
 --------------------------------------------------------------------------------
@@ -58,6 +72,7 @@ myXmonadPrompt c =
              , ("removeWorkspace", removeWorkspace)
 
              , ("lock", spawn "xscreensaver-command -lock")
+             , ("sleep", spawn "sudo pm-suspend")
 
              , ("pomodoroStart", runElisp "(pomodoro-start)")
              , ("pomodoroStartShortBreak", runElisp "(pomodoro-start-short-break)")
@@ -85,18 +100,19 @@ xK_XF86AudioStop = 0x1008FF15
 xK_XF86AudioPrev = 0x1008FF16
 xK_XF86AudioNext = 0x1008FF17
 
-myKeys = [ ((mod4Mask, xK_d), spawn "dmenu_run")
-         , ((mod4Mask .|. shiftMask, xK_l), launchKeymap)
-         , ((mod4Mask, xK_s), scratchpadKeymap)
-         , ((mod4Mask, xK_x), myXmonadPrompt defaultXPConfig)
+myKeys = [ ((myModMask, xK_d), spawn "dmenu_run")
+         , ((myModMask .|. shiftMask, xK_l), launchKeymap)
+         , ((myModMask, xK_g), sendMessage $ ToggleGaps)
+         , ((myModMask, xK_s), scratchpadKeymap)
+         , ((myModMask, xK_x), myXmonadPrompt defaultXPConfig)
 
            -- Quick App Shortcuts
-         , ((mod4Mask, xK_F1), runOrRaiseEmacs)
-         , ((mod4Mask, xK_F2), runOrRaiseChrome)
-         , ((mod4Mask, xK_F3), runOrRaiseAurora)
+         , ((myModMask, xK_F1), runOrRaiseEmacs)
+         , ((myModMask, xK_F2), runOrRaiseChrome)
+         , ((myModMask, xK_F3), runOrRaiseAurora)
 
            -- Volume
-         , ((0, xK_XF86AudioMute), spawn "amixer -q set Master toggle")
+         , ((0, xK_XF86AudioMute), toggleVolume)
          , ((0, xK_XF86AudioLowerVolume), spawn "amixer -q set Master 5%-")
          , ((0, xK_XF86AudioRaiseVolume), spawn "amixer -q set Master 5%+")
 
@@ -143,9 +159,11 @@ myFloatHooks = concat $
   , [(className =? "Firefox" <&&> resource =? "Dialog") --> doFloat]
   ]
   where
-    myCFloats = [ "Gimp", "MPlayer", "Shutter", "Skype", "VirtualBox", "xpad" ]
+    myCFloats = [ "B2g", "Gimp", "MPlayer", "Shutter", "Skype", "VirtualBox", "xpad" ]
     myTFloats = [ "About Aurora"
+                , "Aurora Preferences"
                 , "Downloads"
+                , "Library"
                 ]
 myFullscreenHooks = [isFullscreen --> (doF W.focusDown <+> doFullFloat)]
 myManageHook = composeAll (myShiftHooks ++ myFloatHooks ++ myFullscreenHooks)
@@ -159,36 +177,42 @@ imLayout = withIM ratio rosters chatLayout where
   rosters = (ClassName "Instantbird") `And` (Title "Instantbird")
   chatLayout = Grid
 
+myTall = Tall 1 (3/100) (1/2)
+
 myLayout = avoidStruts (
-  Tall 1 (3/100) (1/2) |||
-  Mirror (Tall 1 (3/100) (1/2)) |||
+  myTall |||
+  Mirror (myTall) |||
   Full |||
-  imLayout |||
-  TwoPane (3/100) (1/2) |||
   simpleTabbed |||
-  simpleFloat
+  -- TwoPane (3/100) (1/2) |||
+  simpleFloat |||
+  imLayout
   )
+
+myLayoutHook = smartBorders $
+               onWorkspace (myWorkspaces !! 0) (gaps [(L, 250), (R, 250)] myLayout) $
+               smartBorders (myLayout)
 
 
 --------------------------------------------------------------------------------
 -- Main
 --
 xinit :: IO ()
-xinit = do
-  spawn "setxkbmap -option ctrl:nocaps"
-  spawn "xsetroot -cursor_name left_ptr"
-  spawn "synclient TapButton1=0 TapButton2=0 TapButton3=0"
-  spawn "xrdb -merge ~/.Xdefaults"
+xinit = mapM_ spawn [ "setxkbmap -option ctrl:nocaps"
+                    , "xsetroot -cursor_name left_ptr"
+                    , "synclient TapButton1=0 TapButton2=0 TapButton3=0"
+                    , "xrdb -merge ~/.Xdefaults"
+                    ]
 
 main = do
   xinit
   xmproc <- spawnPipe "/usr/bin/xmobar /home/tom/.xmobarrc"
   xmonad $ withUrgencyHook NoUrgencyHook defaultConfig
-   { modMask = mod4Mask
+   { modMask = myModMask
    , workspaces = myWorkspaces
    , terminal = myTerminal
    , manageHook = manageDocks <+> myManageHook <+> namedScratchpadManageHook scratchpads
-   , layoutHook = smartBorders (myLayout)
+   , layoutHook = myLayoutHook
    , handleEventHook = fullscreenEventHook
    , logHook = dynamicLogWithPP xmobarPP
                    { ppOutput = hPutStrLn xmproc
