@@ -54,8 +54,8 @@ myTerminal = "/usr/bin/urxvt"
 -------------------------------------------------------------------------------
 -- Workspaces
 --
-chatWorkspace = "4:chat"
-myWorkspaces = ["1:web","2:code","3:ref",chatWorkspace] ++ map show [5..9]
+chatWorkspace = "8:chat"
+myWorkspaces = ["1:web","2:code"] ++ map show [3..7] ++ [chatWorkspace] ++ map show [9]
 
 
 --------------------------------------------------------------------------------
