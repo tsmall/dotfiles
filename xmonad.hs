@@ -156,9 +156,11 @@ myFloatHooks = concat $
   , [(className =? "Firefox" <&&> resource =? "Dialog") --> doFloat]
   ]
   where
-    myCFloats = [ "Gimp", "MPlayer", "Shutter", "Skype", "VirtualBox", "xpad" ]
+    myCFloats = [ "B2g", "Gimp", "MPlayer", "Shutter", "Skype", "VirtualBox", "xpad" ]
     myTFloats = [ "About Aurora"
+                , "Aurora Preferences"
                 , "Downloads"
+                , "Library"
                 ]
 myFullscreenHooks = [isFullscreen --> (doF W.focusDown <+> doFullFloat)]
 myManageHook = composeAll (myShiftHooks ++ myFloatHooks ++ myFullscreenHooks)
