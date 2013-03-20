@@ -70,6 +70,7 @@ myXmonadPrompt c =
              , ("removeWorkspace", removeWorkspace)
 
              , ("lock", spawn "xscreensaver-command -lock")
+             , ("sleep", spawn "sudo pm-suspend")
 
              , ("pomodoroStart", runElisp "(pomodoro-start)")
              , ("pomodoroStartShortBreak", runElisp "(pomodoro-start-short-break)")
