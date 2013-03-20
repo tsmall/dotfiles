@@ -32,6 +32,10 @@ import XMonad.Util.Run (spawnPipe)
 runElisp :: String -> X ()
 runElisp = spawn . printf "emacsclient --eval '%s'"
 
+toggleVolume :: X ()
+toggleVolume = toggle ["Headphone", "Master"]
+  where toggle outputs = mapM_ spawn $ map amixerCmd outputs
+        amixerCmd = printf "amixer -q set %s toggle"
 
 
 -------------------------------------------------------------------------------
@@ -104,7 +108,7 @@ myKeys = [ ((myModMask, xK_d), spawn "dmenu_run")
          , ((myModMask, xK_F3), runOrRaiseAurora)
 
            -- Volume
-         , ((0, xK_XF86AudioMute), spawn "amixer -q set Master toggle")
+         , ((0, xK_XF86AudioMute), toggleVolume)
          , ((0, xK_XF86AudioLowerVolume), spawn "amixer -q set Master 5%-")
          , ((0, xK_XF86AudioRaiseVolume), spawn "amixer -q set Master 5%+")
 
