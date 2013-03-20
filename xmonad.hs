@@ -12,9 +12,11 @@ import XMonad.Hooks.EwmhDesktops
 import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.ManageHelpers (isFullscreen, doFullFloat)
 import XMonad.Hooks.UrgencyHook
+import XMonad.Layout.Gaps
 import XMonad.Layout.Grid
 import XMonad.Layout.IM
 import XMonad.Layout.NoBorders (smartBorders)
+import XMonad.Layout.PerWorkspace
 import XMonad.Layout.SimpleFloat
 import XMonad.Layout.Tabbed
 import XMonad.Layout.TwoPane
@@ -100,6 +102,7 @@ xK_XF86AudioNext = 0x1008FF17
 
 myKeys = [ ((myModMask, xK_d), spawn "dmenu_run")
          , ((myModMask .|. shiftMask, xK_l), launchKeymap)
+         , ((myModMask, xK_g), sendMessage $ ToggleGaps)
          , ((myModMask, xK_s), scratchpadKeymap)
          , ((myModMask, xK_x), myXmonadPrompt defaultXPConfig)
 
@@ -174,15 +177,21 @@ imLayout = withIM ratio rosters chatLayout where
   rosters = (ClassName "Instantbird") `And` (Title "Instantbird")
   chatLayout = Grid
 
+myTall = Tall 1 (3/100) (1/2)
+
 myLayout = avoidStruts (
-  Tall 1 (3/100) (1/2) |||
-  Mirror (Tall 1 (3/100) (1/2)) |||
+  myTall |||
+  Mirror (myTall) |||
   Full |||
-  imLayout |||
-  TwoPane (3/100) (1/2) |||
   simpleTabbed |||
-  simpleFloat
+  -- TwoPane (3/100) (1/2) |||
+  simpleFloat |||
+  imLayout
   )
+
+myLayoutHook = smartBorders $
+               onWorkspace (myWorkspaces !! 0) (gaps [(L, 250), (R, 250)] myLayout) $
+               smartBorders (myLayout)
 
 
 --------------------------------------------------------------------------------
@@ -203,7 +212,7 @@ main = do
    , workspaces = myWorkspaces
    , terminal = myTerminal
    , manageHook = manageDocks <+> myManageHook <+> namedScratchpadManageHook scratchpads
-   , layoutHook = smartBorders (myLayout)
+   , layoutHook = myLayoutHook
    , handleEventHook = fullscreenEventHook
    , logHook = dynamicLogWithPP xmobarPP
                    { ppOutput = hPutStrLn xmproc
