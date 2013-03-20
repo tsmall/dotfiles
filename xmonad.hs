@@ -33,6 +33,14 @@ runElisp :: String -> X ()
 runElisp = spawn . printf "emacsclient --eval '%s'"
 
 
+
+-------------------------------------------------------------------------------
+-- Modifier Key
+--
+myModMask :: KeyMask
+myModMask = mod4Mask
+
+
 -------------------------------------------------------------------------------
 -- Terminal
 --
@@ -85,15 +93,15 @@ xK_XF86AudioStop = 0x1008FF15
 xK_XF86AudioPrev = 0x1008FF16
 xK_XF86AudioNext = 0x1008FF17
 
-myKeys = [ ((mod4Mask, xK_d), spawn "dmenu_run")
-         , ((mod4Mask .|. shiftMask, xK_l), launchKeymap)
-         , ((mod4Mask, xK_s), scratchpadKeymap)
-         , ((mod4Mask, xK_x), myXmonadPrompt defaultXPConfig)
+myKeys = [ ((myModMask, xK_d), spawn "dmenu_run")
+         , ((myModMask .|. shiftMask, xK_l), launchKeymap)
+         , ((myModMask, xK_s), scratchpadKeymap)
+         , ((myModMask, xK_x), myXmonadPrompt defaultXPConfig)
 
            -- Quick App Shortcuts
-         , ((mod4Mask, xK_F1), runOrRaiseEmacs)
-         , ((mod4Mask, xK_F2), runOrRaiseChrome)
-         , ((mod4Mask, xK_F3), runOrRaiseAurora)
+         , ((myModMask, xK_F1), runOrRaiseEmacs)
+         , ((myModMask, xK_F2), runOrRaiseChrome)
+         , ((myModMask, xK_F3), runOrRaiseAurora)
 
            -- Volume
          , ((0, xK_XF86AudioMute), spawn "amixer -q set Master toggle")
@@ -184,7 +192,7 @@ main = do
   xinit
   xmproc <- spawnPipe "/usr/bin/xmobar /home/tom/.xmobarrc"
   xmonad $ withUrgencyHook NoUrgencyHook defaultConfig
-   { modMask = mod4Mask
+   { modMask = myModMask
    , workspaces = myWorkspaces
    , terminal = myTerminal
    , manageHook = manageDocks <+> myManageHook <+> namedScratchpadManageHook scratchpads
