@@ -45,19 +45,19 @@
   "Start a new pomodoro timer."
   (interactive)
   (pomodoro-set-timer pomodoro-length "Time's up!")
-  (message "Pomodoro started."))
+  (pomodoro-show-message "Pomodoro started."))
 
 (defun pomodoro-start-short-break ()
   "Start a new short break timer."
   (interactive)
   (pomodoro-set-timer pomodoro-short-break-length "Break's over!")
-  (message "Short break timer started."))
+  (pomodoro-show-message "Short break timer started."))
 
 (defun pomodoro-start-long-break ()
   "Start a new long break timer."
   (interactive)
   (pomodoro-set-timer pomodoro-long-break-length "Break's over!")
-  (message "Long break timer started."))
+  (pomodoro-show-message "Long break timer started."))
 
 (defun pomodoro-stop ()
   "Stop the current timer."
@@ -71,14 +71,16 @@
   ;; This code is shamelessly copied from org-timer.el.
   (interactive)
   (if (equal pomodoro-current-timer nil)
-      (message "No timer running")
+      (pomodoro-show-message "No timer running")
     (let* ((rtime (decode-time
                    (time-subtract (timer--time pomodoro-current-timer)
                                   (current-time))))
            (rsecs (nth 0 rtime))
            (rmins (nth 1 rtime)))
-      (message "%d minute(s) %d second(s) left in current pomodoro"
-               rmins rsecs))))
+      (flet ((pluralize (n) (if (not (= 1 n)) "s" "")))
+        (pomodoro-show-message
+         (format "%d minute%s %d second%s left in current pomodoro"
+                 rmins (pluralize rmins) rsecs (pluralize rsecs)))))))
 
 (defun pomodoro-set-timer (length end-msg)
   "Start new timer that runs for LENGTH and shows END-MSG when done."
