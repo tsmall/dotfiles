@@ -1,8 +1,0 @@
-[Desktop Entry]
-Type=Application
-Name=Firefox Aurora
-Comment=Aurora, the Firefox Nightly Dev Build
-Icon=/home/tom/Sources/aurora/icons/mozicon128.png
-Exec=/home/tom/Sources/aurora/firefox-bin
-Terminal=false
-Categories=Web;Network;Browser;

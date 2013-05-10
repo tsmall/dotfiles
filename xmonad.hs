@@ -1,11 +1,10 @@
-import qualified Data.Map as M
 import Data.Ratio ((%))
 import Text.Printf (printf)
 import System.IO
 import XMonad
 import XMonad.Actions.CopyWindow (copy)
+import XMonad.Actions.CycleWS (toggleWS)
 import XMonad.Actions.DynamicWorkspaces
-import qualified XMonad.Actions.Submap as SM
 import XMonad.Actions.WindowGo (runOrRaise)
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.EwmhDesktops
@@ -17,15 +16,18 @@ import XMonad.Layout.Grid
 import XMonad.Layout.IM
 import XMonad.Layout.NoBorders (smartBorders)
 import XMonad.Layout.PerWorkspace
+import XMonad.Layout.ResizableTile
 import XMonad.Layout.SimpleFloat
 import XMonad.Layout.Tabbed
-import XMonad.Layout.TwoPane
 import XMonad.Prompt
 import XMonad.Prompt.XMonad
-import qualified XMonad.StackSet as W
 import XMonad.Util.EZConfig (additionalKeys, mkKeymap)
 import XMonad.Util.NamedScratchpad
 import XMonad.Util.Run (spawnPipe)
+
+import qualified Data.Map as M
+import qualified XMonad.Actions.Submap as SM
+import qualified XMonad.StackSet as W
 
 
 -------------------------------------------------------------------------------
@@ -38,6 +40,15 @@ toggleVolume :: X ()
 toggleVolume = toggle ["Headphone", "Master"]
   where toggle outputs = mapM_ spawn $ map amixerCmd outputs
         amixerCmd = printf "amixer -q set %s toggle"
+
+
+--------------------------------------------------------------------------------
+-- Pomodoro
+--
+pomodoroStart = runElisp "(pomodoro-start)"
+pomodoroStartShortBreak = runElisp "(pomodoro-start-short-break)"
+pomodoroStartLongBreak = runElisp "(pomodoro-start-long-break)"
+pomodoroRemainingTime = runElisp "(pomodoro-remaining-time)"
 
 
 -------------------------------------------------------------------------------
@@ -56,8 +67,8 @@ myTerminal = "/usr/bin/urxvt"
 -------------------------------------------------------------------------------
 -- Workspaces
 --
-chatWorkspace = "8:chat"
-myWorkspaces = ["1:web","2:code"] ++ map show [3..7] ++ [chatWorkspace] ++ map show [9]
+chatWorkspace = "2:chat"
+myWorkspaces = ["1:web",chatWorkspace,"3:code"] ++ map show [4..9]
 
 
 --------------------------------------------------------------------------------
@@ -74,9 +85,10 @@ myXmonadPrompt c =
              , ("lock", spawn "xscreensaver-command -lock")
              , ("sleep", spawn "sudo pm-suspend")
 
-             , ("pomodoroStart", runElisp "(pomodoro-start)")
-             , ("pomodoroStartShortBreak", runElisp "(pomodoro-start-short-break)")
-             , ("pomodoroStartLongBreak", runElisp "(pomodoro-start-long-break)")
+             , ("pomodoroStart", pomodoroStart)
+             , ("pomodoroStartShortBreak", pomodoroStartShortBreak)
+             , ("pomodoroStartLongBreak", pomodoroStartLongBreak)
+             , ("pomodoroRemainingTime", pomodoroRemainingTime)
              ]
   in xmonadPromptC cmds c
 
@@ -103,13 +115,22 @@ xK_XF86AudioNext = 0x1008FF17
 myKeys = [ ((myModMask, xK_d), spawn "dmenu_run")
          , ((myModMask .|. shiftMask, xK_l), launchKeymap)
          , ((myModMask, xK_g), sendMessage $ ToggleGaps)
+         , ((myModMask, xK_o), toggleWS)
+         , ((myModMask, xK_p), pomodoroKeymap)
          , ((myModMask, xK_s), scratchpadKeymap)
          , ((myModMask, xK_x), myXmonadPrompt defaultXPConfig)
+
+         , ((myModMask .|. shiftMask, xK_comma), mapM_ sendMessage [IncGap 50 R, IncGap 50 L])
+         , ((myModMask .|. shiftMask, xK_period), mapM_ sendMessage [DecGap 50 R, DecGap 50 L])
 
            -- Quick App Shortcuts
          , ((myModMask, xK_F1), runOrRaiseEmacs)
          , ((myModMask, xK_F2), runOrRaiseChrome)
          , ((myModMask, xK_F3), runOrRaiseAurora)
+
+         , ((myModMask, xK_F9),  namedScratchpadAction scratchpads "pandora")
+         , ((myModMask, xK_F10), namedScratchpadAction scratchpads "rdio")
+         , ((myModMask, xK_F11), namedScratchpadAction scratchpads "google-music")
 
            -- Volume
          , ((0, xK_XF86AudioMute), toggleVolume)
@@ -121,6 +142,10 @@ myKeys = [ ((myModMask, xK_d), spawn "dmenu_run")
          , ((0, xK_XF86AudioStop), spawn "mpc pause")
          , ((0, xK_XF86AudioPrev), spawn "mpc prev")
          , ((0, xK_XF86AudioNext), spawn "mpc next")
+
+           -- Resizable Tile
+         , ((myModMask, xK_a), sendMessage MirrorShrink)
+         , ((myModMask, xK_z), sendMessage MirrorExpand)
          ]
   where launchKeymap = SM.submap . M.fromList $ [
           ((0, xK_a), runOrRaiseAurora),
@@ -131,6 +156,12 @@ myKeys = [ ((myModMask, xK_d), spawn "dmenu_run")
           ((0, xK_g), namedScratchpadAction scratchpads "google-music"),
           ((0, xK_p), namedScratchpadAction scratchpads "pandora"),
           ((0, xK_r), namedScratchpadAction scratchpads "rdio")
+          ]
+        pomodoroKeymap = SM.submap . M.fromList $ [
+          ((0, xK_p), pomodoroStart),
+          ((0, xK_s), pomodoroStartShortBreak),
+          ((0, xK_l), pomodoroStartLongBreak),
+          ((0, xK_r), pomodoroRemainingTime)
           ]
 
 
@@ -179,15 +210,12 @@ imLayout = withIM ratio rosters chatLayout where
 
 myTall = Tall 1 (3/100) (1/2)
 
-myLayout = avoidStruts (
-  myTall |||
-  Mirror (myTall) |||
-  Full |||
-  simpleTabbed |||
-  -- TwoPane (3/100) (1/2) |||
-  simpleFloat |||
-  imLayout
-  )
+myLayout = avoidStruts (ResizableTall 1 (3/100) (1/2) []
+                        ||| Mirror (myTall)
+                        ||| Full
+                        ||| simpleTabbed
+                        ||| imLayout
+                       )
 
 myLayoutHook = smartBorders $
                onWorkspace (myWorkspaces !! 0) (gaps [(L, 250), (R, 250)] myLayout) $
