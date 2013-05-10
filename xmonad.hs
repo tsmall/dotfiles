@@ -42,6 +42,15 @@ toggleVolume = toggle ["Headphone", "Master"]
         amixerCmd = printf "amixer -q set %s toggle"
 
 
+--------------------------------------------------------------------------------
+-- Pomodoro
+--
+pomodoroStart = runElisp "(pomodoro-start)"
+pomodoroStartShortBreak = runElisp "(pomodoro-start-short-break)"
+pomodoroStartLongBreak = runElisp "(pomodoro-start-long-break)"
+pomodoroRemainingTime = runElisp "(pomodoro-remaining-time)"
+
+
 -------------------------------------------------------------------------------
 -- Modifier Key
 --
@@ -76,9 +85,10 @@ myXmonadPrompt c =
              , ("lock", spawn "xscreensaver-command -lock")
              , ("sleep", spawn "sudo pm-suspend")
 
-             , ("pomodoroStart", runElisp "(pomodoro-start)")
-             , ("pomodoroStartShortBreak", runElisp "(pomodoro-start-short-break)")
-             , ("pomodoroStartLongBreak", runElisp "(pomodoro-start-long-break)")
+             , ("pomodoroStart", pomodoroStart)
+             , ("pomodoroStartShortBreak", pomodoroStartShortBreak)
+             , ("pomodoroStartLongBreak", pomodoroStartLongBreak)
+             , ("pomodoroRemainingTime", pomodoroRemainingTime)
              ]
   in xmonadPromptC cmds c
 
@@ -106,6 +116,7 @@ myKeys = [ ((myModMask, xK_d), spawn "dmenu_run")
          , ((myModMask .|. shiftMask, xK_l), launchKeymap)
          , ((myModMask, xK_g), sendMessage $ ToggleGaps)
          , ((myModMask, xK_o), toggleWS)
+         , ((myModMask, xK_p), pomodoroKeymap)
          , ((myModMask, xK_s), scratchpadKeymap)
          , ((myModMask, xK_x), myXmonadPrompt defaultXPConfig)
 
@@ -134,6 +145,12 @@ myKeys = [ ((myModMask, xK_d), spawn "dmenu_run")
           ((0, xK_g), namedScratchpadAction scratchpads "google-music"),
           ((0, xK_p), namedScratchpadAction scratchpads "pandora"),
           ((0, xK_r), namedScratchpadAction scratchpads "rdio")
+          ]
+        pomodoroKeymap = SM.submap . M.fromList $ [
+          ((0, xK_p), pomodoroStart),
+          ((0, xK_s), pomodoroStartShortBreak),
+          ((0, xK_l), pomodoroStartLongBreak),
+          ((0, xK_r), pomodoroRemainingTime)
           ]
 
 
