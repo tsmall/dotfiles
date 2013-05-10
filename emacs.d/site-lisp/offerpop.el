@@ -57,13 +57,17 @@ the user for their password."
   "Change the host in my hosts file from current to HOSTNAME."
   (interactive "sSwitch to host: ")
   (save-current-buffer
-    (set-buffer (get-buffer "hosts"))
-    (op-comment-line "^[^#][[:digit:]].+offerpop\.com" "#")
-    (op-uncomment-line (format "# %s$" hostname) "#")
-    (if (string= hostname "qa")
-        (op-replace-ip-address-at-point (op-get-ip-for-qa)))
-    (save-buffer)
-    (message (format "Successfully switched to %s." hostname))))
+    (let ((message-string (format "Successfully switched to %s." hostname)))
+      (set-buffer (get-buffer "hosts"))
+      (op-comment-line "^[^#][[:digit:]].+offerpop\.com" "#")
+      (op-uncomment-line (format "# %s$" hostname) "#")
+      (if (string= hostname "qa")
+          (progn
+            (let ((ip (op-get-ip-for-qa)))
+              (op-replace-ip-address-at-point ip)
+              (setq message-string (concat message-string (format " (%s)" ip))))))
+      (save-buffer)
+      (message message-string))))
 
 (defun op-get-ip-for-domain (domain-name)
   "Get the IP address for DOMAIN-NAME."
