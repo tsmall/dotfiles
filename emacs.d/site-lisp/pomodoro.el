@@ -88,7 +88,8 @@
   (setq pomodoro-current-message end-msg)
   (setq pomodoro-current-timer (run-at-time length nil 
                                             (lambda () (progn (pomodoro-show-message pomodoro-current-message)
-                                                              (setq pomodoro-current-timer nil))))))
+                                                              (setq pomodoro-current-timer nil)
+                                                              (pomodoro-play-complete-sound))))))
 (defun pomodoro-show-message (msg)
   "Show the MSG string to the user."
   (cond ((string= system-type "gnu/linux") (pomodoro-show-dbus-message msg))
@@ -106,6 +107,16 @@
                  "-a" "Emacs"
                  "-t" "Pomodoro"
                  "-m" msg))
+
+(defun pomodoro-play-complete-sound ()
+  "Play the pomodoro completed sound."
+  (let ((sound-file "/usr/share/sounds/freedesktop/stereo/complete.oga"))
+    (pomodoro-play-sound sound-file)))
+
+(defun pomodoro-play-sound (sound-file)
+  "Play the SOUND-FILE."
+  (start-process "pomodoro-sound" nil
+                 "paplay" sound-file))
 
 (provide 'pomodoro)
 
