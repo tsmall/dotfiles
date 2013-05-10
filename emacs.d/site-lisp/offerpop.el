@@ -1,6 +1,6 @@
 ;;; offerpop.el --- Custom code for working at Offerpop
 
-;; Copyright (C) 2011 Tom Small <tom@offerpop.com>
+;; Copyright (C) 2013 Tom Small <tom@offerpop.com>
 
 ;; Author: Tom Small <tom@offerpop.com>
 ;; Created: 18 Oct 2011
