@@ -3,6 +3,7 @@ import Text.Printf (printf)
 import System.IO
 import XMonad
 import XMonad.Actions.CopyWindow (copy)
+import XMonad.Actions.CycleWS (toggleWS)
 import XMonad.Actions.DynamicWorkspaces
 import XMonad.Actions.WindowGo (runOrRaise)
 import XMonad.Hooks.DynamicLog
@@ -104,6 +105,7 @@ xK_XF86AudioNext = 0x1008FF17
 myKeys = [ ((myModMask, xK_d), spawn "dmenu_run")
          , ((myModMask .|. shiftMask, xK_l), launchKeymap)
          , ((myModMask, xK_g), sendMessage $ ToggleGaps)
+         , ((myModMask, xK_o), toggleWS)
          , ((myModMask, xK_s), scratchpadKeymap)
          , ((myModMask, xK_x), myXmonadPrompt defaultXPConfig)
 
