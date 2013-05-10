@@ -1,85 +1,11 @@
-// Webjumps --------------------------------------------------------------------
+// -*-js2-*-
 
-define_webjump("hn", "http://news.ycombinator.com");
-define_webjump("timeswire", "http://www.nytimes.com/timeswire");
+var modulePath = 'file:///home/tom/etc/dotfiles/conkeror';
+if (load_paths.indexOf(modulePath) === -1) {
+    load_paths.push(modulePath);
+}
 
-// Programming Webjumps --------------------------------------------------------
-
-// APIs
-define_webjump("graphapi", "https://developers.facebook.com/docs/reference/api/");
-
-// Databases
-define_webjump("mysql", "http://dev.mysql.com/doc/refman/5.1/en/index.html");
-
-// Haskell
-define_webjump("hoogle", "http://www.haskell.org/hoogle/?hoogle=%s",
-               $alternative="http:///www.haskell.org/hoogle/");
-
-// HTML and CSS
-define_webjump("bootstrap", "http://twitter.github.com/bootstrap/");
-define_webjump("css", "https://developer.mozilla.org/en/CSS/CSS_Reference");
-define_webjump("dom", "https://developer.mozilla.org/en/Gecko_DOM_Reference");
-define_webjump("html", "https://developer.mozilla.org/en/HTML");
-
-// JavaScript
-define_webjump("backbone", "http://documentcloud.github.com/backbone/");
-define_webjump("jqapi", "http://jqapi.com");
-define_webjump("js", "https://developer.mozilla.org/en/JavaScript/Reference");
-define_webjump("requirejs", "http://requirejs.org/docs/api.html");
-define_webjump("underscore", "http://documentcloud.github.com/underscore/");
-
-// Python
-define_webjump("django", "https://docs.djangoproject.com/en/");
-define_webjump("haystack", "http://django-haystack.readthedocs.org/en/latest/index.html");
-define_webjump("python", "http://docs.python.org/2/");
-define_webjump("python2.5", "http://docs.python.org/release/2.5.4/");
-define_webjump("sqlalchemy", "http://docs.sqlalchemy.org/en/rel_0_5/");
-
-// Tools
-define_webjump("svn", "http://svnbook.red-bean.com/en/1.7/index.html");
-
-// General Settings -----------------------------------------------------------
-
-// Make all new buffers blank.
-homepage = "about:blank";
-
-// Load URLs from the command line in new buffers instead of new windows.
-url_remoting_fn = load_url_in_new_buffer;
-
-// Load download buffers in the background in the current window, instead of
-// in new windows.
-download_buffer_automatic_open_target = OPEN_NEW_BUFFER_BACKGROUND;
-
-// Session Management ---------------------------------------------------------
-
-// Automatically save the browsing session. This is done automatically
-// by just requiring the "session.js" script.
-require("session.js");
-
-// Automatically restore the last auto-saved session.
-session_auto_save_auto_load = true;
-
-// Modes ----------------------------------------------------------------------
-
-// Show the XKCD title text in the page.
-xkcd_add_title = true;
-
-// Bind the keys 1 through 9 to Google search results.
-require("google-search-results.js");
-google_search_bind_number_shortcuts();
-
-// Bind the "n" key to the next page link.
-define_key(google_search_results_keymap, "n", "follow",
-           $browser_object = browser_object_relationship_next);
-
-// Custom Commands ------------------------------------------------------------
-
-// Reload .conkerorrc with C-c r.
-interactive('reload-config',
-            'Reload the configuration file.',
-            function(I) {
-                load_rc();
-                I.window.minibuffer.message('config reloaded');
-            });
-define_key(default_global_keymap, 'C-c r', 'reload-config');
-
+require('trs-config.js');
+require('trs-webjumps.js');
+require('trs-modes.js');
+require('trs-local.js');

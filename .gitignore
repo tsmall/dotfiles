@@ -3,6 +3,7 @@
 *.elc
 *~
 bash/local
+conkeror/trs-local.js
 sawfish/custom
 
 # Directories
