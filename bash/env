@@ -4,12 +4,6 @@ export EDITOR="emacsclient"
 # Bash customization
 export HISTCONTROL=ignoredups		# don't save duplicates in history
 
-# Environment variables required for the Go language
-export GOROOT=~/src/go
-export GOBIN=~/Applications/go
-export GOOS=darwin
-export GOARCH=386
-
 # Subversion
 # This is required for Subversion to be able to handle non-ASCII filenames,
 # which are sometimes in TextMate bundles.
