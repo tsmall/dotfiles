@@ -16,9 +16,9 @@ import XMonad.Layout.Grid
 import XMonad.Layout.IM
 import XMonad.Layout.NoBorders (smartBorders)
 import XMonad.Layout.PerWorkspace
+import XMonad.Layout.ResizableTile
 import XMonad.Layout.SimpleFloat
 import XMonad.Layout.Tabbed
-import XMonad.Layout.TwoPane
 import XMonad.Prompt
 import XMonad.Prompt.XMonad
 import XMonad.Util.EZConfig (additionalKeys, mkKeymap)
@@ -135,6 +135,10 @@ myKeys = [ ((myModMask, xK_d), spawn "dmenu_run")
          , ((0, xK_XF86AudioStop), spawn "mpc pause")
          , ((0, xK_XF86AudioPrev), spawn "mpc prev")
          , ((0, xK_XF86AudioNext), spawn "mpc next")
+
+           -- Resizable Tile
+         , ((myModMask, xK_a), sendMessage MirrorShrink)
+         , ((myModMask, xK_z), sendMessage MirrorExpand)
          ]
   where launchKeymap = SM.submap . M.fromList $ [
           ((0, xK_a), runOrRaiseAurora),
@@ -199,15 +203,12 @@ imLayout = withIM ratio rosters chatLayout where
 
 myTall = Tall 1 (3/100) (1/2)
 
-myLayout = avoidStruts (
-  myTall |||
-  Mirror (myTall) |||
-  Full |||
-  simpleTabbed |||
-  -- TwoPane (3/100) (1/2) |||
-  simpleFloat |||
-  imLayout
-  )
+myLayout = avoidStruts (ResizableTall 1 (3/100) (1/2) []
+                        ||| Mirror (myTall)
+                        ||| Full
+                        ||| simpleTabbed
+                        ||| imLayout
+                       )
 
 myLayoutHook = smartBorders $
                onWorkspace (myWorkspaces !! 0) (gaps [(L, 250), (R, 250)] myLayout) $
