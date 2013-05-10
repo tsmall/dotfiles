@@ -128,6 +128,10 @@ myKeys = [ ((myModMask, xK_d), spawn "dmenu_run")
          , ((myModMask, xK_F2), runOrRaiseChrome)
          , ((myModMask, xK_F3), runOrRaiseAurora)
 
+         , ((myModMask, xK_F9),  namedScratchpadAction scratchpads "pandora")
+         , ((myModMask, xK_F10), namedScratchpadAction scratchpads "rdio")
+         , ((myModMask, xK_F11), namedScratchpadAction scratchpads "google-music")
+
            -- Volume
          , ((0, xK_XF86AudioMute), toggleVolume)
          , ((0, xK_XF86AudioLowerVolume), spawn "amixer -q set Master 5%-")
