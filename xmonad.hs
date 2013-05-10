@@ -120,6 +120,9 @@ myKeys = [ ((myModMask, xK_d), spawn "dmenu_run")
          , ((myModMask, xK_s), scratchpadKeymap)
          , ((myModMask, xK_x), myXmonadPrompt defaultXPConfig)
 
+         , ((myModMask .|. shiftMask, xK_comma), mapM_ sendMessage [IncGap 50 R, IncGap 50 L])
+         , ((myModMask .|. shiftMask, xK_period), mapM_ sendMessage [DecGap 50 R, DecGap 50 L])
+
            -- Quick App Shortcuts
          , ((myModMask, xK_F1), runOrRaiseEmacs)
          , ((myModMask, xK_F2), runOrRaiseChrome)
