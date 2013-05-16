@@ -212,14 +212,15 @@ myTall = Tall 1 (3/100) (1/2)
 
 myLayout = avoidStruts (ResizableTall 1 (3/100) (1/2) []
                         ||| Mirror (myTall)
-                        ||| Full
                         ||| simpleTabbed
-                        ||| imLayout
+                        ||| Full
                        )
 
-myLayoutHook = smartBorders $
-               onWorkspace (myWorkspaces !! 0) (gaps [(L, 250), (R, 250)] myLayout) $
-               smartBorders (myLayout)
+myLayoutHook = smartBorders $ avoidStruts $ (
+  onWorkspace (myWorkspaces !! 0) (gaps [(L, 250), (R, 250)] myLayout) $
+  onWorkspace chatWorkspace imLayout $
+  smartBorders (myLayout)
+  )
 
 
 --------------------------------------------------------------------------------
