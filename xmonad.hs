@@ -144,8 +144,8 @@ myKeys = [ ((myModMask, xK_d), spawn "dmenu_run")
          , ((0, xK_XF86AudioNext), spawn "mpc next")
 
            -- Resizable Tile
-         , ((myModMask, xK_a), sendMessage MirrorShrink)
-         , ((myModMask, xK_z), sendMessage MirrorExpand)
+         , ((myModMask, xK_a), sendMessage MirrorExpand)
+         , ((myModMask, xK_z), sendMessage MirrorShrink)
          ]
   where launchKeymap = SM.submap . M.fromList $ [
           ((0, xK_a), runOrRaiseAurora),
