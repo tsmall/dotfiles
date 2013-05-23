@@ -1,12 +1,24 @@
-;-*- lisp -*-
+;; -*- lisp -*-
+
+;; To Do:
+;;
+;; - Make the DISABLE-MONITOR command move all of the windows to the primary
+;;   monitor before changing the monitor settings. That seems to avoid the
+;;   problem of having a left-over, extra frame.
+;;
+;; Code:
 
 (in-package :stumpwm)
 
 ;; Initialization --------------------------------------------------------------
 
 (set-prefix-key (kbd "C-i"))
-(setf *mouse-focus-policy* :sloppy)  ;; options: :click, :ignore, :sloppy
+(setf *mouse-focus-policy* :click)  ;; options: :click, :ignore, :sloppy
+
 (run-shell-command "setxkbmap -option ctrl:nocaps")
+(run-shell-command "synclient TapButton1=0 TapButton2=0 TapButton3=0")
+(run-shell-command "xsetroot -cursor_name left_ptr")
+(run-shell-command "xrdb -merge ~/.Xdefaults")
 
 ;; Mode line -------------------------------------------------------------------
 
@@ -34,7 +46,7 @@
 
 (defcommand lock-screen () ()
   "Lock the screen."
-  (run-shell-command "gnome-screensaver-command --lock"))
+  (run-shell-command "xscreensaver-command -lock"))
 
 (defcommand suspend () ()
   "Suspend the computer."
@@ -105,9 +117,9 @@
   "Start or switch to Sublime."
   (run-or-raise "sublime" '(:class "sublime")))
 
-(defcommand terminator () ()
-  "Start or switch to Terminator."
-  (run-or-raise "terminator" '(:class "Terminator" :instance "term")))
+(defcommand terminal () ()
+  "Start a new terminal."
+  (run-shell-command "urxvt"))
 
 (defcommand workflowy () ()
   "Start or switch to WorkFlowy."
@@ -127,6 +139,25 @@
   "Split the current frame to 2/3 of the screen, horizontally."
   (split-frame (current-group) :row 2/3))
 
+(defun echo-urgent-window (target)
+  (message-no-timeout "~a has an message for you." (window-title target)))
+
+(add-hook *urgent-window-hook* 'echo-urgent-window)
+
+;; Pomodoro --------------------------------------------------------------------
+
+(defcommand pomodoro-start () ()
+  "Start a new pomodoro timer."
+  (run-shell-command "emacsclient --eval '(pomodoro-start)'"))
+
+(defcommand pomodoro-start-short-break () ()
+  "Start a new short break timer."
+  (run-shell-command "emacsclient --eval '(pomodoro-start-short-break)'"))
+
+(defcommand pomodoro-start-long-break () ()
+  "Start a new long break timer."
+  (run-shell-command "emacsclient --eval '(pomodoro-start-long-break)'"))
+
 ;; Keyboard bindings -----------------------------------------------------------
 
 (defparameter *app-launch-bindings*
@@ -138,7 +169,7 @@
     (define-key m (kbd "p") "pandora")
     (define-key m (kbd "r") "rdio")
     (define-key m (kbd "s") "sublime")
-    (define-key m (kbd "t") "terminator")
+    (define-key m (kbd "t") "terminal")
     (define-key m (kbd "w") "workflowy")
     m))
 
@@ -161,10 +192,20 @@
 	  format-dest))
 	*key-codes*)
 
+(define-key *top-map* (kbd "XF86AudioMute") "volume toggle")
 (define-key *top-map* (kbd "XF86AudioLowerVolume") "volume 5%-")
 (define-key *top-map* (kbd "XF86AudioRaiseVolume") "volume 5%+")
 
+(define-key *top-map* (kbd "XF86AudioStop") (lambda () (spawn "mpc pause")))
+(define-key *top-map* (kbd "XF86AudioPlay") (run-shell-command "mpc toggle"))
+
+(define-key *top-map* (kbd "s-Up") "move-focus up")
+(define-key *top-map* (kbd "s-Down") "move-focus down")
+(define-key *top-map* (kbd "s-Left") "move-focus left")
+(define-key *top-map* (kbd "s-Right") "move-focus right")
+
 (define-key *root-map* (kbd "d") "dmenu-launcher")
+(define-key *top-map* (kbd "s-d") "dmenu-launcher")
 
 ;; Slime ----------------------------------------------------------------------
 
@@ -172,6 +213,7 @@
 ;; *prefix-key* ; swank will kick this off
 (load "/home/tom/Sources/slime/swank-loader.lisp")
 (swank-loader:init)
+
 (defcommand swank () ()
   (setf stumpwm:*top-level-error-action* :break)
   (swank:create-server :port 4005
