@@ -147,6 +147,9 @@ Display the number of matches and save it to the kill ring."
 (set-face-attribute 'diff-removed nil :foreground "red3")
 (set-face-attribute 'diff-changed nil :foreground "purple")
 
+;; eshell
+(load "~/etc/dotfiles/emacs.d/settings/eshell.el")
+
 ;; org
 (load "~/etc/dotfiles/emacs.d/settings/org-mode.el")
 
