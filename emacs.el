@@ -153,6 +153,10 @@ Display the number of matches and save it to the kill ring."
 ;; org
 (load "~/etc/dotfiles/emacs.d/settings/org-mode.el")
 
+;; pcomplete
+(add-to-list 'load-path "~/etc/dotfiles/emacs.d/site-lisp/pcmpl-git-el")
+(require 'pcmpl-git)
+
 ;; -----------------------------------------------------------------------------
 ;; Package Configuration
 ;; -----------------------------------------------------------------------------

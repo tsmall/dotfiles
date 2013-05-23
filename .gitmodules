@@ -1,0 +1,3 @@
+[submodule "emacs.d/site-lisp/pcmpl-git-el"]
+	path = emacs.d/site-lisp/pcmpl-git-el
+	url = git://github.com/leoliu/pcmpl-git-el.git
