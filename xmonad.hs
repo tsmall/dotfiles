@@ -19,6 +19,7 @@ import XMonad.Layout.PerWorkspace
 import XMonad.Layout.ResizableTile
 import XMonad.Layout.SimpleFloat
 import XMonad.Layout.Tabbed
+import XMonad.Layout.TwoPane
 import XMonad.Prompt
 import XMonad.Prompt.XMonad
 import XMonad.Util.EZConfig (additionalKeys, mkKeymap)
@@ -214,6 +215,7 @@ myLayout = avoidStruts (ResizableTall 1 (3/100) (1/2) []
                         ||| Mirror (myTall)
                         ||| simpleTabbed
                         ||| Full
+                        ||| TwoPane (3/100) (1/2)
                        )
 
 myLayoutHook = smartBorders $ avoidStruts $ (
