@@ -32,10 +32,10 @@
                     (butlast p-lst 3)
                     "/")
          "/"
-         (mapconcat (lambda (elm) elm)
+         (mapconcat 'identity
                     (last p-lst 3)
                     "/"))
-      (mapconcat (lambda (elm) elm)
+      (mapconcat 'identity
                  p-lst
                  "/"))))
 
