@@ -157,6 +157,9 @@ Display the number of matches and save it to the kill ring."
 (add-to-list 'load-path "~/etc/dotfiles/emacs.d/site-lisp/pcmpl-git-el")
 (require 'pcmpl-git)
 
+;; transpose-frame
+(require 'transpose-frame)
+
 ;; -----------------------------------------------------------------------------
 ;; Package Configuration
 ;; -----------------------------------------------------------------------------
