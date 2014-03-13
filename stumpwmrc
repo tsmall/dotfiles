@@ -14,10 +14,16 @@
 (set-prefix-key (kbd "C-i"))
 (setf *mouse-focus-policy* :sloppy)  ;; options: :click, :ignore, :sloppy
 
-(run-shell-command "setxkbmap -option ctrl:nocaps")
-(run-shell-command "synclient TapButton1=0 TapButton2=0 TapButton3=0")
-(run-shell-command "xsetroot -cursor_name left_ptr")
-(run-shell-command "xrdb -merge ~/.Xdefaults")
+(defparameter *startup-commands*
+  '("setxkbmap -option ctrl:nocaps"
+    "synclient TapButton1=0 TapButton2=0 TapButton3=0"
+    "xsetroot -cursor_name left_ptr"
+    "xrdb -merge ~/.Xdefaults"
+    "xscreensaver -no-splash"
+    "dropbox start"
+    "nm-applet"))
+
+(mapcar 'run-shell-command *startup-commands*)
 
 ;; Mode line -------------------------------------------------------------------
 
