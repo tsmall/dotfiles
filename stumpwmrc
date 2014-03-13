@@ -62,13 +62,10 @@
 
 ;; Sound commands
 
-(defcommand mute () ()
-  "Mute all sound."
-  (run-shell-command "amixer set Master mute"))
-
-(defcommand unmute () ()
-  "Unmute the sound."
-  (run-shell-command "amixer set Master unmute"))
+(defcommand toggle-volume () ()
+  "Toggle the volume between muted and unmuted."
+  (run-shell-command "amixer -q set Master toggle")
+  (run-shell-command "amixer -q set Headphone toggle"))
 
 (defcommand volume (level) ((:string "Level: "))
   "Set the volume to level."
@@ -194,8 +191,6 @@
     (define-key m (kbd "w") "workflowy")
     m))
 
-(define-key *root-map* (kbd "l") '*app-launch-bindings*)
-
 ;; Volume keys
 
 (defvar *key-codes*
@@ -213,20 +208,36 @@
 	  format-dest))
 	*key-codes*)
 
-(define-key *top-map* (kbd "XF86AudioMute") "volume toggle")
-(define-key *top-map* (kbd "XF86AudioLowerVolume") "volume 5%-")
-(define-key *top-map* (kbd "XF86AudioRaiseVolume") "volume 5%+")
+(defparameter *top-map-keys*
+  '(("XF86AudioMute"        . "toggle-volume")
+    ("XF86AudioLowerVolume" . "volume 5%-")
+    ("XF86AudioRaiseVolume" . "volume 5%+")
+    ("XF86AudioStop"        . (run-shell-command "mpc pause"))
+    ("XF86AudioPlay"        . (run-shell-command "mpc toggle"))
+    ("s-Up"                 . "move-focus up")
+    ("s-Down"               . "move-focus down")
+    ("s-Left"               . "move-focus left")
+    ("s-Right"              . "move-focus right")
+    ("s-d"                  . "dmenu-launcher")
+    ("s-L"                  . "lock-screen")))
 
-(define-key *top-map* (kbd "XF86AudioStop") (lambda () (spawn "mpc pause")))
-(define-key *top-map* (kbd "XF86AudioPlay") (run-shell-command "mpc toggle"))
+(defparameter *root-map-keys*
+  '(("d" . "dmenu-launcher")
+    ("l" . *app-launch-bindings*)
+    ("s" . "hsplit")
+    ("S" . "hsplit-third")
+    ("v" . "vsplit")
+    ("V" . "vsplit-third")))
 
-(define-key *top-map* (kbd "s-Up") "move-focus up")
-(define-key *top-map* (kbd "s-Down") "move-focus down")
-(define-key *top-map* (kbd "s-Left") "move-focus left")
-(define-key *top-map* (kbd "s-Right") "move-focus right")
+(defun bind-key (map keydef)
+  (let ((key (kbd (car keydef)))
+        (action (cdr keydef)))
+    (define-key map key action)))
 
-(define-key *root-map* (kbd "d") "dmenu-launcher")
-(define-key *top-map* (kbd "s-d") "dmenu-launcher")
+(mapcar (lambda (keydef) (bind-key *top-map* keydef))
+        *top-map-keys*)
+(mapcar (lambda (keydef) (bind-key *root-map* keydef))
+        *root-map-keys*)
 
 ;; Slime ----------------------------------------------------------------------
 
