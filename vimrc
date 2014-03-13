@@ -33,7 +33,7 @@ if has("autocmd")
 endif
 
 if has("gui_running")
-    set gfn="DejaVu Sans Mono":h14:cANSI
+    set guifont=DejaVu\ Sans\ Mono\ 11
     set guioptions+=b               " show the bottom (horizontal) scrollbar
     set guioptions-=T               " disable the toolbar
     colorscheme molokai 
