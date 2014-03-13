@@ -31,6 +31,24 @@ import qualified XMonad.Actions.Submap as SM
 import qualified XMonad.StackSet as W
 
 
+--------------------------------------------------------------------------------
+-- Chat settings
+--
+useChatWorkspace = False
+chatWorkspace = "8:chat"
+
+-- Hangouts Chrome Extension
+chatClass = "Google-chrome"
+chatRosters = (ClassName chatClass) `And` (Title "Hangouts")
+isChatWindow = (className =? chatClass <&&>
+                stringProperty "WM_WINDOW_ROLE" =? "pop-up")
+
+-- Instantbird
+-- chatClass = "Instantbird"
+-- chatRosters = (ClassName chatClass `And` Title "Instantbird")
+-- isChatWindow = (className =? chatClass)
+
+
 -------------------------------------------------------------------------------
 -- Helper Functions
 --
@@ -71,9 +89,11 @@ myTerminal = "/usr/bin/urxvtcd"
 -------------------------------------------------------------------------------
 -- Workspaces
 --
-chatWorkspace = "2:chat"
-myWorkspaces = ["1:web",chatWorkspace,"3:code"] ++ map show [4..9]
-
+myWorkspaces = namedWorkspaces ++ map show [3..7] ++ finalWorkspaces
+  where namedWorkspaces = ["1:web","2:code"]
+        finalWorkspaces = if useChatWorkspace
+                          then [chatWorkspace,"9"]
+                          else map show [8,9]
 
 --------------------------------------------------------------------------------
 -- Promptable actions
@@ -188,7 +208,8 @@ scratchpads = [ webappScratchpad "google-music"
 -- To find the property name associated with a program, use
 -- `xprop | grep WM_CLASS` and click on the client you're interested in.
 --
-myShiftHooks = [ className =? "Instantbird" --> doShift chatWorkspace ]
+myShiftHooks = [ isChatWindow --> doShift chatWorkspace ]
+
 myFloatHooks = concat $
   [ [ className =? c --> doFloat | c <- myCFloats ]
   , [ title     =? t --> doFloat | t <- myTFloats ]
@@ -208,9 +229,8 @@ myManageHook = composeAll (myShiftHooks ++ myFloatHooks ++ myFullscreenHooks)
 --------------------------------------------------------------------------------
 -- Layouts
 --
-imLayout = withIM ratio rosters chatLayout where
+imLayout = withIM ratio chatRosters chatLayout where
   ratio = 1%7
-  rosters = (ClassName "Instantbird") `And` (Title "Instantbird")
   chatLayout = Grid
 
 myTall = Tall 1 (3/100) (1/2)
