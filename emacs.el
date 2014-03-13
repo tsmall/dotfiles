@@ -147,6 +147,7 @@ Display the number of matches and save it to the kill ring."
 ;; Deft
 (add-to-list 'load-path "~/etc/dotfiles/emacs.d/site-lisp/deft")
 (require 'deft)
+(setq deft-use-filename-as-title t)
 
 ;; Diff
 (require 'diff-mode)
