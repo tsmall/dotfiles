@@ -120,9 +120,13 @@ myXmonadPrompt c =
 --------------------------------------------------------------------------------
 -- Run or Raise shortcuts
 --
-runOrRaiseAurora = runOrRaise "aurora" (className =? "Firefox")
-runOrRaiseChrome = runOrRaise "google-chrome" (className =? "Google-chrome")
-runOrRaiseEmacs = runOrRaise "emacs" (className =? "Emacs")
+runOrRaiseAurora   = runOrRaise "aurora-dev"       (className =? "Aurora")
+runOrRaiseFirefox  = runOrRaise "firefox"          (className =? "Firefox")
+runOrRaiseChrome   = runOrRaise "google-chrome"    (className =? "Google-chrome")
+runOrRaiseChromium = runOrRaise "chromium-browser" (className =? "Chromium-browser")
+runOrRaiseEmacs    = runOrRaise "emacs"            (className =? "Emacs")
+runOrRaiseGterm    = runOrRaise "gnome-terminal"   (className =? "Gnome-terminal")
+runOrRaiseUrxvt    = runOrRaise "urxvtcd"          (className =? "URxvt")
 
 
 --------------------------------------------------------------------------------
@@ -137,11 +141,10 @@ xK_XF86AudioPrev = 0x1008FF16
 xK_XF86AudioNext = 0x1008FF17
 
 myKeys = [ ((myModMask, xK_d), spawn "dmenu_run")
-         , ((myModMask .|. shiftMask, xK_l), launchKeymap)
+         , ((myModMask, xK_i), runOrRaiseKeymap)
          , ((myModMask, xK_g), sendMessage $ ToggleGaps)
          , ((myModMask, xK_o), toggleWS)
          , ((myModMask, xK_p), pomodoroKeymap)
-         , ((myModMask, xK_s), scratchpadKeymap)
          , ((myModMask, xK_x), myXmonadPrompt defaultXPConfig)
 
          , ((myModMask .|. shiftMask, xK_comma), mapM_ sendMessage [IncGap 50 R, IncGap 50 L])
@@ -149,13 +152,10 @@ myKeys = [ ((myModMask, xK_d), spawn "dmenu_run")
          , ((myModMask .|. shiftMask, xK_l), lockScreen)
 
            -- Quick App Shortcuts
-         , ((myModMask, xK_F1), runOrRaiseEmacs)
-         , ((myModMask, xK_F2), runOrRaiseChrome)
-         , ((myModMask, xK_F3), runOrRaiseAurora)
-
-         , ((myModMask, xK_F9),  namedScratchpadAction scratchpads "pandora")
-         , ((myModMask, xK_F10), namedScratchpadAction scratchpads "rdio")
-         , ((myModMask, xK_F11), namedScratchpadAction scratchpads "google-music")
+         , ((myModMask, xK_F9),  spRdio)
+         , ((myModMask, xK_F10), spGoogleMusic)
+         , ((myModMask, xK_F11), spPandora)
+         , ((myModMask, xK_F12), spFocusAtWill)
 
            -- Volume
          , ((0, xK_XF86AudioMute), toggleVolume)
@@ -172,34 +172,48 @@ myKeys = [ ((myModMask, xK_d), spawn "dmenu_run")
          , ((myModMask, xK_a), sendMessage MirrorExpand)
          , ((myModMask, xK_z), sendMessage MirrorShrink)
          ]
-  where launchKeymap = SM.submap . M.fromList $ [
-          ((0, xK_a), runOrRaiseAurora),
-          ((0, xK_c), runOrRaiseChrome),
-          ((0, xK_e), runOrRaiseEmacs)
-          ]
-        scratchpadKeymap = SM.submap . M.fromList $ [
-          ((0, xK_g), namedScratchpadAction scratchpads "google-music"),
-          ((0, xK_p), namedScratchpadAction scratchpads "pandora"),
-          ((0, xK_r), namedScratchpadAction scratchpads "rdio")
-          ]
-        pomodoroKeymap = SM.submap . M.fromList $ [
+  where pomodoroKeymap = SM.submap . M.fromList $ [
           ((0, xK_p), pomodoroStart),
           ((0, xK_s), pomodoroStartShortBreak),
           ((0, xK_l), pomodoroStartLongBreak),
           ((0, xK_r), pomodoroRemainingTime)
+          ]
+        runOrRaiseKeymap = SM.submap . M.fromList $ [
+          ((0, xK_a),         runOrRaiseAurora),
+          ((0, xK_c),         runOrRaiseChrome),
+          ((shiftMask, xK_c), runOrRaiseChromium),
+          ((0, xK_e),         runOrRaiseEmacs),
+          ((0, xK_f),         runOrRaiseFirefox),
+          ((0, xK_g),         runOrRaiseGterm),
+          ((0, xK_k),         runOrRaise "conkeror" (className =? "Conkeror")),
+          ((shiftMask, xK_2), spFocusAtWill),
+          ((0, xK_m),         spGoogleMusic),
+          ((0, xK_p),         spPandora),
+          ((0, xK_r),         spRdio),
+          ((0, xK_u),         runOrRaiseUrxvt)
           ]
 
 
 --------------------------------------------------------------------------------
 -- Scratchpads
 --
-scratchpads = [ webappScratchpad "google-music"
-              , webappScratchpad "pandora"
-              , webappScratchpad "rdio"
-              ]
+scratchpads = map webappScratchpad [ "focus-at-will"
+                                   , "google-music"
+                                   , "pandora"
+                                   , "rdio"
+                                   ]
   where
     webappScratchpad exe = NS exe exe (className =? exe) scratchpadFloat
     scratchpadFloat = (customFloating $ W.RationalRect 0.1 0.1 0.8 0.8)
+
+
+runScratchpad :: String -> X ()
+runScratchpad = namedScratchpadAction scratchpads
+
+spFocusAtWill = runScratchpad "focus-at-will"
+spGoogleMusic = runScratchpad "google-music"
+spPandora     = runScratchpad "pandora"
+spRdio        = runScratchpad "rdio"
 
 
 --------------------------------------------------------------------------------
