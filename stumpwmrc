@@ -12,7 +12,7 @@
 ;; Initialization --------------------------------------------------------------
 
 (set-prefix-key (kbd "C-i"))
-(setf *mouse-focus-policy* :click)  ;; options: :click, :ignore, :sloppy
+(setf *mouse-focus-policy* :sloppy)  ;; options: :click, :ignore, :sloppy
 
 (run-shell-command "setxkbmap -option ctrl:nocaps")
 (run-shell-command "synclient TapButton1=0 TapButton2=0 TapButton3=0")
