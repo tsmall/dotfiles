@@ -50,8 +50,9 @@
 
 (defcommand suspend () ()
   "Suspend the computer."
-  (run-shell-command "sudo pm-suspend")
-  (lock-screen))
+  (run-shell-command "sudo pm-suspend"))
+
+(defcommand-alias sleep suspend)
 
 ;; Desktop wallpaper
 
