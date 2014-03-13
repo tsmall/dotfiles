@@ -164,6 +164,10 @@ Display the number of matches and save it to the kill ring."
 (add-to-list 'load-path "~/etc/dotfiles/emacs.d/site-lisp/pcmpl-git-el")
 (require 'pcmpl-git)
 
+;; restclient
+(add-to-list 'load-path "~/etc/dotfiles/emacs.d/site-lisp/restclient.el")
+(require 'restclient)
+
 ;; transpose-frame
 (require 'transpose-frame)
 

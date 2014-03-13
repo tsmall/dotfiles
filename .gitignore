@@ -8,3 +8,6 @@ sawfish/custom
 
 # Directories
 emacs.d/url
+
+# Git Modules
+emacs.d/site-lisp/restclient.el
