@@ -155,17 +155,27 @@
 
 ;; Pomodoro --------------------------------------------------------------------
 
+(defmacro run-elisp (&body body)
+  "Run the Emacs Lisp code via the currently running Emacs process."
+  `(let* ((print-string ,(write-to-string (car body)))
+          (elisp-string (string-downcase print-string)))
+     (run-shell-command (format nil "emacsclient --eval '~a'" elisp-string))))
+
+(defcommand pomodoro-remaining-time () ()
+  "Echo how much time is left in the current pomodoro timer."
+  (run-elisp (pomodoro-remaining-time)))
+
 (defcommand pomodoro-start () ()
   "Start a new pomodoro timer."
-  (run-shell-command "emacsclient --eval '(pomodoro-start)'"))
+  (run-elisp (pomodoro-start)))
 
 (defcommand pomodoro-start-short-break () ()
   "Start a new short break timer."
-  (run-shell-command "emacsclient --eval '(pomodoro-start-short-break)'"))
+  (run-elisp (pomodoro-start-short-break)))
 
 (defcommand pomodoro-start-long-break () ()
   "Start a new long break timer."
-  (run-shell-command "emacsclient --eval '(pomodoro-start-long-break)'"))
+  (run-elisp (pomodoro-start-long-break)))
 
 ;; Keyboard bindings -----------------------------------------------------------
 
