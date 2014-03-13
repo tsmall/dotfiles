@@ -102,6 +102,14 @@
   "Start or switch to Firefox."
   (run-or-raise "firefox" '(:class "Firefox")))
 
+(defcommand focus-at-will () ()
+  "Start or switch to the focus@will web app."
+  (run-web-app "focus-at-will" "https://focusatwill.com"))
+
+(defcommand google-music () ()
+  "Start or switch to Google Music web app."
+  (run-web-app "google-music" "http://play.google.com/music/listen"))
+
 (defcommand luakit () ()
   "Start or switch to luakit."
   (run-or-raise "luakit" '(:class "luakit")))
@@ -163,10 +171,12 @@
 
 (defparameter *app-launch-bindings*
   (let ((m (make-sparse-keymap)))
+    (define-key m (kbd "@") "focus-at-will")
     (define-key m (kbd "a") "aurora")
     (define-key m (kbd "c") "chrome")
     (define-key m (kbd "f") "firefox")
     (define-key m (kbd "k") "conkeror")
+    (define-key m (kbd "m") "google-music")
     (define-key m (kbd "p") "pandora")
     (define-key m (kbd "r") "rdio")
     (define-key m (kbd "s") "sublime")
