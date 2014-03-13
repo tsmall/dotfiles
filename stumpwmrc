@@ -81,10 +81,10 @@
   (let* ((instance (string-downcase name))
          (title (string-capitalize name))
          (profile-dir "/home/tom/.config/google-chrome/CustomProfiles")
-         (profile-path (format nil "~a/~a" profile-dir instance)))
-    (run-or-raise (format nil "google-chrome --app=~a --user-data-dir=~a"
-                          url profile-path)
-                  `(:class "Google-chrome" :instance ,instance :title ,title))))
+         (profile-path (format nil "~a/~a" profile-dir instance))
+         (command (format nil "google-chrome --app=~a --user-data-dir=~a --class=~a"
+                          url profile-path instance)))
+    (run-or-raise command `(:class ,instance))))
 
 (defcommand aurora () ()
   "Start or switch to Firefox Aurora."
