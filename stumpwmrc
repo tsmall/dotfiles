@@ -4,6 +4,11 @@
 
 (in-package :stumpwm)
 
+;; Contrib libraries -----------------------------------------------------------
+
+(load "/home/tom/Sources/stumpwm-sabetts/contrib/cpu.lisp")
+(load "/home/tom/Sources/stumpwm-sabetts/contrib/mem.lisp")
+
 ;; Initialization --------------------------------------------------------------
 
 (set-prefix-key (kbd "C-i"))
@@ -17,14 +22,9 @@
 ;; Mode line -------------------------------------------------------------------
 
 (setf *screen-mode-line-format*
-      (list '(:eval (string-trim
-                     '(#\newline)
-                     (run-shell-command "date +'%a %b %d %H:%M'" t)))
-            " | "
-            '(:eval (string-trim
-                     '(#\space #\newline)
-                     (run-shell-command "acpi | cut -d ',' -f 2" t)))
-            " |%w"))
+      (list '(:eval (string-trim '(#\newline) (run-shell-command "date +'%a %b %d %H:%M'" t)))
+            " | BAT: " '(:eval (string-trim '(#\space #\newline) (run-shell-command "acpi | cut -d ',' -f 2" t)))
+            " %c %M|%w"))
 
 (setf *mode-line-timeout* 1)
 
