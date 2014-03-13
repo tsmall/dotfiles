@@ -1,11 +1,5 @@
 ;; -*- lisp -*-
 
-;; To Do:
-;;
-;; - Make the DISABLE-MONITOR command move all of the windows to the primary
-;;   monitor before changing the monitor settings. That seems to avoid the
-;;   problem of having a left-over, extra frame.
-;;
 ;; Code:
 
 (in-package :stumpwm)
