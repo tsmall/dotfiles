@@ -39,7 +39,6 @@
 ;; Capture
 ;; -----------------------------------------------------------------------------
 
-(org-remember-insinuate)
 (setq org-remember-templates
       `(("todo" ?t "* TODO %?\n  %i" nil "Tasks")
         ("project" ?p "* PROJ %?" nil "Projects")
