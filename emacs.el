@@ -101,6 +101,13 @@ Display the number of matches and save it to the kill ring."
     (message "Matches: %s" matches)
     (kill-new (format "%s" matches))))
 
+(defun trs-goto-buffer (buffer-name file-path)
+  "Go to buffer in current window, loading it from FILE-PATH if it's not loaded."
+  (let ((buffer (get-buffer buffer-name)))
+    (if (not buffer)
+        (setq buffer (find-file-noselect file-path)))
+    (switch-to-buffer buffer)))
+
 (require 'pomodoro)
 (require 'util)
 
