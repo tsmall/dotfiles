@@ -34,8 +34,6 @@ endif
 
 if has("gui_running")
     set gfn="DejaVu Sans Mono":h14:cANSI
-    set lines=40
-    set columns=100
     set guioptions+=b               " show the bottom (horizontal) scrollbar
     set guioptions-=T               " disable the toolbar
     colorscheme molokai 
