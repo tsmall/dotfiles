@@ -2,7 +2,7 @@
 .DS_Store
 *.elc
 *~
-bash/local
+bash/local.sh
 conkeror/trs-local.js
 sawfish/custom
 
