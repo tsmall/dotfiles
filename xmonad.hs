@@ -230,9 +230,17 @@ myFloatHooks = concat $
   , [(className =? "Firefox" <&&> resource =? "Dialog") --> doFloat]
   ]
   where
-    myCFloats = [ "B2g", "Gimp", "MPlayer", "Shutter", "Skype", "VirtualBox", "xpad" ]
+    myCFloats = [ "B2g"
+                , "MPlayer"
+                , "Nitrogen"
+                , "Shutter"
+                , "Skype"
+                , "xpad"
+                ]
     myTFloats = [ "About Aurora"
+                , "About Mozilla Firefox"
                 , "Aurora Preferences"
+                , "Firefox Preferences"
                 , "Downloads"
                 , "Library"
                 ]
