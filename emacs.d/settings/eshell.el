@@ -51,7 +51,7 @@ current git branch as a string.  Otherwise return an empty string."
            (grep-cmd "grep '\\*'")
            (sed-cmd "sed -e 's/^\\* //'")
            (git-output (shell-command-to-string (concat git-cmd " | " grep-cmd " | " sed-cmd))))
-      (concat "[g:"
+      (concat "["
               (if (> (length git-output) 0)
                   (substring git-output 0 -1)
                 "(no branch)")
