@@ -241,12 +241,9 @@
 
 ;; Slime ----------------------------------------------------------------------
 
-;; Load swank.
-;; *prefix-key* ; swank will kick this off
-(load "/home/tom/Sources/slime/swank-loader.lisp")
-(swank-loader:init)
+(require 'swank)
 
-(defcommand swank () ()
+(defcommand start-swank-server () ()
   (setf stumpwm:*top-level-error-action* :break)
   (swank:create-server :port 4005
                        :style swank:*communication-style*
