@@ -255,9 +255,9 @@ imLayout = withIM ratio chatRosters chatLayout where
   ratio = 1%7
   chatLayout = Grid
 
-myTall = Tall 1 (3/100) (1/2)
+myTall = ResizableTall 1 (3/100) (1/2) []
 
-myLayout = avoidStruts (ResizableTall 1 (3/100) (1/2) []
+myLayout = avoidStruts (myTall
                         ||| Mirror (myTall)
                         ||| simpleTabbed
                         ||| Full
