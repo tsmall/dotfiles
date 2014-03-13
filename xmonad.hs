@@ -1,6 +1,6 @@
 import Data.Ratio ((%))
-import Text.Printf (printf)
 import System.IO
+import Text.Printf (printf)
 import XMonad
 import XMonad.Actions.CopyWindow (copy)
 import XMonad.Actions.CycleWS (toggleWS)
