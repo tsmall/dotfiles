@@ -128,7 +128,7 @@
 
 (defcommand terminal () ()
   "Start a new terminal."
-  (run-shell-command "urxvt"))
+  (run-shell-command "urxvtcd"))
 
 (defcommand workflowy () ()
   "Start or switch to WorkFlowy."
