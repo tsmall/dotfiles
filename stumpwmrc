@@ -20,8 +20,7 @@
     "xsetroot -cursor_name left_ptr"
     "xrdb -merge ~/.Xdefaults"
     "xscreensaver -no-splash"
-    "dropbox start"
-    "nm-applet"))
+    "dropbox start"))
 
 (mapcar 'run-shell-command *startup-commands*)
 
@@ -85,7 +84,7 @@
 
 (defcommand aurora () ()
   "Start or switch to Firefox Aurora."
-  (run-or-raise "aurora" '(:class "Firefox" :title "Aurora")))
+  (run-or-raise "aurora-dev" '(:class "Aurora")))
 
 (defcommand chrome () ()
   "Start or switch to Chrome."
@@ -93,7 +92,7 @@
 
 (defcommand conkeror () ()
   "Start or switch to Conkeror."
-  (run-or-raise "conkeror" '(:class "conkeror")))
+  (run-or-raise "conkeror" '(:class "Conkeror")))
 
 (defcommand firefox () ()
   "Start or switch to Firefox."
@@ -138,11 +137,11 @@
 ;; Window management ----------------------------------------------------------
 
 (defcommand hsplit-third () ()
-  "Split the current frame to 2/3 of the screen, stacked horizontally."
+  "Split the current frame to 2/3 of the screen, stacked side-by-side."
   (split-frame (current-group) :column 2/3))
 
 (defcommand vsplit-third () ()
-  "Split the current frame to 2/3 of the screen, stacked vertically."
+  "Split the current frame to 2/3 of the screen, stacked on top of each other."
   (split-frame (current-group) :row 2/3))
 
 (defun echo-urgent-window (target)
@@ -214,6 +213,16 @@
     ("XF86AudioRaiseVolume" . "volume 5%+")
     ("XF86AudioStop"        . (run-shell-command "mpc pause"))
     ("XF86AudioPlay"        . (run-shell-command "mpc toggle"))
+    ("s-F1"                 . "gselect 1")
+    ("s-F2"                 . "gselect 2")
+    ("s-F3"                 . "gselect 3")
+    ("s-F4"                 . "gselect 4")
+    ("s-F5"                 . "gselect 5")
+    ("s-F6"                 . "gselect 6")
+    ("s-F7"                 . "gselect 7")
+    ("s-F8"                 . "gselect 8")
+    ("s-F9"                 . "gselect 9")
+    ("s-F10"                . "gselect 10")
     ("s-Up"                 . "move-focus up")
     ("s-Down"               . "move-focus down")
     ("s-Left"               . "move-focus left")
@@ -234,10 +243,12 @@
         (action (cdr keydef)))
     (define-key map key action)))
 
-(mapcar (lambda (keydef) (bind-key *top-map* keydef))
-        *top-map-keys*)
-(mapcar (lambda (keydef) (bind-key *root-map* keydef))
-        *root-map-keys*)
+(defun partial (func &rest args1)
+  "Partially apply FUNC to some of its arguments."
+  (lambda (&rest args2) (apply func (append args1 args2))))
+
+(mapcar (partial #'bind-key *top-map*) *top-map-keys*)
+(mapcar (partial #'bind-key *root-map*) *root-map-keys*)
 
 ;; Slime ----------------------------------------------------------------------
 
