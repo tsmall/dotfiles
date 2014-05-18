@@ -33,7 +33,7 @@ if has("autocmd")
 endif
 
 if has("gui_running")
-    set guifont=Luculent\ 11
+    set guifont=Cousine\ 11
     set guioptions+=b               " show the bottom (horizontal) scrollbar
     set guioptions-=T               " disable the toolbar
     colorscheme molokai 
