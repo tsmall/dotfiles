@@ -9,6 +9,7 @@
 ;;; Code:
 
 (add-to-list 'load-path "~/etc/dotfiles/emacs.d/settings")
+(require 'el-get-settings)
 (require 'eshell-settings)
 (require 'font-settings)
 (require 'mac-settings)
@@ -181,18 +182,6 @@ Display the number of matches and save it to the kill ring."
 (setq package-enable-at-startup nil)
 
 (ignore-errors
-  ;; caml-mode
-  (setq auto-mode-alist
-        (cons '("\\.ml[iylp]?$" . caml-mode) auto-mode-alist))
-  (autoload 'caml-mode "caml" "Major mode for editing Caml code." t)
-  (autoload 'run-caml "inf-caml" "Run an inferior Caml process." t)
-  (if window-system (require 'caml-font))
-
-  ;; haskell-mode
-  (require 'haskell-mode)
-  (add-hook 'haskell-mode-hook 'turn-on-haskell-doc-mode)
-  (add-hook 'haskell-mode-hook 'turn-on-haskell-indentation)
-
   ;; jabber
   (require 'jabber)
   (set-face-attribute 'jabber-roster-user-away nil :foreground "royal blue")
@@ -202,9 +191,6 @@ Display the number of matches and save it to the kill ring."
   (add-hook 'jabber-chat-mode-hook
             (lambda ()
               (toggle-word-wrap)
-              (turn-on-flyspell)))
-
-  ;; js2-mode
-  (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode)))
+              (turn-on-flyspell))))
 
 ;;; emacs.el ends here
