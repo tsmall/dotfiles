@@ -131,6 +131,7 @@ Display the number of matches and save it to the kill ring."
 (global-set-key (kbd "C-c #") 'trs-count-matches-in-line)
 (global-set-key (kbd "C-c i") 'trs-increment-number-decimal)
 (global-set-key (kbd "C-c a") 'org-agenda)
+(global-set-key (kbd "C-c b") 'bury-buffer)
 (global-set-key (kbd "C-c d") 'pgg-decrypt-region)
 (global-set-key (kbd "C-c e") 'pgg-encrypt-symmetric-region)
 (global-set-key (kbd "C-c l") 'clear-buffer)
