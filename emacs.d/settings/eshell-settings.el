@@ -1,4 +1,4 @@
-;;; eshell.el --- Eshell customizations
+;;; eshell-settings.el --- Eshell customizations
 
 ;;; Commentary:
 ;; 
@@ -75,4 +75,4 @@ The main features of this prompt are that it:
 
 (provide 'eshell-settings)
 
-;;; eshell.el ends here
+;;; eshell-settings.el ends here

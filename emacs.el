@@ -8,11 +8,17 @@
 
 ;;; Code:
 
+(add-to-list 'load-path "~/etc/dotfiles/emacs.d/settings")
+(require 'eshell-settings)
+(require 'font-settings)
+(require 'mac-settings)
+(require 'org-settings)
+
 ;; -----------------------------------------------------------------------------
 ;; General customizations
 ;; -----------------------------------------------------------------------------
 
-(add-to-list 'default-frame-alist '(height . 47))
+(add-to-list 'default-frame-alist '(height . 35))
 (add-to-list 'default-frame-alist '(width . 100))
 
 (setq transient-mark-mode t)           ; Highlight regions
@@ -155,19 +161,9 @@ Display the number of matches and save it to the kill ring."
 (set-face-attribute 'diff-removed nil :foreground "red3")
 (set-face-attribute 'diff-changed nil :foreground "purple")
 
-;; eshell
-(load "~/etc/dotfiles/emacs.d/settings/eshell.el")
-
-;; org
-(load "~/etc/dotfiles/emacs.d/settings/org-mode.el")
-
 ;; pcomplete
 (add-to-list 'load-path "~/etc/dotfiles/emacs.d/site-lisp/pcmpl-git-el")
 (require 'pcmpl-git)
-
-;; restclient
-(add-to-list 'load-path "~/etc/dotfiles/emacs.d/site-lisp/restclient.el")
-(require 'restclient)
 
 ;; transpose-frame
 (require 'transpose-frame)

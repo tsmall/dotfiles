@@ -1,4 +1,4 @@
-;;; org-mode.el --- My custom org-mode settings
+;;; org-settings.el --- My custom org-mode settings
 
 ;;; Commentary:
 ;;
@@ -65,3 +65,7 @@
                    (org-agenda-skip-scheduled-if-done t)
                    (org-deadline-warning-days 0)))
           (todo "WAIT")))))
+
+(provide 'org-settings)
+
+;;; org-settings.el ends here
