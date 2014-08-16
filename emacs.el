@@ -32,6 +32,7 @@
 (tool-bar-mode -1)                     ; Disable tool bar
 (set-scroll-bar-mode nil)              ; Hide the scroll bars
 (ido-mode t)                           ; Turn on ido-mode
+(setq ido-enable-flex-matching t)      ; Turn on flexible matching
 (fset 'yes-or-no-p 'y-or-n-p)          ; Make answering yes or no easier
 
 (setq c-basic-offset 4)                ; Cause tab key to indent 4 places
