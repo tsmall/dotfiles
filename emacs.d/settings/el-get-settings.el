@@ -22,12 +22,14 @@
 
 ;;; Packages:
 (setq el-get-packages 
-      '(caml-mode
+      '(ace-jump-mode
+        caml-mode
         exec-path-from-shell
         expand-region
         fiplr
         full-ack
         haskell-mode
+        iy-go-to-char
         js2-mode
         magit
         web-mode))
