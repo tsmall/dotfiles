@@ -23,6 +23,7 @@
 ;;; Packages:
 (setq el-get-packages 
       '(caml-mode
+        exec-path-from-shell
         expand-region
         fiplr
         haskell-mode
