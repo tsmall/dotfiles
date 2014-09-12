@@ -140,6 +140,8 @@ Display the number of matches and save it to the kill ring."
 (global-set-key (kbd "C-c l") 'clear-buffer)
 (global-set-key (kbd "C-c w") 'trs-copy-buffer-to-clipboard)
 
+(global-set-key (kbd "C-x C-b") 'ibuffer)
+
 ;; Scrolling
 (global-set-key (kbd "C-S-n") 'scroll-up-line)
 (global-set-key (kbd "C-S-p") 'scroll-down-line)
