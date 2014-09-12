@@ -20,7 +20,6 @@ export MANWIDTH=80
 
 alias dirs='dirs -v'
 alias ll='ls -l'
-alias ls='ls --color'
 alias ssh='ssh -o ServerAliveInterval=60'
 alias t='todo -a'
 
