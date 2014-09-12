@@ -26,6 +26,7 @@
         exec-path-from-shell
         expand-region
         fiplr
+        full-ack
         haskell-mode
         js2-mode
         magit
