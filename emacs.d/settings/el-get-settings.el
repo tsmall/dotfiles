@@ -31,8 +31,11 @@
         haskell-mode
         iy-go-to-char
         js2-mode
+        json-mode
         magit
-        web-mode))
+        markdown-mode
+        web-mode
+        yaml-mode))
 
 (el-get 'sync el-get-packages)
 
