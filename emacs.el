@@ -35,6 +35,7 @@
 (setq ido-enable-flex-matching t)      ; Turn on flexible matching
 (fset 'yes-or-no-p 'y-or-n-p)          ; Make answering yes or no easier
 (setq-default fill-column 79)          ; Wrap at 79 columns by default
+(setq-default Man-width fill-column)   ; Wrap man pages at fill-column
 
 (setq c-basic-offset 4)                ; Cause tab key to indent 4 places
 (setq sgml-basic-offset 4)             ; Also use 4 spaces for HTML
