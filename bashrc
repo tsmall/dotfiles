@@ -10,7 +10,7 @@ source $bashdir/plan9.sh
 # ------------------------------------------------------------------------------
 
 export EDITOR="emacsclient"
-export HISTCONTROL=ignoredups  # don't save duplicates in history
+export HISTCONTROL=ignoreboth  # ignore duplicates and lines with leading spaces
 export LC_CTYPE=en_US.UTF-8    # required for svn to handle non-ASCII filenames
 export MANWIDTH=80
 
