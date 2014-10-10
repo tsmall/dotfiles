@@ -3,7 +3,7 @@
 ;;; Commentary:
 
 ;; Set the fonts Emacs uses. I'm a bit nuts about fonts, and tend to change my
-;; preferred font quite often. That's why there are so many here.
+;; preferred font quite often. So I made it easy for me to switch between them.
 
 ;;; Code:
 
