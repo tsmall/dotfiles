@@ -34,6 +34,7 @@
         json-mode
         magit
         markdown-mode
+        paredit
         web-mode
         yaml-mode))
 
