@@ -134,7 +134,6 @@ Display the number of matches and save it to the kill ring."
 (global-set-key (kbd "C-c -") 'insert-comment-line)
 (global-set-key (kbd "C-c #") 'trs-count-matches-in-line)
 (global-set-key (kbd "C-c i") 'trs-increment-number-decimal)
-(global-set-key (kbd "C-c a") 'org-agenda)
 (global-set-key (kbd "C-c b") 'bury-buffer)
 (global-set-key (kbd "C-c d") 'pgg-decrypt-region)
 (global-set-key (kbd "C-c e") 'pgg-encrypt-symmetric-region)
@@ -142,6 +141,10 @@ Display the number of matches and save it to the kill ring."
 (global-set-key (kbd "C-c w") 'trs-copy-buffer-to-clipboard)
 
 (global-set-key (kbd "C-x C-b") 'ibuffer)
+
+;; org-mode
+(global-set-key (kbd "C-c a") 'org-agenda)
+(global-set-key (kbd "C-c c") 'org-capture)
 
 ;; Scrolling
 (global-set-key (kbd "C-S-n") 'scroll-up-line)
