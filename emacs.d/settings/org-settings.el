@@ -16,7 +16,7 @@
 (setq org-M-RET-may-split-line nil)
 (setq org-startup-indented t)
 (setq org-cycle-separator-lines 0)
-(setq org-insert-heading-respect-content t)
+(setq org-insert-heading-respect-content nil)
 (setq org-blank-before-new-entry '((heading . nil) (plain-list-item . auto)))
 (setq org-catch-invisible-edits 'error)
 
@@ -68,6 +68,7 @@
 (setq org-agenda-compact-blocks t)
 (setq org-agenda-files '("~/org"))
 (setq org-agenda-window-setup 'current-window)
+(setq org-agenda-tags-todo-honor-ignore-options t)
 
 (setq org-agenda-custom-commands
       '(("N" "Notes" tags "NOTE"
@@ -78,12 +79,17 @@
           (tags "REFILE"
                 ((org-agenda-overriding-header "Tasks to Refile")
                  (org-tags-match-list-sublevels nil)))
-          (tags-todo "-REFILE/!NEXT|TODO"
-                     ((org-agenda-overriding-header "Next Actions")
-                      (org-agenda-skip-function 'ts/skip-project-entries)))
+          (tags-todo "-REFILE-SOMEDAY/!NEXT"
+                     ((org-agenda-overriding-header "Project Next Tasks")
+                      (org-agenda-todo-ignore-scheduled 'all)))
+          (tags-todo "-REFILE-SOMEDAY/!TODO"
+                     ((org-agenda-overriding-header "Standalone Tasks")
+                      (org-agenda-skip-function 'ts/skip-projects)
+                      (org-agenda-todo-ignore-scheduled 'all)))
           (tags-todo "-REFILE/!WAITING|HOLD"
                      ((org-agenda-overriding-header "Waiting and Postponed Tasks")
-                      (org-tags-match-list-sublevels nil)))
+                      (org-tags-match-list-sublevels nil)
+                      (org-agenda-sorting-strategy '(todo-state-up))))
           (tags-todo "-CANCELLED"
                      ((org-agenda-overriding-header "Stuck Projects")
                       (org-agenda-skip-function 'ts/skip-non-stuck-projects)
