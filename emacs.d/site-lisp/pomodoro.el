@@ -7,10 +7,9 @@
 
 ;;; Commentary:
 ;; 
-;; This library implements a Pomodoro timer for Emacs in Emacs-Lisp.  It uses
-;; either Ubuntu's d-bus based message notification system, Mac OS X's Growl
-;; notification system, or Emacs's notification system to indicate when a timer
-;; has ended.
+;; This library implements a Pomodoro timer for Emacs. It uses your platform's
+;; native notification system to indicate when a timer has ended: D-Bus, Mac OS
+;; X, or Emacs's notification system.
 ;;
 ;; This library doesn't define any key mappings, but these are recommended:
 ;;
@@ -93,7 +92,7 @@
 (defun pomodoro-show-message (msg)
   "Show the MSG string to the user."
   (cond ((string= system-type "gnu/linux") (pomodoro-show-dbus-message msg))
-        ((string= system-type "darwin") (pomodoro-show-growl-message msg))
+        ((string= system-type "darwin") (pomodoro-show-mac-message msg))
         (t (message msg))))
 
 (defun pomodoro-show-dbus-message (msg)
@@ -101,12 +100,11 @@
   (notifications-notify :title "Pomodoro"
                         :body msg))
 
-(defun pomodoro-show-growl-message (msg)
-  "Show the MSG string to the user via Growl."
-  (start-process "growl" nil "growlnotify"
-                 "-a" "Emacs"
-                 "-t" "Pomodoro"
-                 "-m" msg))
+(defun pomodoro-show-mac-message (msg)
+  "Show the MSG string to the user via the Mac OS X Notification Center."
+  (let ((applescript (format "display notification \"%s\" with title \"Pomodoro\"" msg)))
+    (start-process "notification" nil "osascript"
+                   "-e" applescript)))
 
 (defun pomodoro-play-complete-sound ()
   "Play the pomodoro completed sound."
