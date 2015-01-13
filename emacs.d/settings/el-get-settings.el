@@ -24,6 +24,7 @@
 (setq el-get-packages 
       '(ace-jump-mode
         caml-mode
+        csv-mode
         exec-path-from-shell
         expand-region
         fiplr
