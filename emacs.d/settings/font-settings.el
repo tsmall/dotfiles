@@ -7,13 +7,19 @@
 
 ;;; Code:
 
-(defun font-settings-set-default-font (family &optional height)
+(defun font-settings-set-default-font (family &optional height weight)
   "Set the default font."
-  (set-face-attribute 'default nil :family family :height (or height 100)))
+  (set-face-attribute 'default nil
+                      :family family
+                      :height (or height 100)
+                      :weight (or weight 'medium)))
 
-(defun font-settings-set-variable-font (family &optional height)
+(defun font-settings-set-variable-font (family &optional height weight)
   "Set the variable width font."
-  (set-face-attribute 'variable-pitch nil :family family :height (or height 100)))
+  (set-face-attribute 'variable-pitch nil
+                      :family family
+                      :height (or height 100)
+                      :weight (or weight 'medium)))
 
 (provide 'font-settings)
 
