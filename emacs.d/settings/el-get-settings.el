@@ -37,6 +37,7 @@
         markdown-mode
         multiple-cursors
         paredit
+        php-mode
         web-mode
         yaml-mode
         yasnippet))
