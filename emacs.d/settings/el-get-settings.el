@@ -31,6 +31,7 @@
         fiplr
         full-ack
         haskell-mode
+        highlight-symbol
         iy-go-to-char
         js2-mode
         json-mode
