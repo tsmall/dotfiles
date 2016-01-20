@@ -25,6 +25,7 @@
       '(ace-jump-mode
         caml-mode
         csv-mode
+        editorconfig
         exec-path-from-shell
         expand-region
         fiplr
