@@ -38,7 +38,8 @@
         multiple-cursors
         paredit
         web-mode
-        yaml-mode))
+        yaml-mode
+        yasnippet))
 
 (el-get 'sync el-get-packages)
 
