@@ -71,7 +71,21 @@ local runOrRaise = function(appName)
    end
 end
 
+-- Opens a directory in Finder. The directory has to be a favorite so it
+-- shows up in the "Go" menu.
+--
+local openDirectory = function(dirName)
+   return function()
+      if application.launchOrFocus("finder") then
+         local app = application.frontmostApplication()
+         app:selectMenuItem({"Go", dirName})
+      end
+      launcher:exit()
+   end
+end
+
 launcher:bind("", "c", runOrRaise("google chrome"))
+launcher:bind("", "d", openDirectory("Downloads"))
 launcher:bind("", "e", runOrRaise("/Users/tsmall/Applications/Emacs.app"))
 launcher:bind("", "f", runOrRaise("firefox"))
 launcher:bind("", "h", runOrRaise("hipchat"))
