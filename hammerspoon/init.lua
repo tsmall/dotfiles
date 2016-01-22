@@ -3,6 +3,7 @@
 
 local alert       = require "hs.alert"
 local application = require "hs.application"
+local caffeinate  = require "hs.caffeinate"
 local grid        = require "hs.grid"
 local hints       = require "hs.hints"
 local hotkey      = require "hs.hotkey"
@@ -137,5 +138,7 @@ hotkey.bind(mod,      "[", grid.resizeWindowThinner)
 hotkey.bind(mod,      "]", grid.resizeWindowWider)
 hotkey.bind(modShift, "[", grid.resizeWindowShorter)
 hotkey.bind(modShift, "]", grid.resizeWindowTaller)
+
+hotkey.bind(mod, "Escape", caffeinate.startScreensaver)
 
 hotkey.bind(mod, "i", function() launcher:enter() end)
