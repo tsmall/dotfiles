@@ -84,15 +84,17 @@ local openDirectory = function(dirName)
    end
 end
 
-launcher:bind("", "c", runOrRaise("google chrome"))
-launcher:bind("", "d", openDirectory("Downloads"))
-launcher:bind("", "e", runOrRaise("/Users/tsmall/Applications/Emacs.app"))
-launcher:bind("", "f", runOrRaise("firefox"))
-launcher:bind("", "h", runOrRaise("hipchat"))
-launcher:bind("", "m", runOrRaise("textmate"))
-launcher:bind("", "o", runOrRaise("/Applications/Microsoft Office 2011/Microsoft Outlook.app"))
-launcher:bind("", "s", runOrRaise("sequel pro"))
-launcher:bind("", "t", runOrRaise("terminal"))
+launcher:bind("",        "c", runOrRaise("Google Chrome"))
+launcher:bind("",        "d", openDirectory("Downloads"))
+launcher:bind("",        "e", runOrRaise("/Users/tsmall/Applications/Emacs.app"))
+launcher:bind("",        "f", runOrRaise("Firefox"))
+launcher:bind({"shift"}, "f", runOrRaise("Firefox Developer Edition"))
+launcher:bind("",        "h", runOrRaise("HipChat"))
+launcher:bind("",        "l", runOrRaise("LightTable"))
+launcher:bind("",        "m", runOrRaise("TextMate"))
+launcher:bind("",        "o", runOrRaise("Microsoft Outlook"))
+launcher:bind("",        "s", runOrRaise("Sequel Pro"))
+launcher:bind("",        "t", runOrRaise("Terminal"))
 
 --------------------------------------------------------------------------------
 -- Screens
