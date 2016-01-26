@@ -11,6 +11,8 @@ local mouse       = require "hs.mouse"
 local screen      = require "hs.screen"
 local window      = require "hs.window"
 
+require "volumes"
+
 --------------------------------------------------------------------------------
 -- Grid
 
