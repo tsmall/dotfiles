@@ -24,6 +24,8 @@
 (setq el-get-packages 
       '(ace-jump-mode
         caml-mode
+        cider
+        clojure-mode
         csv-mode
         editorconfig
         exec-path-from-shell
