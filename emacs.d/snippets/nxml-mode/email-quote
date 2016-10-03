@@ -1,0 +1,10 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: Email quote
+# key: eq
+# --
+<quote-intro from="${1:John Doe}" email="${2:${1:$(trs-name-to-email yas-text)}}"/>
+<quote>
+	<p>
+		$0
+	</p>
+</quote>

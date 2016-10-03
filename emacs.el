@@ -78,6 +78,18 @@ Display the number of matches and save it to the kill ring."
         (setq buffer (find-file-noselect file-path)))
     (switch-to-buffer buffer)))
 
+(defun trs-name-to-email (name)
+  "Convert the string NAME to an email address."
+  (let* ((parts (->> name
+                     downcase
+                     split-string))
+         (first (->> (car parts)
+                     string-to-char
+                     string))
+         (last (cadr parts))
+         (domain "@schoology.com"))
+    (concat first last domain)))
+
 (require 'pomodoro)
 (require 'util)
 
