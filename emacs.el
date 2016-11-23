@@ -12,40 +12,18 @@
 (require 'el-get-settings)
 (require 'eshell-settings)
 (require 'font-settings)
-(require 'mac-settings)
 (require 'org-settings)
+
+;; Eventually the emacs.lp.el file will replace this one. But since migrating
+;; all of my code into emacs.org is going to take a little while, I'll load
+;; that file along with this one. That way I can migrate it piece-by-piece.
+(load-file "emacs.lp.el")
 
 ;; -----------------------------------------------------------------------------
 ;; General customizations
 ;; -----------------------------------------------------------------------------
 
-(add-to-list 'default-frame-alist '(height . 35))
-(add-to-list 'default-frame-alist '(width . 100))
-
-(setq transient-mark-mode t)           ; Highlight regions
-(setq line-number-mode t)              ; Display line numbers
-(setq column-number-mode t)            ; Display column numbers
-(blink-cursor-mode 0)                  ; Don't blink the cursor
-(server-start)                         ; Start the Emacs server
-(setq visible-bell t)                  ; Disable beep
-(setq confirm-kill-emacs 'yes-or-no-p) ; Confirm quit
-(tool-bar-mode -1)                     ; Disable tool bar
-(set-scroll-bar-mode nil)              ; Hide the scroll bars
-(ido-mode t)                           ; Turn on ido-mode
-(setq ido-enable-flex-matching t)      ; Turn on flexible matching
-(fset 'yes-or-no-p 'y-or-n-p)          ; Make answering yes or no easier
-(setq-default fill-column 79)          ; Wrap at 79 columns by default
-(setq-default Man-width fill-column)   ; Wrap man pages at fill-column
-(setq sentence-end-double-space nil)   ; Let one space end a sentence
-
-(setq c-basic-offset 4)                ; Cause tab key to indent 4 places
 (setq sgml-basic-offset 4)             ; Also use 4 spaces for HTML
-(setq tab-width 4)                     ; Interpret tab char as 4 places
-(setq-default indent-tabs-mode nil)    ; Insert spaces instead of tabs
-
-;; "Uniquify" buffers
-(require 'uniquify)
-(setq uniquify-buffer-name-style 'forward)
 
 ;; -----------------------------------------------------------------------------
 ;; Custom functions
@@ -86,24 +64,6 @@ If the new path's directory does not exist, create them."
   (clipboard-kill-ring-save (point-min) (point-max))
   (message "Copied."))
 
-;; Taken verbatim from the Emacs wiki:
-;; http://www.emacswiki.org/emacs/IncrementNumber
-(defun trs-increment-number-decimal (&optional arg)
-  "Increment the number forward from point by 'arg'."
-  (interactive "p*")
-  (save-excursion
-    (save-match-data
-      (let (inc-by field-width answer)
-        (setq inc-by (if arg arg 1))
-        (skip-chars-backward "0123456789")
-        (when (re-search-forward "[0-9]+" nil t)
-          (setq field-width (- (match-end 0) (match-beginning 0)))
-          (setq answer (+ (string-to-number (match-string 0) 10) inc-by))
-          (when (< answer 0)
-            (setq answer (+ (expt 10 field-width) answer)))
-          (replace-match (format (concat "%0" (int-to-string field-width) "d")
-                                 answer)))))))
-
 (defun trs-count-matches-in-line (regexp)
   "Search for all REGEXP matches in the current line.
 Display the number of matches and save it to the kill ring."
@@ -134,7 +94,6 @@ Display the number of matches and save it to the kill ring."
 (global-set-key (kbd "C-c \\") 'flymake-display-err-menu-for-current-line)
 (global-set-key (kbd "C-c -") 'insert-comment-line)
 (global-set-key (kbd "C-c #") 'trs-count-matches-in-line)
-(global-set-key (kbd "C-c i") 'trs-increment-number-decimal)
 (global-set-key (kbd "C-c b") 'bury-buffer)
 (global-set-key (kbd "C-c d") 'pgg-decrypt-region)
 (global-set-key (kbd "C-c e") 'pgg-encrypt-symmetric-region)

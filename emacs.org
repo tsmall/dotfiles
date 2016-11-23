@@ -1,0 +1,222 @@
+#+TITLE: Tom's Emacs Configuration
+#+AUTHOR: Tom Small <tsmall3@gmail.com>
+
+* Introduction
+
+Welcome to my Emacs configuration file. This file contains a lot of changes
+I've made over many years of using Emacs. It contains my own code and code
+others have shared online. I've included credit for the authors of most of the
+shared code, though I'm sure I've missed some. I'm sorry if I missed you. But
+please let me know and I'll correct it!
+
+This file is written in Babel for Org mode, in a literate programming style.
+That way I can organize it for the reader and not the computer, using all of
+the markup tools Org mode provides to describe the program right along with the
+code itself.
+
+* Organization of this document
+
+This document is organized from the general to the specific.
+
+First are the settings that apply to Emacs as a whole (see [[*Emacs settings][Emacs settings]]).
+These are things like the size of the window at startup, the fonts to use,
+and making the cursor not blink.
+
+Then it focuses on settings that apply to specific modes (see [[*Mode-specific settings][Mode-specific
+settings]]). This section has one sub-section per mode.
+
+The next section describes some of the helper methods I've found and created
+over time (see [[*Helpers and utilities][Helpers and utilities]]). These are little utilities to make
+everyday text editing just a bit more pleasant.
+
+Lastly, it combines all of the code together into a single file that we'll
+configure Emacs to load at startup (see [[*Putting%20it%20all%20together][Putting it all together]]).
+
+* Emacs settings
+:PROPERTIES:
+:noweb-ref: emacs-settings
+:END:
+
+This section defines the customizations that apply to Emacs as a whole.
+
+** Sensible defaults
+
+I disagree with many of Emacs's default settings. Who wants their cursor to
+blink? That's just distracting. We don't need two spaces after a sentence.
+That's just wasteful. Let's put things the way they should be.
+
+#+BEGIN_SRC elisp
+  (setq transient-mark-mode t)            ; Highlight regions
+  (setq line-number-mode t)               ; Display line numbers
+  (setq column-number-mode t)             ; Display column numbers
+  (blink-cursor-mode 0)                   ; Don't blink the cursor
+  (setq visible-bell nil)                 ; Disable beep
+  (setq confirm-kill-emacs 'yes-or-no-p)  ; Confirm quit
+  (tool-bar-mode -1)                      ; Disable tool bar
+  (set-scroll-bar-mode nil)               ; Hide the scroll bars
+  (fset 'yes-or-no-p 'y-or-n-p)           ; Make answering yes or no easier
+  (setq-default fill-column 79)           ; Wrap at 79 columns by default
+  (setq sentence-end-double-space nil)    ; Let one space end a sentence
+#+END_SRC
+
+** Tabs vs. spaces
+
+Ahh, the age-old debate. Should you use spaces or tabs to indent your code? If
+you use spaces, how many? Honestly, I'm a bit tired of this debate. I'll use
+whatever a project has decided, or whatever the standard is for a language.
+(This is also one of the reasons I really like Go and Lisps: there's one way to
+format your code, and that's it.)
+
+But it seems like, in general, four spaces has won. And that seems like a
+reasonable default to me. So four spaces it is.
+
+#+BEGIN_SRC elisp
+  (setq tab-width 4)                      ; Interpret tab char as 4 places
+  (setq-default indent-tabs-mode nil)     ; Insert spaces instead of tabs
+#+END_SRC
+
+** Ido-mode
+
+Ido-mode makes it much easier to switch buffers, open files, and to do many of
+the things you do many times a day. It does that by showing all of your options
+and letting you choose one with fewer keystrokes with fuzzy matching. It's
+incredibly helpful.
+
+#+BEGIN_SRC elisp
+  (ido-mode t)                            ; Turn on ido-mode
+  (setq ido-enable-flex-matching t)       ; Turn on flexible matching
+  (setq-default Man-width fill-column)    ; Wrap man pages at fill-column
+#+END_SRC
+
+** "Uniquify" buffers
+
+In some projects it's very likely that you'll end up with multiple files opened
+with the exact same filename. In a Python project, for example, every package
+has a =__init__.py= file. By default Emacs appends a number to the file's buffer
+name to make it unique. But that doesn't really help you tell which is which.
+
+Luckily there's a built-in package named =uniquify= that solves this problem! It
+lets you choose alternative ways to differentiate buffers for identical
+filenames. I've chosen to have it prepend a portion of the file's path.
+
+#+BEGIN_SRC elisp
+  (require 'uniquify)
+  (setq uniquify-buffer-name-style 'forward)
+#+END_SRC
+
+** Startup window size
+
+I like to have Emacs start up with a slightly bigger window that it has by
+default.
+
+#+BEGIN_SRC elisp
+  (add-to-list 'default-frame-alist '(height . 35))
+  (add-to-list 'default-frame-alist '(width . 100))
+#+END_SRC
+
+** OS X settings
+
+There are a few tweaks needed for Emacs to work as expected on OS X. The
+biggest for me is a preference: using the Command key as the meta modifier. (I
+also map the Caps Lock key to Control, but that's outside the scope of Emacs.)
+
+The other big fix is about how the =$PATH= is set up. Programs launched from the
+Finder don't have the bash =$PATH= settings applied. Luckily someone else has
+already fixed that problem for us. We just have to call
+~exec-path-from-shell-initialize~.
+
+#+BEGIN_SRC elisp
+  (when (eq system-type 'darwin)
+    (setq mac-option-key-is-meta nil
+          mac-command-key-is-meta t
+          mac-command-modifier 'meta
+          mac-option-modifier 'none)
+
+    (exec-path-from-shell-initialize))
+#+END_SRC
+
+* Mode-specific settings
+:PROPERTIES:
+:noweb-ref: mode-specific-settings
+:END:
+
+The subsections in this section define the customizations specific to
+individual modes.
+
+** Org mode
+
+#+BEGIN_SRC elisp
+  (setq org-hide-emphasis-markers t)
+#+END_SRC
+
+** C mode
+
+I don't work with C much, so I haven't felt the need to change much here. But
+many other modes are based on =c-mode=, so setting the indentation offset there
+applies to many of the other modes I /do/ use more often.
+
+#+BEGIN_SRC elisp
+  (setq c-basic-offset 4)
+#+END_SRC
+
+* Helpers and utilities
+
+** Increment number at point
+
+This function is taken verbatim from [[http://www.emacswiki.org/emacs/IncrementNumber][the Emacs wiki]]. It increments the number
+underneath the pointer. By default it increments the number by 1, but that can
+be overriden in the standard Emacs way by pressing =C-u= followed by a number.
+
+The biggest benefit of having this function is in macros. Often when you copy a
+line with a number in it, you want that number incremented on the next line.
+But you need to define your macro generically; if it changes the number to a
+specific value then all the lines will have that new value. This function
+solves that problem.
+
+#+NAME: custom-functions
+#+BEGIN_SRC elisp
+  (defun trs/increment-number-decimal (&optional arg)
+    "Increment the number forward from point by 'arg'."
+    (interactive "p*")
+    (save-excursion
+      (save-match-data
+        (let (inc-by field-width answer)
+          (setq inc-by (if arg arg 1))
+          (skip-chars-backward "0123456789")
+          (when (re-search-forward "[0-9]+" nil t)
+            (setq field-width (- (match-end 0) (match-beginning 0)))
+            (setq answer (+ (string-to-number (match-string 0) 10) inc-by))
+            (when (< answer 0)
+              (setq answer (+ (expt 10 field-width) answer)))
+            (replace-match (format (concat "%0" (int-to-string field-width) "d")
+                                   answer)))))))
+#+END_SRC
+
+I bind this function to a simple keystroke to make using it even easier.
+
+#+NAME: key-bindings
+#+BEGIN_SRC elisp
+  (global-set-key (kbd "C-c i") 'trs/increment-number-decimal)
+#+END_SRC
+
+* Putting it all together
+
+All of the code you've read above is written to a single file, =emacs.lp.el=.
+
+#+BEGIN_SRC elisp :tangle emacs.lp.el :noweb tangle :padline no
+  ;;; emacs.lp.el --- Tom's Emacs customizations
+  ;;
+  ;; NOTE: This file is generated from emacs.el. You should not edit it directly.
+
+  ;;; Emacs settings
+  <<emacs-settings>>
+
+  ;;; Mode-specific settings
+  <<mode-specific-settings>>
+
+  ;;; Key bindings
+  <<key-bindings>>
+
+  ;;; Custom functions
+  <<custom-functions>>
+#+END_SRC

@@ -16,5 +16,8 @@ emacs.d/bookmarks
 emacs.d/tramp
 emacs.d/url
 
+emacs.html
+emacs.lp.el
+
 # Git Modules
 emacs.d/site-lisp/restclient.el
