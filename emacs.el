@@ -11,7 +11,6 @@
 (add-to-list 'load-path "~/etc/dotfiles/emacs.d/settings")
 (require 'el-get-settings)
 (require 'eshell-settings)
-(require 'font-settings)
 (require 'org-settings)
 
 ;; Eventually the emacs.lp.el file will replace this one. But since migrating

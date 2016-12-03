@@ -59,6 +59,17 @@ That's just wasteful. Let's put things the way they should be.
   (setq sentence-end-double-space nil)    ; Let one space end a sentence
 #+END_SRC
 
+** Fonts
+
+Recently the team behind the Go programming language released [[https://blog.golang.org/go-fonts][their own fonts]].
+One of them is a proportional font, and the other monospace. I immediately
+liked both, and I've been using them as my main text editing fonts since then.
+
+#+BEGIN_SRC elisp
+  (trs/set-default-font "Go Mono" 140)
+  (trs/set-variable-font "Go" 140)
+#+END_SRC
+
 ** Tabs vs. spaces
 
 Ahh, the age-old debate. Should you use spaces or tabs to indent your code? If
@@ -160,6 +171,10 @@ applies to many of the other modes I /do/ use more often.
 #+END_SRC
 
 * Helpers and utilities
+:PROPERTIES:
+:noweb-ref: custom-functions
+:noweb-sep: "\n\n"
+:END:
 
 ** Increment number at point
 
@@ -173,7 +188,6 @@ But you need to define your macro generically; if it changes the number to a
 specific value then all the lines will have that new value. This function
 solves that problem.
 
-#+NAME: custom-functions
 #+BEGIN_SRC elisp
   (defun trs/increment-number-decimal (&optional arg)
     "Increment the number forward from point by 'arg'."
@@ -194,9 +208,31 @@ solves that problem.
 
 I bind this function to a simple keystroke to make using it even easier.
 
-#+NAME: key-bindings
-#+BEGIN_SRC elisp
+#+BEGIN_SRC elisp :noweb-ref key-bindings
   (global-set-key (kbd "C-c i") 'trs/increment-number-decimal)
+#+END_SRC
+
+** Fonts and typography
+
+I'm a bit nuts about fonts, and tend to change my preferred font quite often.
+So I've made it easy for me to switch between them.
+
+See [[*Fonts][Fonts]] to see where I'm using these functions.
+
+#+BEGIN_SRC elisp
+  (defun trs/set-default-font (family &optional height weight)
+    "Set the default font."
+    (set-face-attribute 'default nil
+                        :family family
+                        :height (or height 100)
+                        :weight (or weight 'medium)))
+
+  (defun trs/set-variable-font (family &optional height weight)
+    "Set the variable width font."
+    (set-face-attribute 'variable-pitch nil
+                        :family family
+                        :height (or height 100)
+                        :weight (or weight 'medium)))
 #+END_SRC
 
 * Putting it all together
@@ -209,14 +245,18 @@ All of the code you've read above is written to a single file, =emacs.lp.el=.
   ;; NOTE: This file is generated from emacs.el. You should not edit it directly.
 
   ;;; Emacs settings
+
   <<emacs-settings>>
 
   ;;; Mode-specific settings
+
   <<mode-specific-settings>>
 
   ;;; Key bindings
+
   <<key-bindings>>
 
   ;;; Custom functions
+
   <<custom-functions>>
 #+END_SRC
