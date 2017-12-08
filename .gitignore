@@ -1,23 +1,38 @@
-# Files
-.DS_Store
-*.elc
-*~
-bash/local.sh
-conkeror/trs-local.js
-sawfish/custom
+# ------------------------------------------
+# Root
 
+*~
+.DS_Store
+
+# ------------------------------------------
+# Bash
+
+bash/local.sh
+
+# ------------------------------------------
+# Conkeror
+
+conkeror/trs-local.js
+
+# ------------------------------------------
 # Emacs
-emacs.d/abbrev_defs
-emacs.d/el-get/
-emacs.d/elpa/
-emacs.d/eshell/
-emacs.d/.mc-lists.el
-emacs.d/bookmarks
-emacs.d/tramp
-emacs.d/url
+
+*.elc
 
 emacs.html
 emacs.lp.el
 
-# Git Modules
+emacs.d/.mc-lists.el
+emacs.d/abbrev_defs
+emacs.d/bookmarks
+emacs.d/el-get/
+emacs.d/elpa/
+emacs.d/eshell/
 emacs.d/site-lisp/restclient.el
+emacs.d/tramp
+emacs.d/url
+
+# ------------------------------------------
+# Sawfish
+
+sawfish/custom
