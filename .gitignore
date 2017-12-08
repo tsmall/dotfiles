@@ -23,11 +23,14 @@ emacs.html
 emacs.lp.el
 
 emacs.d/.mc-lists.el
+emacs.d/.org-id-locations
 emacs.d/abbrev_defs
 emacs.d/bookmarks
 emacs.d/el-get/
 emacs.d/elpa/
 emacs.d/eshell/
+emacs.d/games/
+emacs.d/ido.last
 emacs.d/site-lisp/restclient.el
 emacs.d/tramp
 emacs.d/url
