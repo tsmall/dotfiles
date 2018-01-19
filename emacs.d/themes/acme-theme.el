@@ -71,7 +71,7 @@
    `(font-lock-builtin-face ((t nil)))
    `(font-lock-comment-delimiter-face ((t (:foreground ,text-color))))
    `(font-lock-comment-face ((t (:foreground ,comment-color :slant italic))))
-   `(font-lock-doc-face ((t (:foreground ,comment-color))))
+   `(font-lock-doc-face ((t (:foreground ,comment-color :slant italic))))
    `(font-lock-constant-face ((t nil)))
    `(font-lock-function-name-face ((t nil)))
    `(font-lock-keyword-face ((t nil)))
@@ -86,8 +86,8 @@
    `(ido-only-match ((t nil)))
    `(ido-subdir ((t nil)))
    `(isearch ((t (:background ,highlight-color))))
-   `(highlight ((t nil)))
-   `(lazy-highlight ((t nil)))
+   `(highlight ((t (:background ,selection-color))))
+   `(lazy-highlight ((t (:background ,selection-color))))
    `(link ((t nil)))
 
    ;; mode line and minibuffer
