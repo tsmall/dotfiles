@@ -43,6 +43,7 @@
         multiple-cursors
         paredit
         php-mode
+        rjsx-mode
         web-mode
         yaml-mode
         yasnippet))
