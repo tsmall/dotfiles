@@ -43,6 +43,7 @@
         multiple-cursors
         paredit
         php-mode
+        rainbow-mode
         rjsx-mode
         web-mode
         yaml-mode
