@@ -1,0 +1,17 @@
+#+TITLE: MacDown Config Files
+
+I like to create typographically well-designed,
+attractive emails.
+While email programs rarely give you good typography options,
+I've come up with a solution
+using a combination of Markdown,
+MacDown,
+and a custom CSS file.
+
+* Setup
+
+1. Install [[http://macdown.uranusjr.com/][MacDown]].
+2. Create a symbolic link to =Email.css=
+   in =~/Library/Application Support/MacDown/styles=.
+3. In MacDown > Preferences > Rendering,
+   choose "Email" in the CSS drop-down.
