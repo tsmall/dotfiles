@@ -239,10 +239,11 @@ See [[*Fonts][Fonts]] to see where I'm using these functions.
 #+BEGIN_SRC elisp
   (defun trs/set-default-font (family &optional height weight)
     "Set the default font."
-    (set-face-attribute 'default nil
-                        :family family
-                        :height (or height 100)
-                        :weight (or weight 'medium)))
+    (dolist (font-name (list 'default 'fixed-pitch-serif))
+      (set-face-attribute font-name nil
+                          :family family
+                          :height (or height 100)
+                          :weight (or weight 'medium))))
 
   (defun trs/set-variable-font (family &optional height weight)
     "Set the variable width font."
