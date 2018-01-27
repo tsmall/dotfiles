@@ -274,6 +274,26 @@ for me now.
   (global-set-key (kbd "C-c l") 'trs/clear-buffer)
 #+END_SRC
 
+** Separator line
+
+I find it useful to be able to break up long source code files into sections.
+This is a kind of poor man's literate programming. I use a line of "-"
+characters to indicate section breaks. The following function does all the work
+of creating that text for me.
+
+#+BEGIN_SRC elisp
+  (defun trs/insert-separator-line ()
+    "Insert '-' characters from point to column 80."
+    (interactive)
+    (insert (make-string (- 80 (current-column)) ?-)))
+#+END_SRC
+
+I bind this function to an easy-to-remember key command.
+
+#+BEGIN_SRC elisp :noweb-ref key-bindings
+  (global-set-key (kbd "C-c -") 'trs/insert-separator-line)
+#+END_SRC
+
 * Putting it all together
 
 All of the code you've read above is written to a single file, =emacs.lp.el=.

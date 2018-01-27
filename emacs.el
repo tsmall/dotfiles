@@ -47,11 +47,6 @@ If the new path's directory does not exist, create them."
 ;; here.  Instead, copy this function into your local .emacs file:
 ;; (setq make-backup-file-name-function 'my-backup-file-name)
 
-(defun insert-comment-line ()
-  "Insert '-' characters from point to column 80."
-  (interactive)
-  (insert (make-string (- 80 (current-column)) ?-)))
-
 (defun trs-copy-buffer-to-clipboard ()
   "Copy the entire contents of the current buffer to the clipboard."
   (interactive)
@@ -98,7 +93,6 @@ Display the number of matches and save it to the kill ring."
 (global-set-key (kbd "C-c [") 'flymake-goto-prev-error)
 (global-set-key (kbd "C-c ]") 'flymake-goto-next-error)
 (global-set-key (kbd "C-c \\") 'flymake-display-err-menu-for-current-line)
-(global-set-key (kbd "C-c -") 'insert-comment-line)
 (global-set-key (kbd "C-c #") 'trs-count-matches-in-line)
 (global-set-key (kbd "C-c b") 'bury-buffer)
 (global-set-key (kbd "C-c d") 'pgg-decrypt-region)
