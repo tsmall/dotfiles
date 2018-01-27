@@ -99,7 +99,7 @@ But it seems like, in general, four spaces has won. And that seems like a
 reasonable default to me. So four spaces it is.
 
 #+BEGIN_SRC elisp
-  (setq tab-width 4)                      ; Interpret tab char as 4 places
+  (setq-default tab-width 4)              ; Interpret tab char as 4 places
   (setq-default indent-tabs-mode nil)     ; Insert spaces instead of tabs
 #+END_SRC
 
