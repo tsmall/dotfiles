@@ -334,7 +334,7 @@ All of the code you've read above is written to a single file, =emacs.lp.el=.
 #+BEGIN_SRC elisp :tangle emacs.lp.el :noweb tangle :padline no
   ;;; emacs.lp.el --- Tom's Emacs customizations
   ;;
-  ;; NOTE: This file is generated from emacs.el. You should not edit it directly.
+  ;; NOTE: This file is generated from emacs.org. You should not edit it directly.
 
   ;;; Custom functions
 
