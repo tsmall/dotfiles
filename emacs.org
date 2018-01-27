@@ -187,6 +187,15 @@ applies to many of the other modes I /do/ use more often.
   (setq c-basic-offset 4)
 #+END_SRC
 
+** HTML mode
+
+The HTML mode is based on =sgml-mode=, which defines its own variable for
+indentation. I'll use 4 spaces for indentation there.
+
+#+BEGIN_SRC elisp
+  (setq sgml-basic-offset 4)
+#+END_SRC
+
 * Helpers and utilities
 :PROPERTIES:
 :noweb-ref: custom-functions
