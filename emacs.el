@@ -16,12 +16,7 @@
 ;; Eventually the emacs.lp.el file will replace this one. But since migrating
 ;; all of my code into emacs.org is going to take a little while, I'll load
 ;; that file along with this one. That way I can migrate it piece-by-piece.
-(load-file "emacs.lp.el")
-
-;; -----------------------------------------------------------------------------
-;; General customizations
-;; -----------------------------------------------------------------------------
-
+(load-file "~/etc/dotfiles/emacs.lp.el")
 
 ;; -----------------------------------------------------------------------------
 ;; Custom functions
