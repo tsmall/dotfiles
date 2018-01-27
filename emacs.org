@@ -336,6 +336,10 @@ All of the code you've read above is written to a single file, =emacs.lp.el=.
   ;;
   ;; NOTE: This file is generated from emacs.el. You should not edit it directly.
 
+  ;;; Custom functions
+
+  <<custom-functions>>
+
   ;;; Emacs settings
 
   <<emacs-settings>>
@@ -347,8 +351,4 @@ All of the code you've read above is written to a single file, =emacs.lp.el=.
   ;;; Key bindings
 
   <<key-bindings>>
-
-  ;;; Custom functions
-
-  <<custom-functions>>
 #+END_SRC
