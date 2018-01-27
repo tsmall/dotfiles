@@ -61,13 +61,30 @@ That's just wasteful. Let's put things the way they should be.
 
 ** Fonts
 
-Recently the team behind the Go programming language released [[https://blog.golang.org/go-fonts][their own fonts]].
-One of them is a proportional font, and the other monospace. I immediately
-liked both, and I've been using them as my main text editing fonts since then.
+I go back and forth with fonts all the time. It might be a problem. It's
+pointless to say what I'm using now --- it will probably change soon. But here
+are some of my favorite monospace fonts:
+
+- [[https://github.com/tonsky/FiraCode][Fira Code]]
+- [[https://blog.golang.org/go-fonts][Go and Go Mono]]
+- [[https://ibm.github.io/type/][IBM Plex Mono]]
+- [[http://input.fontbureau.com][Input]]
+- [[https://be5invis.github.io/Iosevka/][Iosevka]]
+- [[https://www.typography.com/fonts/operator/][Operator]]
+- Roboto and Roboto Mono
 
 #+BEGIN_SRC elisp
-  (trs/set-default-font "Go Mono" 140)
-  (trs/set-variable-font "Go" 140)
+  (trs/set-default-font "IBM Plex Mono" 120)
+  (trs/set-variable-font "iA Writer Duospace" 120)
+#+END_SRC
+
+One of the cool things about Fira Code (and Iosevka) is that it has ligatures
+for many character combinations commonly seen in code (like ->). But to have
+them work in Emacs, I need to use the [[https://github.com/railwaycat/homebrew-emacsmacport][railwaycat Emacs port]] and enable this
+setting:
+
+#+BEGIN_SRC elisp
+  (mac-auto-operator-composition-mode)
 #+END_SRC
 
 ** Tabs vs. spaces
