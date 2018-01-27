@@ -193,6 +193,10 @@ applies to many of the other modes I /do/ use more often.
 :noweb-sep: "\n\n"
 :END:
 
+The following subsections define custom functions I've written to make my life
+in Emacs just a little bit nicer. They are all in the "/trs/ namespace", meaning
+I've prefixed them all with =trs/=.
+
 ** Increment number at point
 
 This function is taken verbatim from [[http://www.emacswiki.org/emacs/IncrementNumber][the Emacs wiki]]. It increments the number
