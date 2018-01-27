@@ -47,12 +47,6 @@ If the new path's directory does not exist, create them."
 ;; here.  Instead, copy this function into your local .emacs file:
 ;; (setq make-backup-file-name-function 'my-backup-file-name)
 
-(defun trs-copy-buffer-to-clipboard ()
-  "Copy the entire contents of the current buffer to the clipboard."
-  (interactive)
-  (clipboard-kill-ring-save (point-min) (point-max))
-  (message "Copied."))
-
 (defun trs-count-matches-in-line (regexp)
   "Search for all REGEXP matches in the current line.
 Display the number of matches and save it to the kill ring."
@@ -97,7 +91,6 @@ Display the number of matches and save it to the kill ring."
 (global-set-key (kbd "C-c b") 'bury-buffer)
 (global-set-key (kbd "C-c d") 'pgg-decrypt-region)
 (global-set-key (kbd "C-c e") 'pgg-encrypt-symmetric-region)
-(global-set-key (kbd "C-c w") 'trs-copy-buffer-to-clipboard)
 
 (global-set-key (kbd "C-x C-b") 'ibuffer)
 

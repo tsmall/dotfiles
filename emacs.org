@@ -274,6 +274,26 @@ for me now.
   (global-set-key (kbd "C-c l") 'trs/clear-buffer)
 #+END_SRC
 
+** Copy full buffer
+
+In addition to clearing the buffer, it's often useful to copy the entire text
+of the buffer into the clipboard. Like with [[*Clear%20the%20buffer][clearing]], I could do this manually.
+But this is easier.
+
+#+BEGIN_SRC elisp
+  (defun trs/copy-buffer-to-clipboard ()
+    "Copy the entire contents of the current buffer to the clipboard."
+    (interactive)
+    (clipboard-kill-ring-save (point-min) (point-max))
+    (message "Copied."))
+#+END_SRC
+
+I bind this to a key command to make using it easy.
+
+#+BEGIN_SRC elisp :noweb-ref key-bindings
+  (global-set-key (kbd "C-c w") 'trs/copy-buffer-to-clipboard)
+#+END_SRC
+
 ** Separator line
 
 I find it useful to be able to break up long source code files into sections.
