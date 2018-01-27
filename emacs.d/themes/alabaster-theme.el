@@ -201,5 +201,5 @@
    'custom-theme-load-path
    (file-name-as-directory (file-name-directory load-file-name))))
 
-(provide-theme 'minimal)
-;;; minimal-theme.el ends here
+(provide-theme 'alabaster)
+;;; alabaster-theme.el ends here
