@@ -47,11 +47,6 @@ If the new path's directory does not exist, create them."
 ;; here.  Instead, copy this function into your local .emacs file:
 ;; (setq make-backup-file-name-function 'my-backup-file-name)
 
-(defun clear-buffer ()
-  "Clear the contents of the current buffer."
-  (interactive)
-  (delete-region 1 (point-max)))
-
 (defun insert-comment-line ()
   "Insert '-' characters from point to column 80."
   (interactive)
@@ -108,7 +103,6 @@ Display the number of matches and save it to the kill ring."
 (global-set-key (kbd "C-c b") 'bury-buffer)
 (global-set-key (kbd "C-c d") 'pgg-decrypt-region)
 (global-set-key (kbd "C-c e") 'pgg-encrypt-symmetric-region)
-(global-set-key (kbd "C-c l") 'clear-buffer)
 (global-set-key (kbd "C-c w") 'trs-copy-buffer-to-clipboard)
 
 (global-set-key (kbd "C-x C-b") 'ibuffer)

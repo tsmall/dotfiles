@@ -253,6 +253,27 @@ See [[*Fonts][Fonts]] to see where I'm using these functions.
                         :weight (or weight 'medium)))
 #+END_SRC
 
+** Clear the buffer
+
+I've found it very useful to be able to easily clear the current buffer. You
+can do this by moving to the beginning, starting selection, moving to the end,
+and cutting the text. But that's a lot of work for something I do often.
+Instead, I've created my own function that does what I need for me.
+
+#+BEGIN_SRC elisp
+  (defun trs/clear-buffer ()
+    "Clear the contents of the current buffer."
+    (interactive)
+    (delete-region 1 (point-max)))
+#+END_SRC
+
+I bind this function to an easy to type key combo that's become muscle memory
+for me now.
+
+#+BEGIN_SRC elisp :noweb-ref key-bindings
+  (global-set-key (kbd "C-c l") 'trs/clear-buffer)
+#+END_SRC
+
 * Putting it all together
 
 All of the code you've read above is written to a single file, =emacs.lp.el=.
