@@ -28,11 +28,19 @@
 ;; Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
 ;; Boston, MA 02110-1301, USA.
 
+;;; Changelog:
+
+;; 1.0.1
+;; * Fix first line indentation
+
+;; 1.0.0
+;; * First release
+
 ;;; Code :
 
 (require 'dash)
 
-(defconst stanza-mode-version "1.0.0"
+(defconst stanza-mode-version "1.0.1"
   "The current version of `stanza-mode'.")
 
 
@@ -129,7 +137,7 @@
 (defun stanza-indent-line ()
   "Indent the current line of Stanza code."
   (interactive)
-  (if (bobp)
+  (if (= (line-number-at-pos) 1)
       (indent-line-to 0)
     (let (current-indent)
       (progn
