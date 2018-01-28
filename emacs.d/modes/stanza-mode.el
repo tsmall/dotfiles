@@ -30,6 +30,9 @@
 
 ;;; Changelog:
 
+;; 1.2.0
+;; * Add keyboard shortcuts for (un)indenting
+
 ;; 1.1.0
 ;; * Add "C-c C-c" as a keyboard shortcut for complation
 
@@ -43,7 +46,7 @@
 
 (require 'dash)
 
-(defconst stanza-mode-version "1.1.0"
+(defconst stanza-mode-version "1.2.0"
   "The current version of `stanza-mode'.")
 
 
@@ -72,6 +75,8 @@
 (defvar stanza-mode-map
   (let ((map (make-sparse-keymap)))
     (define-key map (kbd "C-c C-c") 'compile)
+    (define-key map (kbd "C-c <") 'stanza-unindent)
+    (define-key map (kbd "C-c >") 'stanza-indent)
     map))
 
 
@@ -136,6 +141,17 @@
 
 
 ;; Indentation
+
+(defun stanza-unindent ()
+  "Unindent the current line by one tab width."
+  (interactive)
+  (save-excursion
+    (indent-line-to (- (current-indentation) default-tab-width))))
+
+(defun stanza-indent ()
+  "Indent the current line by one tab width."
+  (interactive)
+  (indent-line-to (+ (current-indentation) default-tab-width)))
 
 (defun stanza-indent-line ()
   "Indent the current line of Stanza code."
