@@ -30,6 +30,9 @@
 
 ;;; Changelog:
 
+;; 1.1.0
+;; * Add "C-c C-c" as a keyboard shortcut for complation
+
 ;; 1.0.1
 ;; * Fix first line indentation
 
@@ -40,7 +43,7 @@
 
 (require 'dash)
 
-(defconst stanza-mode-version "1.0.1"
+(defconst stanza-mode-version "1.1.0"
   "The current version of `stanza-mode'.")
 
 
@@ -68,7 +71,7 @@
 
 (defvar stanza-mode-map
   (let ((map (make-sparse-keymap)))
-    ;; TODO: Add default key bindings.
+    (define-key map (kbd "C-c C-c") 'compile)
     map))
 
 
