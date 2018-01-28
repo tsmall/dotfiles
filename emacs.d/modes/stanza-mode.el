@@ -30,6 +30,9 @@
 
 ;;; Changelog:
 
+;; 1.2.1
+;; * Fix indentation of def* lines
+
 ;; 1.2.0
 ;; * Add keyboard shortcuts for (un)indenting
 
@@ -46,7 +49,7 @@
 
 (require 'dash)
 
-(defconst stanza-mode-version "1.2.0"
+(defconst stanza-mode-version "1.2.1"
   "The current version of `stanza-mode'.")
 
 
@@ -153,19 +156,34 @@
   (interactive)
   (indent-line-to (+ (current-indentation) default-tab-width)))
 
+(defun stanza--guess-indent-from-prev-line ()
+  "Guess the current line's indent from the previous line."
+  (save-excursion
+    (forward-line -1)
+    (cond ((looking-at ".*[:=][[:space:]]*$")
+           (+ (current-indentation) default-tab-width))
+          (t
+           (current-indentation)))))
+
+(defun stanza--on-first-line ()
+  "Determine if the current line is the first line."
+  (= (line-number-at-pos) 1))
+
+(defun stanza--on-unindented-def-line (expected-indent)
+  "Determine if the current line is an unindented `def*' line."
+  (save-excursion
+    (beginning-of-line)
+    (and (looking-at "[[:space:]]*def.*[:][[:space:]]*$")
+         (= (current-indentation) (- expected-indent default-tab-width)))))
+
 (defun stanza-indent-line ()
   "Indent the current line of Stanza code."
   (interactive)
-  (if (= (line-number-at-pos) 1)
-      (indent-line-to 0)
-    (let (current-indent)
-      (progn
-        (save-excursion
-          (forward-line -1)
-          (if (looking-at ".*[:=][[:space:]]*$")
-              (setq current-indent (+ (current-indentation) default-tab-width))
-            (setq current-indent (current-indentation))))
-        (indent-line-to current-indent)))))
+  (indent-line-to
+   (let ((indent-guess (stanza--guess-indent-from-prev-line)))
+     (cond ((stanza--on-first-line) 0)
+           ((stanza--on-unindented-def-line indent-guess) (current-indentation))
+           (t indent-guess)))))
 
 (defun stanza-mode-indentation-setup ()
   "Set up indentation for editing Stanza code."
