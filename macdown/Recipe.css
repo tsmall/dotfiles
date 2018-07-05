@@ -1,0 +1,57 @@
+body {
+    font-family: "Equity Text B";
+    font-size: 11pt;
+    line-height: 17pt;
+    padding: 17pt;
+}
+
+h1, h2, h3 {
+    font-family: "Concourse T3";
+    color: #1c3b82;
+    padding: 2pt;
+}
+
+h1 {
+    color: #FFF;
+    background-color: #1c3b82;
+    font-size: 25pt;
+    line-height: 50pt;
+}
+
+h2 {
+    counter-reset: h3counter;
+    border-top: 2pt solid #1c3b82;
+}
+
+h3 {
+    font-size: 13pt;
+    margin-top: 17pt;
+    margin-bottom: 4pt;
+    padding: 0;
+}
+
+h3:before {
+    content: counter(h3counter) ".\0000a0\0000a0";
+    counter-increment: h3counter;
+}
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+li {
+    padding-left: 16pt;
+    text-indent: -16pt;
+    margin-bottom: 4pt;
+    max-width: 30em;
+    text-align: justify;
+    -webkit-hyphens: auto;
+    hyphens: auto;
+}
+
+li:before {
+    content: "☐";
+    padding-right: 6pt;
+}
