@@ -22,7 +22,7 @@
 ;; Custom functions
 ;; -----------------------------------------------------------------------------
 
-(defun eshell/clear ()
+(defun eshell/cl ()
   "Clear the eshell buffer, like 'clear' in bash."
   (interactive)
   (let ((inhibit-read-only t))
