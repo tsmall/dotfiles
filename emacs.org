@@ -84,7 +84,8 @@ them work in Emacs, I need to use the [[https://github.com/railwaycat/homebrew-e
 setting:
 
 #+BEGIN_SRC elisp
-  (mac-auto-operator-composition-mode)
+  (if (boundp 'mac-auto-operator-composition-mode)
+      (mac-auto-operator-composition-mode))
 #+END_SRC
 
 ** Tabs vs. spaces
