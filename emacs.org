@@ -188,6 +188,34 @@ applies to many of the other modes I /do/ use more often.
   (setq c-basic-offset 4)
 #+END_SRC
 
+** Clojure / ClojureScript mode
+
+*** Hoplon
+
+These configs come from the [[https://github.com/hoplon/hoplon/wiki/For-Emacs-users][Hoplon Emacs configuration instructions]].
+
+This adds support for hoplon files:
+
+#+BEGIN_SRC elisp
+  (add-to-list 'auto-mode-alist '("\\.cljs\\.hl\\'" . clojurescript-mode))
+#+END_SRC
+
+While this properly indents hoplon macros:
+
+#+BEGIN_SRC elisp
+  (add-hook 'clojure-mode-hook
+            '(lambda ()
+               ;; Hoplon functions and macros
+               (dolist (pair '((page . 'defun)
+                               (loop-tpl . 'defun)
+                               (if-tpl . '1)
+                               (for-tpl . '1)
+                               (case-tpl . '1)
+                               (cond-tpl . 'defun)))
+                 (put-clojure-indent (car pair)
+                                     (car (last pair))))))
+#+END_SRC
+
 ** HTML mode
 
 The HTML mode is based on =sgml-mode=, which defines its own variable for
