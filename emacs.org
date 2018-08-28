@@ -74,8 +74,8 @@ are some of my favorite monospace fonts:
 - Roboto and Roboto Mono
 
 #+BEGIN_SRC elisp
-  (trs/set-default-font "IBM Plex Mono" 120)
-  (trs/set-variable-font "iA Writer Duospace" 120)
+  (trs/set-default-font "Overpass Mono" 140)
+  (trs/set-variable-font "Overpass" 140)
 #+END_SRC
 
 One of the cool things about Fira Code (and Iosevka) is that it has ligatures
