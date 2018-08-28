@@ -28,15 +28,20 @@
         clojure-mode
         csv-mode
         editorconfig
+        elixir
+        elm-mode
+        erlang-mode
         exec-path-from-shell
         expand-region
         fiplr
         full-ack
+        go-mode
         haskell-mode
         highlight-symbol
         iy-go-to-char
         js2-mode
         json-mode
+        julia-mode
         lua-mode
         magit
         markdown-mode
