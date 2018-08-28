@@ -44,7 +44,6 @@
         paredit
         php-mode
         rainbow-mode
-        rjsx-mode
         swift-mode
         web-mode
         yaml-mode
