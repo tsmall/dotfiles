@@ -1,0 +1,36 @@
+/**
+ * NAME
+ *   Letter.css
+ *
+ * DESCRIPTION
+ *   This stylesheet is designed for printed letters.  It follows, to
+ *   the best of my abilities, the guidelines provided by Matthew
+ *   Butterick's "Practical Typography" [PT2018].
+ *
+ * AUTHOR
+ *   Tom Small III <tsmall3@gmail.com>
+ *
+ * REFERENCES
+ *   [PT2018]: https://practicaltypography.com
+ */
+
+:root {
+    --body-text-size: 10pt;
+}
+
+* > * {
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    font-family: "Equity Text A";
+    font-size: var(--body-text-size);
+
+    line-height: 1.6em;
+    margin: 1in 2.25in 1in 1.5in;
+}
+
+p + p {
+    margin-top: calc(0.75 * var(--body-text-size));
+}
