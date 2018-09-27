@@ -15,7 +15,7 @@
 (add-hook 'org-mode-hook 'turn-on-auto-fill)
 (setq org-M-RET-may-split-line nil)
 (setq org-startup-indented nil)
-(setq org-cycle-separator-lines 0)
+(setq org-cycle-separator-lines 1)
 (setq org-insert-heading-respect-content nil)
 (setq org-blank-before-new-entry '((heading . nil) (plain-list-item . auto)))
 (setq org-catch-invisible-edits 'error)
