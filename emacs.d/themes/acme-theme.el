@@ -38,6 +38,7 @@
 (let* (;; Colors
        (black "#000000")
        (black-lighter "#303030")
+       (gray "#999999")
        (yellow-light "#fcfcce")
        (yellow "#ffffea")
        (yellow-darker "#eceba1")
@@ -108,7 +109,7 @@
    `(org-block-end-line ((t (:foreground ,comment-color))))
    `(org-date ((t (:foreground ,text-color :underline t))))
    `(org-done ((t (:foreground ,comment-color))))
-   `(org-headline-done ((t (:foreground ,comment-color :strike-through t))))
+   `(org-headline-done ((t (:foreground ,gray :strike-through t))))
    `(org-hide ((t (:foreground ,background-color))))
    `(org-level-1 ((t (:weight semi-bold))))
    `(org-level-2 ((t (:weight semi-bold))))
