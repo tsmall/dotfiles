@@ -79,34 +79,19 @@
 (setq org-enforce-todo-checkbox-dependencies t)
 
 (setq org-agenda-custom-commands
-      '(("N" "Notes" tags "NOTE"
-         ((org-agenda-overriding-header "Notes")
-          (org-tags-match-list-sublevels nil)))
-        (" " "Agenda"
+      '(("o" "Custom Overview"
          ((agenda "" nil)
-          (tags "REFILE"
-                ((org-agenda-overriding-header "Tasks to Refile")
-                 (org-tags-match-list-sublevels nil)))
-          (tags-todo "-REFILE-SOMEDAY/!NEXT"
-                     ((org-agenda-overriding-header "Project Next Tasks")
-                      (org-agenda-todo-ignore-scheduled 'all)))
-          (tags-todo "-REFILE-SOMEDAY/!TODO"
-                     ((org-agenda-overriding-header "Standalone Tasks")
-                      (org-agenda-skip-function 'ts/skip-projects)
-                      (org-agenda-todo-ignore-scheduled 'all)))
-          (tags-todo "-REFILE/!WAITING|HOLD"
-                     ((org-agenda-overriding-header "Waiting and Postponed Tasks")
-                      (org-tags-match-list-sublevels nil)
-                      (org-agenda-sorting-strategy '(todo-state-up))))
-          (tags-todo "-CANCELLED"
-                     ((org-agenda-overriding-header "Stuck Projects")
-                      (org-agenda-skip-function 'ts/skip-non-stuck-projects)
-                      (org-agenda-sorting-strategy '(category-keep))))
-          (tags-todo "-HOLD-CANCELLED"
-                     ((org-agenda-overriding-header "Projects")
-                      (org-agenda-skip-function 'ts/skip-non-projects)
-                      (org-tags-match-sublevels 'indented)
-                      (org-agenda-sorting-strategy '(category-keep))))))))
+          (tags-todo
+           "mit"
+           ((org-agenda-overriding-header "MITs")))
+          (tags-todo
+           "+TODO=\"TODO\"-mit"
+           ((org-agenda-overriding-header "Next Actions")
+            (org-agenda-todo-ignore-scheduled 'all)))
+          (todo
+           "WAIT"
+           ((org-agenda-overriding-header "Waiting")))))))
+
 
 ;; -----------------------------------------------------------------------------
 ;; Helper Functions
