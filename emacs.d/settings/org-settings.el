@@ -75,6 +75,7 @@
 (setq org-agenda-files '("~/org"))
 (setq org-agenda-window-setup 'current-window)
 (setq org-agenda-tags-todo-honor-ignore-options t)
+(setq org-agenda-dim-blocked-tasks 'invisible)
 
 (setq org-agenda-custom-commands
       '(("N" "Notes" tags "NOTE"
