@@ -9,14 +9,16 @@ others have shared online. I've included credit for the authors of most of the
 shared code, though I'm sure I've missed some. I'm sorry if I missed you. But
 please let me know and I'll correct it!
 
+* Organization of this document
+
 This file is written in Babel for Org mode, in a literate programming style.
 That way I can organize it for the reader and not the computer, using all of
 the markup tools Org mode provides to describe the program right along with the
 code itself.
 
-* Organization of this document
-
-This document is organized from the general to the specific.
+This document is organized from the general to the specific. It's broken up
+into many small sections, to make it easy to jump right to the section you're
+interested. But it's also written to be read from beginning to end.
 
 First are the settings that apply to Emacs as a whole (see [[*Emacs settings][Emacs settings]]).
 These are things like the size of the window at startup, the fonts to use,
@@ -61,9 +63,9 @@ That's just wasteful. Let's put things the way they should be.
 
 ** Fonts
 
-I go back and forth with fonts all the time. It might be a problem. It's
-pointless to say what I'm using now --- it will probably change soon. But here
-are some of my favorite monospace fonts:
+I go back and forth with fonts all the time. So it's pointless to say which
+fonts I'm using now --- it will probably change soon. But here are some of my
+favorite monospace fonts:
 
 - [[https://github.com/tonsky/FiraCode][Fira Code]]
 - [[https://blog.golang.org/go-fonts][Go and Go Mono]]
@@ -78,8 +80,9 @@ are some of my favorite monospace fonts:
   (trs/set-variable-font "Overpass" 140)
 #+END_SRC
 
-One of the cool things about Fira Code (and Iosevka) is that it has ligatures
-for many character combinations commonly seen in code (like ->). But to have
+One of the cool things about some of those fonts, like Fira Code and Iosevka,
+is that they have ligatures for many character combinations commonly seen in
+code (like ->). Stock Emacs doesn't have support for that, though. So to have
 them work in Emacs, I need to use the [[https://github.com/railwaycat/homebrew-emacsmacport][railwaycat Emacs port]] and enable this
 setting:
 
@@ -108,8 +111,7 @@ reasonable default to me. So four spaces it is.
 
 Ido-mode makes it much easier to switch buffers, open files, and to do many of
 the things you do many times a day. It does that by showing all of your options
-and letting you choose one with fewer keystrokes with fuzzy matching. It's
-incredibly helpful.
+and letting you choose one with fewer keystrokes with fuzzy matching.
 
 #+BEGIN_SRC elisp
   (ido-mode t)                            ; Turn on ido-mode
@@ -124,7 +126,7 @@ with the exact same filename. In a Python project, for example, every package
 has a =__init__.py= file. By default Emacs appends a number to the file's buffer
 name to make it unique. But that doesn't really help you tell which is which.
 
-Luckily there's a built-in package named =uniquify= that solves this problem! It
+Luckily there's a built-in package named =uniquify= that solves this problem. It
 lets you choose alternative ways to differentiate buffers for identical
 filenames. I've chosen to have it prepend a portion of the file's path.
 
@@ -187,13 +189,14 @@ applies to many of the other modes I /do/ use more often.
 
 These configs come from the [[https://github.com/hoplon/hoplon/wiki/For-Emacs-users][Hoplon Emacs configuration instructions]].
 
-This adds support for hoplon files:
+First, we need to teach Emacs that files ending with =.cljs.hl= are actually
+ClojureScript files.
 
 #+BEGIN_SRC elisp
   (add-to-list 'auto-mode-alist '("\\.cljs\\.hl\\'" . clojurescript-mode))
 #+END_SRC
 
-While this properly indents hoplon macros:
+Then we need to teach it how to properly indent Hoplon's macros:
 
 #+BEGIN_SRC elisp
   (add-hook 'clojure-mode-hook
