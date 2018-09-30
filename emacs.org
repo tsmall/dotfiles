@@ -169,14 +169,7 @@ already fixed that problem for us. We just have to call
 :noweb-ref: mode-specific-settings
 :END:
 
-The subsections in this section define the customizations specific to
-individual modes.
-
-** Org mode
-
-#+BEGIN_SRC elisp
-  (setq org-hide-emphasis-markers t)
-#+END_SRC
+The following subsections define mode-specific customizations.
 
 ** C mode
 
@@ -223,6 +216,261 @@ indentation. I'll use 4 spaces for indentation there.
 
 #+BEGIN_SRC elisp
   (setq sgml-basic-offset 4)
+#+END_SRC
+
+* Org Mode
+:PROPERTIES:
+:noweb-ref: org-mode-settings
+:END:
+
+Org Mode is basically an application on its own. So rather than hiding it
+inside the [[*Mode-specific%20settings][Mode-specific settings section]], I'm promoting these settings to
+their own section.
+
+** Initialization
+
+Org Mode is designed to be modular. That way features that are only used by
+some are not built in to the core. I've started to go outside the default
+modules, so I need to turn those on when setting up Org Mode.
+
+#+BEGIN_SRC elisp :noweb tangle
+  (require 'org)
+  <<org-modules>>
+#+END_SRC
+
+Automatically turn on Org Mode whenever opening a file with the =.org=
+extension. Also turn on =olivetti-mode=, which I just find to be a more pleasant
+writing environment for non-code files.
+
+#+BEGIN_SRC elisp
+  (add-to-list 'auto-mode-alist '("\\.org\\'" . org-mode))
+  (add-hook 'org-mode-hook 'olivetti-mode)
+#+END_SRC
+
+** General behavior
+
+Hide the emphasis markers to make the text more like a live preview.
+
+#+BEGIN_SRC elisp
+  (setq org-hide-emphasis-markers t)
+#+END_SRC
+
+Don't start indented; I turn on that on for specific files when I want it.
+
+#+BEGIN_SRC elisp
+  (setq org-startup-indented nil)
+#+END_SRC
+
+Leave blank lines in between sections when they're folded. (I don't love having
+them there always, but the default behavior is often confusing to me; I never
+know where the blank lines are going to end up when moving things around.)
+
+#+BEGIN_SRC elisp
+  (setq org-cycle-separator-lines 1)
+#+END_SRC
+
+** Editing behavior
+
+Don't split the line when the cursor is in the middle of it and I press
+=M-Return=.
+
+#+BEGIN_SRC elisp
+  (setq org-M-RET-may-split-line nil)
+#+END_SRC
+
+Leave the content under a folded heading intact when inserting a new heading
+via =M-Return=.
+
+#+BEGIN_SRC elisp
+  (setq org-insert-heading-respect-content t)
+#+END_SRC
+
+When working with a folded org file, it can be easy to accidentally clobber
+some of the folded content. I'd rather be explicit about that, and have Org
+Mode prevent me from doing it.
+
+#+BEGIN_SRC elisp
+  (setq org-catch-invisible-edits 'error)
+#+END_SRC
+
+** Faces
+
+Tell Org Mode to enable custom fonts for headlines marked "done" so I can style
+them in my themes.
+
+#+BEGIN_SRC elisp
+  (setq org-fontify-done-headline t)
+#+END_SRC
+
+** Todo settings
+
+Mark the date and time I finish every task.
+
+#+BEGIN_SRC elisp
+  (setq org-log-done 'time)
+#+END_SRC
+
+Don't let me mark a todo item as done if it has children that aren't done.
+
+#+BEGIN_SRC elisp
+  (setq org-enforce-todo-dependencies t)
+#+END_SRC
+
+If I've set access keys for todo states (for example, =TODO(t)=), then make it
+easy to use those shortcut keys whenever I set a todo state.
+
+#+BEGIN_SRC elisp
+  (setq org-use-fast-todo-selection t)
+#+END_SRC
+
+When switching between todo states with the /S-cursor/ (shift key plus the left
+or right arrow keys), don't trigger any state change events. This makes it easy
+to cycle between them quickly.
+
+#+BEGIN_SRC elisp
+  (setq org-treat-S-cursor-todo-selection-as-state-change nil)
+#+END_SRC
+
+** Default todo keywords
+
+These are often overridden on a per-file basis, but set a useful set of default
+todo keywords so I don't /have/ to set them for every file.
+
+#+BEGIN_SRC elisp
+  (setq org-todo-keywords
+        '((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d)")))
+#+END_SRC
+
+** Capturing
+
+By default, capture things to my inbox file.
+
+#+BEGIN_SRC elisp
+  (setq org-default-notes-file (concat org-directory "/inbox.org"))
+#+END_SRC
+
+Some templates go directly to my todo file though.
+
+#+BEGIN_SRC elisp
+  (defvar trs/org-todo-file
+    (concat org-directory "/todo.org"))
+#+END_SRC
+
+I have a few different templates, defined below.
+
+#+BEGIN_SRC elisp :noweb tangle
+  (setq org-capture-templates
+        '(
+           <<org-capture-templates>>
+         ))
+#+END_SRC
+
+Capture inbox notes to my inbox file.
+
+#+BEGIN_SRC elisp :noweb-ref org-capture-templates
+  ("i" "Inbox" entry (file org-default-notes-file)
+   "* %?\n")
+#+END_SRC
+
+Sometimes I can jump past the inbox and create a one-off todo directly.
+
+#+BEGIN_SRC elisp :noweb-ref org-capture-templates
+  ("t" "Todo" entry (file+headline trs/org-todo-file "One-offs")
+   "* TODO %?\n")
+#+END_SRC
+
+Make it easy to capture things I want to read. This template assumes the
+thing's URL is on the clipboard, and automatically creates a link to it.
+
+#+BEGIN_SRC elisp :noweb-ref org-capture-templates
+  ("r" "Read Later" entry (file+headline trs/org-todo-file "Short Reads")
+   "* TODO %? [[[%c][%^{linkdesc|site}]]]\n")
+#+END_SRC
+
+** Refiling
+
+Target every todo item with the "PROJ" tag and every heading in the current file up to the 2nd level when refiling.
+
+#+BEGIN_SRC elisp
+  (setq org-refile-targets '((nil :todo . "PROJ")
+                             (nil :maxlevel . 2)))
+#+END_SRC
+
+** Agenda
+
+*** Files
+
+Include all files in my =~/org= directory in my agenda.
+
+#+BEGIN_SRC elisp
+  (setq org-agenda-files '("~/org"))
+#+END_SRC
+
+*** Behavior
+
+Show the agenda in the current window.
+
+#+BEGIN_SRC elisp
+  (setq org-agenda-window-setup 'current-window)
+#+END_SRC
+
+Don't use compact blocks; it's easier to scan when they have separators.
+
+#+BEGIN_SRC elisp
+  (setq org-agenda-compact-blocks nil)
+#+END_SRC
+
+If a task is blocked, don't show it in the agenda.
+
+#+BEGIN_SRC elisp
+  (setq org-agenda-dim-blocked-tasks 'invisible)
+#+END_SRC
+
+*** Views
+
+Move the tags further to the right, to allow more space for the item text.
+
+#+BEGIN_SRC elisp
+  (setq org-agenda-tags-column -105)
+#+END_SRC
+
+#+BEGIN_SRC elisp
+  (setq org-agenda-custom-commands
+        `(("o" "Custom Overview"
+           ((agenda ""
+                    ((org-agenda-overriding-header "Today:")
+                     (org-agenda-span 'day)))
+            (tags-todo "+TODO=\"TODO\"+P1"
+                       ((org-agenda-overriding-header "Flagged:")))
+            (tags-todo "@errand"
+                       ((org-agenda-overriding-header "Errands:")))
+            (tags-todo "read|watch"
+                  ((org-agenda-overriding-header "Content Queue:")))
+            (todo "WAIT"
+                  ((org-agenda-overriding-header "Waiting For:")))
+            (tags-todo "+TODO=\"TODO\"-P1-@errand-read-watch"
+                       ((org-agenda-overriding-header "Everything Else:")
+                        (org-agenda-todo-ignore-scheduled 'all)))))))
+#+END_SRC
+
+** Habit tracking
+
+I've started using Org Mode's /habit/ module to track some of my recurring tasks
+that have looser recurring dates. One very nice feature of this module is that
+it shows a little graph next to the item in the agenda that shows how well I've
+done the habit.
+
+To start, we need to turn on the module.
+
+#+BEGIN_SRC elisp :noweb-ref org-modules
+  (require 'org-habit)
+  (add-to-list 'org-modules 'org-habit)
+#+END_SRC
+
+Move the habit graphs further to the right in my agenda views, to leave more space for the actual item's text.
+
+#+BEGIN_SRC elisp
+  (setq org-habit-graph-column 60)
 #+END_SRC
 
 * Helpers and utilities
@@ -376,6 +624,10 @@ All of the code you've read above is written to a single file, =emacs.lp.el=.
   ;;; Mode-specific settings
 
   <<mode-specific-settings>>
+
+  ;;; Org Mode
+
+  <<org-mode-settings>>
 
   ;;; Key bindings
 

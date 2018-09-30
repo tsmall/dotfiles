@@ -11,7 +11,6 @@
 (add-to-list 'load-path "~/etc/dotfiles/emacs.d/settings")
 (require 'el-get-settings)
 (require 'eshell-settings)
-(require 'org-settings)
 
 ;; Eventually the emacs.lp.el file will replace this one. But since migrating
 ;; all of my code into emacs.org is going to take a little while, I'll load
