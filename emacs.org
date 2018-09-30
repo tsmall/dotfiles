@@ -449,23 +449,33 @@ Move the tags further to the right, to allow more space for the item text.
   (setq org-agenda-tags-column -105)
 #+END_SRC
 
-#+BEGIN_SRC elisp
+The custom agenda commands defined below will be all combined here to define the =org-agenda-custom-commands= variable.
+
+#+BEGIN_SRC elisp :noweb tangle
   (setq org-agenda-custom-commands
-        `(("o" "Custom Overview"
-           ((agenda ""
-                    ((org-agenda-overriding-header "Today:")
-                     (org-agenda-span 'day)))
-            (tags-todo "+TODO=\"TODO\"+P1"
-                       ((org-agenda-overriding-header "Flagged:")))
-            (tags-todo "@errand"
-                       ((org-agenda-overriding-header "Errands:")))
-            (tags-todo "read|watch"
-                  ((org-agenda-overriding-header "Content Queue:")))
-            (todo "WAIT"
-                  ((org-agenda-overriding-header "Waiting For:")))
-            (tags-todo "+TODO=\"TODO\"-P1-@errand-read-watch"
-                       ((org-agenda-overriding-header "Everything Else:")
-                        (org-agenda-todo-ignore-scheduled 'all)))))))
+        `(
+          <<org-agenda-custom-commands>>
+         ))
+#+END_SRC
+
+This command is my main overview, my command center. It is intended to give me all the information I need to make a decision about what to do next.
+
+#+BEGIN_SRC elisp :noweb-ref org-agenda-custom-commands
+  ("o" "Custom Overview"
+   ((agenda ""
+            ((org-agenda-overriding-header "Today:")
+             (org-agenda-span 'day)))
+    (tags-todo "+TODO=\"TODO\"+P1"
+               ((org-agenda-overriding-header "Flagged:")))
+    (tags-todo "@errand"
+               ((org-agenda-overriding-header "Errands:")))
+    (tags-todo "read|watch"
+               ((org-agenda-overriding-header "Content Queue:")))
+    (todo "WAIT"
+          ((org-agenda-overriding-header "Waiting For:")))
+    (tags-todo "+TODO=\"TODO\"-P1-@errand-read-watch"
+               ((org-agenda-overriding-header "Everything Else:")
+                (org-agenda-todo-ignore-scheduled 'all)))))
 #+END_SRC
 
 ** Habit tracking
