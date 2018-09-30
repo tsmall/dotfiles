@@ -139,8 +139,8 @@ I like to have Emacs start up with a slightly bigger window that it has by
 default.
 
 #+BEGIN_SRC elisp
-  (add-to-list 'default-frame-alist '(height . 35))
-  (add-to-list 'default-frame-alist '(width . 100))
+  (add-to-list 'default-frame-alist '(height . 50))
+  (add-to-list 'default-frame-alist '(width . 150))
 #+END_SRC
 
 ** OS X settings
