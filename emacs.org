@@ -340,6 +340,12 @@ Start warning me of upcoming deadlines 7 days in advance.
   (setq org-deadline-warning-days 7)
 #+END_SRC
 
+Define a "stuck" project as one that is a "PROJ" todo item with no subtasks of the "TODO" or "WAIT" types.
+
+#+BEGIN_SRC elisp
+  (setq org-stuck-projects '("TODO=\"PROJ\"" ("TODO" "WAIT") nil ""))
+#+END_SRC
+
 ** Default todo keywords
 
 These are often overridden on a per-file basis, but set a useful set of default
