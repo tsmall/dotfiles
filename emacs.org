@@ -334,6 +334,12 @@ to cycle between them quickly.
   (setq org-treat-S-cursor-todo-selection-as-state-change nil)
 #+END_SRC
 
+Start warning me of upcoming deadlines 7 days in advance.
+
+#+BEGIN_SRC elisp
+  (setq org-deadline-warning-days 7)
+#+END_SRC
+
 ** Default todo keywords
 
 These are often overridden on a per-file basis, but set a useful set of default
