@@ -478,6 +478,15 @@ This command is my main overview, my command center. It is intended to give me a
                 (org-agenda-todo-ignore-scheduled 'all)))))
 #+END_SRC
 
+This command shows me all of the projects I've flagged (using the "P1" tag). This way I can get an overview of my progress in between review periods, or see if I've overloaded myself when planning.
+
+Since these projects should be "blocked" -- they should all have TODO items inside them -- I temporarily override the setting that would otherwise hide them in agenda views.
+
+#+BEGIN_SRC elisp :noweb-ref org-agenda-custom-commands
+  ("f" "Flagged (P1) Projects" tags-todo "P1+TODO=\"PROJ\""
+   ((org-agenda-dim-blocked-tasks nil)))
+#+END_SRC
+
 ** Habit tracking
 
 I've started using Org Mode's /habit/ module to track some of my recurring tasks
