@@ -523,7 +523,7 @@ To start, we need to turn on the module.
 Move the habit graphs further to the right in my agenda views, to leave more space for the actual item's text.
 
 #+BEGIN_SRC elisp
-  (setq org-habit-graph-column 60)
+  (setq org-habit-graph-column 65)
 #+END_SRC
 
 * Helpers and utilities
