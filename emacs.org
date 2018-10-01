@@ -451,6 +451,22 @@ Move the tags further to the right, to allow more space for the item text.
 
 The custom agenda commands defined below will be all combined here to define the =org-agenda-custom-commands= variable.
 
+#+BEGIN_SRC elisp
+  (defun trs/org-agenda-skip-if-scheduled-for-later ()
+    "If this function returns nil, the current match should not be skipped.
+  Otherwise, the function must return a position from where the search
+  should be continued."
+    (ignore-errors
+      (let ((subtree-end (save-excursion (org-end-of-subtree t)))
+            (scheduled-seconds (time-to-seconds
+                                (org-time-string-to-time
+                                 (org-entry-get nil "SCHEDULED"))))
+            (now (time-to-seconds (current-time))))
+        (and scheduled-seconds
+             (>= scheduled-seconds now)
+             subtree-end))))
+#+END_SRC
+
 #+BEGIN_SRC elisp :noweb tangle
   (setq org-agenda-custom-commands
         `(
@@ -475,7 +491,10 @@ This command is my main overview, my command center. It is intended to give me a
           ((org-agenda-overriding-header "Waiting For:")))
     (tags-todo "+TODO=\"TODO\"-P1-@errand-read-watch"
                ((org-agenda-overriding-header "Everything Else:")
-                (org-agenda-todo-ignore-scheduled 'all)))))
+                (org-agenda-todo-ignore-scheduled 'all))))
+
+   ;; These settings apply to all of the above.
+   ((org-agenda-skip-function 'trs/org-agenda-skip-if-scheduled-for-later)))
 #+END_SRC
 
 This command shows me all of the projects I've flagged (using the "P1" tag). This way I can get an overview of my progress in between review periods, or see if I've overloaded myself when planning.
