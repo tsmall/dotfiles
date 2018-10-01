@@ -166,7 +166,22 @@
    `(markdown-header-face-1 ((t (:weight bold))))
    `(markdown-header-face-2 ((t (:weight bold))))
    `(markdown-header-face-3 ((t (:weight bold))))
-   `(markdown-link-face ((t nil)))))
+   `(markdown-link-face ((t nil)))
+
+   ;; adoc-mode
+   `(markup-meta-face ((t (:inherit font-lock-comment-face))))
+   `(markup-meta-hide-face ((t nil)))
+   `(markup-title-0-face ((t (:weight bold))))
+   `(markup-title-1-face ((t (:weight bold))))
+   `(markup-title-2-face ((t (:weight bold))))
+   `(markup-title-3-face ((t (:weight bold))))
+   `(markup-title-4-face ((t (:weight bold))))
+   `(markup-title-5-face ((t (:weight bold))))
+   `(markup-list-face ((t nil)))
+   `(markup-typewriter-face ((t nil)))
+   `(markup-verbatim-face ((t nil)))
+   `(markup-emphasis-face ((t (:slant italic))))
+   `(markup-strong-face ((t (:weight bold))))))
 
 ;;;###autoload
 (when load-file-name
