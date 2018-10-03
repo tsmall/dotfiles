@@ -441,15 +441,26 @@ If a task is blocked, don't show it in the agenda.
   (setq org-agenda-dim-blocked-tasks 'invisible)
 #+END_SRC
 
-*** Views
-
 Move the tags further to the right, to allow more space for the item text.
 
 #+BEGIN_SRC elisp
   (setq org-agenda-tags-column -105)
 #+END_SRC
 
+*** Views
+
 The custom agenda commands defined below will be all combined here to define the =org-agenda-custom-commands= variable.
+
+#+BEGIN_SRC elisp :noweb tangle
+  <<org-agenda-view-functions>>
+  (setq org-agenda-custom-commands
+        `(("o" "Overview" ,@(trs/org-agenda-views/overview))
+          ("f" "Flagged Projects" ,@(trs/org-agenda-views/flagged-projects))))
+#+END_SRC
+
+**** Helper Functions
+
+This function tells Org mode to skip a todo if it is scheduled for some time in the future. (After all, that's why I scheduled it: I don't want to think about it until then.)
 
 #+BEGIN_SRC elisp
   (defun trs/org-agenda-skip-if-scheduled-for-later ()
@@ -467,46 +478,45 @@ The custom agenda commands defined below will be all combined here to define the
              subtree-end))))
 #+END_SRC
 
-#+BEGIN_SRC elisp :noweb tangle
-  (setq org-agenda-custom-commands
-        `(
-          <<org-agenda-custom-commands>>
-         ))
+**** Overview
+
+My most important view is my "overview". It's my command center. It is intended to give me all the information I need to make a decision about what to do next.
+
+#+BEGIN_SRC elisp :noweb-ref org-agenda-view-functions
+  (defun trs/org-agenda-views/overview ()
+    '(((agenda ""
+               ((org-agenda-overriding-header "Today:")
+                (org-agenda-span 'day)
+                (org-agenda-skip-deadline-if-done t)
+                (org-agenda-skip-scheduled-if-done t)))
+       (tags-todo "+TODO=\"TODO\"+P1"
+                  ((org-agenda-overriding-header "Flagged:")))
+       (tags-todo "@errand"
+                  ((org-agenda-overriding-header "Errands:")))
+       (tags-todo "read|watch"
+                  ((org-agenda-overriding-header "Content Queue:")))
+       (todo "WAIT"
+             ((org-agenda-overriding-header "Waiting For:")))
+       (tags-todo "+TODO=\"TODO\"-P1-@errand-read-watch"
+                  ((org-agenda-overriding-header "Everything Else:")
+                   (org-agenda-todo-ignore-scheduled 'all))))
+
+     ;; These settings apply to all of the above.
+     ((org-agenda-skip-function 'trs/org-agenda-skip-if-scheduled-for-later)
+      (org-agenda-skip-scheduled-if-deadline-is-shown t))))
 #+END_SRC
 
-This command is my main overview, my command center. It is intended to give me all the information I need to make a decision about what to do next.
-
-#+BEGIN_SRC elisp :noweb-ref org-agenda-custom-commands
-  ("o" "Custom Overview"
-   ((agenda ""
-            ((org-agenda-overriding-header "Today:")
-             (org-agenda-span 'day)
-             (org-agenda-skip-deadline-if-done t)
-             (org-agenda-skip-scheduled-if-done t)))
-    (tags-todo "+TODO=\"TODO\"+P1"
-               ((org-agenda-overriding-header "Flagged:")))
-    (tags-todo "@errand"
-               ((org-agenda-overriding-header "Errands:")))
-    (tags-todo "read|watch"
-               ((org-agenda-overriding-header "Content Queue:")))
-    (todo "WAIT"
-          ((org-agenda-overriding-header "Waiting For:")))
-    (tags-todo "+TODO=\"TODO\"-P1-@errand-read-watch"
-               ((org-agenda-overriding-header "Everything Else:")
-                (org-agenda-todo-ignore-scheduled 'all))))
-
-   ;; These settings apply to all of the above.
-   ((org-agenda-skip-function 'trs/org-agenda-skip-if-scheduled-for-later)
-    (org-agenda-skip-scheduled-if-deadline-is-shown t)))
-#+END_SRC
+**** Flagged Projects
 
 This command shows me all of the projects I've flagged (using the "P1" tag). This way I can get an overview of my progress in between review periods, or see if I've overloaded myself when planning.
 
 Since these projects should be "blocked" -- they should all have TODO items inside them -- I temporarily override the setting that would otherwise hide them in agenda views.
 
-#+BEGIN_SRC elisp :noweb-ref org-agenda-custom-commands
-  ("f" "Flagged (P1) Projects" tags-todo "P1+TODO=\"PROJ\""
-   ((org-agenda-dim-blocked-tasks nil)))
+#+BEGIN_SRC elisp :noweb-ref org-agenda-view-functions
+  (defun trs/org-agenda-views/flagged-projects ()
+    '(tags-todo
+      "P1+TODO=\"PROJ\""
+      ((org-agenda-dim-blocked-tasks nil))))
 #+END_SRC
 
 ** Habit tracking
