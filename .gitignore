@@ -31,8 +31,10 @@ emacs.d/elpa/
 emacs.d/eshell/
 emacs.d/games/
 emacs.d/ido.last
+emacs.d/image-dired/
 emacs.d/site-lisp/restclient.el
 emacs.d/tramp
+emacs.d/transient/
 emacs.d/url
 
 # ------------------------------------------
