@@ -173,6 +173,12 @@ already fixed that problem for us. We just have to call
 
 The following subsections define mode-specific customizations.
 
+** Ace Jump mode
+
+#+BEGIN_SRC elisp :noweb-ref key-bindings
+  (global-set-key (kbd "M-C-j") 'ace-jump-mode)
+#+END_SRC
+
 ** C mode
 
 I don't work with C much, so I haven't felt the need to change much here. But
@@ -184,6 +190,33 @@ applies to many of the other modes I /do/ use more often.
 #+END_SRC
 
 ** Clojure / ClojureScript mode
+
+*** Compojure
+
+These indentation rules teach clojure-mode how to handle route code.
+They're taken from the [[https://github.com/weavejester/compojure/wiki/Emacs-indentation][Compojure wiki]].
+
+It requires using a macro defined in clojure-mode,
+so first we have to require clojure-mode
+to bring that macro into existence.
+
+#+BEGIN_SRC elisp
+  (require 'clojure-mode)
+#+END_SRC
+
+Then we can set up the indentation.
+
+#+BEGIN_SRC elisp
+  (define-clojure-indent
+    (defroutes 'defun)
+    (GET 2)
+    (POST 2)
+    (PUT 2)
+    (DELETE 2)
+    (HEAD 2)
+    (ANY 2)
+    (context 2))
+#+END_SRC
 
 *** Hoplon
 
@@ -212,6 +245,63 @@ Then we need to teach it how to properly indent Hoplon's macros:
                                      (car (last pair))))))
 #+END_SRC
 
+** EditorConfig
+
+Turn on EditorConfig support.
+
+#+BEGIN_SRC elisp
+  (editorconfig-mode 1)
+#+END_SRC
+
+** Expand Region
+
+#+BEGIN_SRC elisp :noweb-ref key-bindings
+  (global-set-key (kbd "C-=") 'er/expand-region)
+#+END_SRC
+
+** Fiplr
+
+Bind fiplr's find file mode to a convenient keyboard shortcut:
+
+#+BEGIN_SRC elisp :noweb-ref key-bindings
+  (global-set-key (kbd "C-c t") 'fiplr-find-file)
+#+END_SRC
+
+Tell fiplr to ignore any source control files,
+and a few other file types that shouldn't show up too.
+
+#+BEGIN_SRC elisp
+  (setq fiplr-ignored-globs
+        '((directories
+           (".git" ".svn" ".hg" ".bzr"
+            "bower_components" "node_modules"))
+          (files
+           (".#*" "*~" "*.so"
+            "*.jpg" "*.png" "*.gif"
+            "*.gz" "*.pdf" "*.pyc" "*.zip"))))
+#+END_SRC
+
+** Haskell
+
+Turn on a few of haskell-mode's useful features:
+
+#+BEGIN_SRC elisp
+  (add-hook 'haskell-mode-hook 'turn-on-haskell-doc-mode)
+  (add-hook 'haskell-mode-hook 'turn-on-haskell-indentation)
+#+END_SRC
+
+** Highlight Symbol
+
+Set up key bindings:
+
+#+BEGIN_SRC elisp :noweb-ref key-bindings
+  (global-set-key [f3]                 'highlight-symbol-next)
+  (global-set-key [(shift f3)]         'highlight-symbol-prev)
+  (global-set-key [(control f3)]       'highlight-symbol-at-point)
+  (global-set-key [(control meta f3)]  'highlight-symbol-query-replace)
+  (global-set-key [(control shift f3)] 'highlight-symbol-remove-all)
+#+END_SRC
+
 ** HTML mode
 
 The HTML mode is based on =sgml-mode=, which defines its own variable for
@@ -219,6 +309,92 @@ indentation. I'll use 4 spaces for indentation there.
 
 #+BEGIN_SRC elisp
   (setq sgml-basic-offset 4)
+#+END_SRC
+
+** iy-go-to-char
+
+This mode teaches Emacs about a very efficient navigation feature
+that I first enountered in Vim:
+jumping to the next (or previous) occurance of a character.
+
+#+BEGIN_SRC elisp :noweb-ref key-bindings
+  (global-set-key (kbd "C-c f") 'iy-go-to-char)
+  (global-set-key (kbd "C-c F") 'iy-go-to-char-backward)
+  (global-set-key (kbd "C-c ;") 'iy-go-to-char-continue)
+  (global-set-key (kbd "C-c ,") 'iy-go-to-char-continue-backward)
+#+END_SRC
+
+** js2-mode
+
+I like js2-mode more than the default JavaScript mode,
+so we'll teach Emacs to always use it for =.js= files.
+
+#+BEGIN_SRC elisp
+  (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
+#+END_SRC
+
+Sometimes I like using the no-semicolon style,
+and I don't want js2-mode to tell me my code is wrong
+when I do that.
+
+#+BEGIN_SRC elisp
+  (setq js2-strict-missing-semi-warning nil)
+  (setq js2-missing-semi-one-line-override nil)
+  (setq js2-strict-trailing-comma-warning nil)
+#+END_SRC
+
+** Multiple Cursors
+
+#+BEGIN_SRC elisp :noweb-ref key-bindings
+  (global-set-key (kbd "C->") 'mc/mark-next-like-this)
+  (global-set-key (kbd "C-M->") 'mc/skip-to-next-like-this)
+  (global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
+  (global-set-key (kbd "C-M-<") 'mc/skip-to-previous-like-this)
+  (global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
+  (global-set-key (kbd "C-c C->") 'mc/mark-all-like-this)
+
+  (global-set-key (kbd "C-c C-r") 'mc/edit-lines)
+  (global-set-key (kbd "M-<kp-enter>") 'set-rectangular-region-anchor)
+#+END_SRC
+
+** PHP mode
+
+When working with Drupal code,
+some PHP code is in files with different extensions.
+So we need to teach Emacs about them.
+
+#+BEGIN_SRC elisp
+  (add-to-list 'auto-mode-alist '("\\.inc$" . php-mode))
+  (add-to-list 'auto-mode-alist '("\\.install$" . php-mode))
+  (add-to-list 'auto-mode-alist '("\\.module$" . php-mode))
+#+END_SRC
+
+** Web mode
+
+Web mode is the best solution I've found so far for working with HTML files,
+which can contain other languages embedded inside it (e.g. JS or CSS).
+
+Teach Emacs to always use web-mode for =.html= files:
+
+#+BEGIN_SRC elisp
+  (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
+#+END_SRC
+
+Then tweak web-mode's indentation settings to match the style I use.
+
+#+BEGIN_SRC elisp
+  (setq web-mode-markup-indent-offset 4
+        web-mode-css-indent-offset 4
+        web-mode-code-indent-offset 4
+        web-mode-style-padding 4
+        web-mode-script-padding 4
+        web-mode-block-padding 4)
+#+END_SRC
+
+** yasnippet
+
+#+BEGIN_SRC elisp
+  (yas-global-mode 1)
 #+END_SRC
 
 * Org Mode

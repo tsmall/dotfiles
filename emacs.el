@@ -9,8 +9,9 @@
 ;;; Code:
 
 (add-to-list 'load-path "~/etc/dotfiles/emacs.d/settings")
-(require 'el-get-settings)
 (require 'eshell-settings)
+
+(load "~/etc/dotfiles/emacs.d/init-packages")
 
 ;; Eventually the emacs.lp.el file will replace this one. But since migrating
 ;; all of my code into emacs.org is going to take a little while, I'll load
@@ -124,15 +125,8 @@ Display the number of matches and save it to the kill ring."
 (require 'transpose-frame)
 
 ;; -----------------------------------------------------------------------------
-;; Package Configuration
+;; jabber-mode
 ;; -----------------------------------------------------------------------------
-
-(require 'package)
-(add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
-(add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/"))
-
-(package-initialize)
-(setq package-enable-at-startup nil)
 
 (ignore-errors
   ;; jabber
