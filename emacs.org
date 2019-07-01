@@ -36,7 +36,7 @@ configure Emacs to load at startup (see [[*Putting%20it%20all%20together][Puttin
 
 * Emacs settings
 :PROPERTIES:
-:noweb-ref: emacs-settings
+:header-args: :noweb-ref emacs-settings
 :END:
 
 This section defines the customizations that apply to Emacs as a whole.
@@ -168,7 +168,7 @@ already fixed that problem for us. We just have to call
 
 * Mode-specific settings
 :PROPERTIES:
-:noweb-ref: mode-specific-settings
+:header-args: :noweb-ref mode-specific-settings
 :END:
 
 The following subsections define mode-specific customizations.
@@ -223,7 +223,7 @@ indentation. I'll use 4 spaces for indentation there.
 
 * Org Mode
 :PROPERTIES:
-:noweb-ref: org-mode-settings
+:header-args: :noweb-ref org-mode-settings
 :END:
 
 Org Mode is basically an application on its own. So rather than hiding it
@@ -236,7 +236,7 @@ Org Mode is designed to be modular. That way features that are only used by
 some are not built in to the core. I've started to go outside the default
 modules, so I need to turn those on when setting up Org Mode.
 
-#+BEGIN_SRC elisp :noweb tangle
+#+BEGIN_SRC elisp :noweb yes
   (require 'org)
   <<org-modules>>
 #+END_SRC
@@ -373,7 +373,7 @@ Some templates go directly to my todo file though.
 
 I have a few different templates, defined below.
 
-#+BEGIN_SRC elisp :noweb tangle
+#+BEGIN_SRC elisp :noweb yes
   (setq org-capture-templates
         '(
            <<org-capture-templates>>
@@ -467,7 +467,7 @@ The custom agenda commands defined below will be all combined here to define the
              subtree-end))))
 #+END_SRC
 
-#+BEGIN_SRC elisp :noweb tangle
+#+BEGIN_SRC elisp :noweb yes
   (setq org-agenda-custom-commands
         `(
           <<org-agenda-custom-commands>>
@@ -531,7 +531,7 @@ Move the habit graphs further to the right in my agenda views, to leave more spa
 
 * Helpers and utilities
 :PROPERTIES:
-:noweb-ref: custom-functions
+:header-args: :noweb-ref custom-functions
 :noweb-sep: "\n\n"
 :END:
 
@@ -664,7 +664,7 @@ I bind this function to an easy-to-remember key command.
 
 All of the code you've read above is written to a single file, =emacs.lp.el=.
 
-#+BEGIN_SRC elisp :tangle emacs.lp.el :noweb tangle :padline no
+#+BEGIN_SRC elisp :tangle emacs.lp.el :noweb yes :padline no
   ;;; emacs.lp.el --- Tom's Emacs customizations
   ;;
   ;; NOTE: This file is generated from emacs.org. You should not edit it directly.
