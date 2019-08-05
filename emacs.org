@@ -434,10 +434,10 @@ Hide the emphasis markers to make the text more like a live preview.
   (setq org-hide-emphasis-markers t)
 #+END_SRC
 
-Don't start indented; I turn on that on for specific files when I want it.
+Indent bullets to make the hierarchy easier to see.
 
 #+BEGIN_SRC elisp
-  (setq org-startup-indented nil)
+  (setq org-startup-indented t)
 #+END_SRC
 
 Leave blank lines in between sections when they're folded. (I don't love having
@@ -516,7 +516,8 @@ Start warning me of upcoming deadlines 7 days in advance.
   (setq org-deadline-warning-days 7)
 #+END_SRC
 
-Define a "stuck" project as one that is a "PROJ" todo item with no subtasks of the "TODO" or "WAIT" types.
+Define a "stuck" project as one that is a "PROJ" todo item with no subtasks of
+the "TODO" or "WAIT" types.
 
 #+BEGIN_SRC elisp
   (setq org-stuck-projects '("TODO=\"PROJ\"" ("TODO" "WAIT") nil ""))
@@ -529,7 +530,7 @@ todo keywords so I don't /have/ to set them for every file.
 
 #+BEGIN_SRC elisp
   (setq org-todo-keywords
-        '((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d)")))
+        '((sequence "TODO(t)" "STRT(s)" "WAIT(w)" "|" "DONE(d)" "CNCL(c)")))
 #+END_SRC
 
 ** Capturing
@@ -617,6 +618,13 @@ If a task is blocked, don't show it in the agenda.
   (setq org-agenda-dim-blocked-tasks 'invisible)
 #+END_SRC
 
+Don't show any tasks that are scheduled for the future in any of my todo lists.
+
+#+BEGIN_SRC elisp
+  (setq org-agenda-todo-ignore-scheduled 'future)
+  (setq org-agenda-tags-todo-honor-ignore-options t)
+#+END_SRC
+
 Move the tags further to the right, to allow more space for the item text.
 
 #+BEGIN_SRC elisp
@@ -656,7 +664,8 @@ This function tells Org mode to skip a todo if it is scheduled for some time in 
 
 **** Overview
 
-My most important view is my "overview". It's my command center. It is intended to give me all the information I need to make a decision about what to do next.
+My most important view is my "overview". It's my command center. It is intended
+to give me all the information I need to make a decision about what to do next.
 
 #+BEGIN_SRC elisp :noweb-ref org-agenda-view-functions
   (defun trs/org-agenda-views/overview ()
@@ -665,28 +674,27 @@ My most important view is my "overview". It's my command center. It is intended 
                 (org-agenda-span 'day)
                 (org-agenda-skip-deadline-if-done t)
                 (org-agenda-skip-scheduled-if-done t)))
-       (tags-todo "+TODO=\"TODO\"+P1"
-                  ((org-agenda-overriding-header "Flagged:")))
+       (tags-todo "+TODO=\"STRT\""
+                  ((org-agenda-overriding-header "Started:")))
        (tags-todo "@errand"
                   ((org-agenda-overriding-header "Errands:")))
-       (tags-todo "read|watch"
-                  ((org-agenda-overriding-header "Content Queue:")))
+       (tags-todo "+TODO=\"TODO\"-@errand-read-watch"
+                  ((org-agenda-overriding-header "Tasks:")))
        (todo "WAIT"
              ((org-agenda-overriding-header "Waiting For:")))
-       (tags-todo "+TODO=\"TODO\"-P1-@errand-read-watch"
-                  ((org-agenda-overriding-header "Everything Else:")
-                   (org-agenda-todo-ignore-scheduled 'all))))
+       (tags-todo "read|watch"
+                  ((org-agenda-overriding-header "Content Queue:"))))
 
-     ;; These settings apply to all of the above.
-     ((org-agenda-skip-function 'trs/org-agenda-skip-if-scheduled-for-later)
-      (org-agenda-skip-scheduled-if-deadline-is-shown t))))
+      ;; These settings apply to all of the above.
+      ((org-agenda-skip-scheduled-if-deadline-is-shown t)
+       (org-agenda-todo-ignore-scheduled t))))
 #+END_SRC
 
 **** Flagged Projects
 
-This command shows me all of the projects I've flagged (using the "P1" tag). This way I can get an overview of my progress in between review periods, or see if I've overloaded myself when planning.
-
-Since these projects should be "blocked" -- they should all have TODO items inside them -- I temporarily override the setting that would otherwise hide them in agenda views.
+Since these projects should be "blocked" -- they should all have TODO items
+inside them -- I temporarily override the setting that would otherwise hide
+them in agenda views.
 
 #+BEGIN_SRC elisp :noweb-ref org-agenda-view-functions
   (defun trs/org-agenda-views/flagged-projects ()
