@@ -408,12 +408,10 @@ modules, so I need to turn those on when setting up Org Mode.
 #+END_SRC
 
 Automatically turn on Org Mode whenever opening a file with the =.org=
-extension. Also turn on =olivetti-mode=, which I just find to be a more pleasant
-writing environment for non-code files.
+extension.
 
 #+BEGIN_SRC elisp
   (add-to-list 'auto-mode-alist '("\\.org\\'" . org-mode))
-  (add-hook 'org-mode-hook 'olivetti-mode)
 #+END_SRC
 
 ** General behavior
