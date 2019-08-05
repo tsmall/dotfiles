@@ -905,6 +905,23 @@ I bind this function to an easy-to-remember key command.
   (global-set-key (kbd "C-c -") 'trs/insert-separator-line)
 #+END_SRC
 
+** Epoch date to string
+
+This function converts the number under point from Unix epoch format to a
+human-readable format.
+
+#+BEGIN_SRC elisp
+  (defun trs/epoch-to-string ()
+    "Convert a timestamp in the Unix epoch format to a human-readable string."
+    (interactive)
+    (let* ((epoch (current-word))
+           (format-string "%a %D %r")
+           (time (seconds-to-time epoch))
+           (formatted-time (format-time-string format-string time)))
+      (kill-new formatted-time)
+      (message formatted-time)))
+#+END_SRC
+
 * Putting it all together
 
 All of the code you've read above is written to a single file, =emacs.lp.el=.
