@@ -23,6 +23,7 @@
 
 ;;; Code:
 
+(require 'cl)
 (require 'notifications)
 
 (defvar pomodoro-length "25 min"
