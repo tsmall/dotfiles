@@ -38,6 +38,7 @@
 (let* (;; Colors
        (black "#000000")
        (black-lighter "#303030")
+       (gray-light "#BBBBBB")
        (gray "#999999")
        (gray-dark "#777777")
        (yellow-light "#fcfcce")
@@ -104,6 +105,7 @@
    `(org-agenda-date ((t (:height 1.2))))
    `(org-agenda-date-today ((t (:weight bold :height 1.4))))
    `(org-agenda-date-weekend ((t (:weight normal))))
+   `(org-agenda-done ((t (:foreground ,gray-light))))
    `(org-agenda-structure ((t (:weight bold))))
    `(org-block ((t nil)))
    `(org-block-begin-line ((t (:foreground ,comment-color))))
