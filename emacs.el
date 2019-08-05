@@ -37,9 +37,7 @@ If the new path's directory does not exist, create them."
     (make-directory (file-name-directory bpath) bpath)
     bpath))
 
-;; Since this function doesn't work in Windows, I can't enable it
-;; here.  Instead, copy this function into your local .emacs file:
-;; (setq make-backup-file-name-function 'my-backup-file-name)
+(setq make-backup-file-name-function 'my-backup-file-name)
 
 (defun trs-count-matches-in-line (regexp)
   "Search for all REGEXP matches in the current line.
