@@ -625,7 +625,7 @@ Move the tags further to the right, to allow more space for the item text.
 
 The custom agenda commands defined below will be all combined here to define the =org-agenda-custom-commands= variable.
 
-#+BEGIN_SRC elisp :noweb tangle
+#+BEGIN_SRC elisp :noweb yes
   <<org-agenda-view-functions>>
   (setq org-agenda-custom-commands
         `(("o" "Overview" ,@(trs/org-agenda-views/overview))
