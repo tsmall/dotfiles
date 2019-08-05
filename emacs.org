@@ -63,28 +63,18 @@ That's just wasteful. Let's put things the way they should be.
 
 ** Fonts
 
-I go back and forth with fonts all the time. So it's pointless to say which
-fonts I'm using now --- it will probably change soon. But here are some of my
-favorite monospace fonts:
-
-- [[https://github.com/tonsky/FiraCode][Fira Code]]
-- [[https://blog.golang.org/go-fonts][Go and Go Mono]]
-- [[https://ibm.github.io/type/][IBM Plex Mono]]
-- [[http://input.fontbureau.com][Input]]
-- [[https://be5invis.github.io/Iosevka/][Iosevka]]
-- [[https://www.typography.com/fonts/operator/][Operator]]
-- Roboto and Roboto Mono
+One of my top interests is typography. So I end up switching which font I use
+in my text editors and IDEs often. This is my latest combination:
 
 #+BEGIN_SRC elisp
-  (trs/set-default-font "Overpass Mono" 140)
-  (trs/set-variable-font "Overpass" 140)
+  (trs/set-default-font "Menlo" 120)
+  (trs/set-variable-font "Helvetica" 120)
 #+END_SRC
 
-One of the cool things about some of those fonts, like Fira Code and Iosevka,
-is that they have ligatures for many character combinations commonly seen in
-code (like ->). Stock Emacs doesn't have support for that, though. So to have
-them work in Emacs, I need to use the [[https://github.com/railwaycat/homebrew-emacsmacport][railwaycat Emacs port]] and enable this
-setting:
+Some of those fonts have ligatures for common coding character combinations
+commonly (like ->). Stock Emacs doesn't have support for that, though. So to
+have them work in Emacs, I need to use the [[https://github.com/railwaycat/homebrew-emacsmacport][railwaycat Emacs port]] and enable
+this setting:
 
 #+BEGIN_SRC elisp
   (if (boundp 'mac-auto-operator-composition-mode)
