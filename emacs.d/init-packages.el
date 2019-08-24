@@ -34,6 +34,7 @@
         multiple-cursors
         paredit
         parinfer
+        perl6-mode
         php-mode
         rainbow-mode
         swift-mode
