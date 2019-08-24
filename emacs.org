@@ -408,12 +408,10 @@ modules, so I need to turn those on when setting up Org Mode.
 #+END_SRC
 
 Automatically turn on Org Mode whenever opening a file with the =.org=
-extension. Also turn on =olivetti-mode=, which I just find to be a more pleasant
-writing environment for non-code files.
+extension.
 
 #+BEGIN_SRC elisp
   (add-to-list 'auto-mode-alist '("\\.org\\'" . org-mode))
-  (add-hook 'org-mode-hook 'olivetti-mode)
 #+END_SRC
 
 ** General behavior
@@ -623,12 +621,15 @@ Move the tags further to the right, to allow more space for the item text.
 
 *** Views
 
-The custom agenda commands defined below will be all combined here to define the =org-agenda-custom-commands= variable.
+The custom agenda commands defined below will be all combined here to define
+the =org-agenda-custom-commands= variable.
 
 #+BEGIN_SRC elisp :noweb yes
   <<org-agenda-view-functions>>
   (setq org-agenda-custom-commands
         `(("o" "Overview" ,@(trs/org-agenda-views/overview))
+          ("w" "Work" ,@(trs/org-agenda-views/work))
+          ("h" "Home" ,@(trs/org-agenda-views/home))
           ("f" "Flagged Projects" ,@(trs/org-agenda-views/flagged-projects))))
 #+END_SRC
 
@@ -669,6 +670,66 @@ to give me all the information I need to make a decision about what to do next.
        (tags-todo "@errand"
                   ((org-agenda-overriding-header "Errands:")))
        (tags-todo "+TODO=\"TODO\"-@errand-read-watch"
+                  ((org-agenda-overriding-header "Tasks:")))
+       (todo "WAIT"
+             ((org-agenda-overriding-header "Waiting For:")))
+       (tags-todo "read|watch"
+                  ((org-agenda-overriding-header "Content Queue:"))))
+
+      ;; These settings apply to all of the above.
+      ((org-agenda-skip-scheduled-if-deadline-is-shown t)
+       (org-agenda-todo-ignore-scheduled t))))
+#+END_SRC
+
+**** Work View
+
+This is a version of my [[* Overview][Overview]] that is tailored to only show me the things I
+need to see while I'm at work.
+
+#+BEGIN_SRC elisp :noweb-ref org-agenda-view-functions
+  (defun trs/org-agenda-views/work ()
+    '(((agenda ""
+               ((org-agenda-overriding-header "Today:")
+                (org-agenda-span 'day)
+                (org-agenda-skip-deadline-if-done t)
+                (org-agenda-skip-scheduled-if-done t)))
+       (tags-todo "+TODO=\"STRT\""
+                  ((org-agenda-overriding-header "Started:")))
+       (tags-todo "@errand"
+                  ((org-agenda-overriding-header "Errands:")))
+       (tags-todo "@workday"
+                  ((org-agenda-overriding-header "Workday Tasks:")))
+       (tags-todo "+TODO=\"TODO\"-@errand-@workday-@home-read-watch"
+                  ((org-agenda-overriding-header "Tasks:")))
+       (todo "WAIT"
+             ((org-agenda-overriding-header "Waiting For:")))
+       (tags-todo "read|watch"
+                  ((org-agenda-overriding-header "Content Queue:"))))
+
+      ;; These settings apply to all of the above.
+      ((org-agenda-skip-scheduled-if-deadline-is-shown t)
+       (org-agenda-todo-ignore-scheduled t))))
+#+END_SRC
+
+**** Home View
+
+This is a version of my [[* Overview][Overview]] that is tailored to only show me the things I
+need to see while I'm at home.
+
+#+BEGIN_SRC elisp :noweb-ref org-agenda-view-functions
+  (defun trs/org-agenda-views/home ()
+    '(((agenda ""
+               ((org-agenda-overriding-header "Today:")
+                (org-agenda-span 'day)
+                (org-agenda-skip-deadline-if-done t)
+                (org-agenda-skip-scheduled-if-done t)))
+       (tags-todo "+TODO=\"STRT\""
+                  ((org-agenda-overriding-header "Started:")))
+       (tags-todo "@errand"
+                  ((org-agenda-overriding-header "Errands:")))
+       (tags-todo "@home"
+                  ((org-agenda-overriding-header "Only At Home:")))
+       (tags-todo "+TODO=\"TODO\"-@errand-@workday-@home-read-watch"
                   ((org-agenda-overriding-header "Tasks:")))
        (todo "WAIT"
              ((org-agenda-overriding-header "Waiting For:")))
@@ -842,6 +903,23 @@ I bind this function to an easy-to-remember key command.
 
 #+BEGIN_SRC elisp :noweb-ref key-bindings
   (global-set-key (kbd "C-c -") 'trs/insert-separator-line)
+#+END_SRC
+
+** Epoch date to string
+
+This function converts the number under point from Unix epoch format to a
+human-readable format.
+
+#+BEGIN_SRC elisp
+  (defun trs/epoch-to-string ()
+    "Convert a timestamp in the Unix epoch format to a human-readable string."
+    (interactive)
+    (let* ((epoch (current-word))
+           (format-string "%a %D %r")
+           (time (seconds-to-time epoch))
+           (formatted-time (format-time-string format-string time)))
+      (kill-new formatted-time)
+      (message formatted-time)))
 #+END_SRC
 
 * Putting it all together

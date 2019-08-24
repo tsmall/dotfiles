@@ -37,9 +37,7 @@ If the new path's directory does not exist, create them."
     (make-directory (file-name-directory bpath) bpath)
     bpath))
 
-;; Since this function doesn't work in Windows, I can't enable it
-;; here.  Instead, copy this function into your local .emacs file:
-;; (setq make-backup-file-name-function 'my-backup-file-name)
+(setq make-backup-file-name-function 'my-backup-file-name)
 
 (defun trs-count-matches-in-line (regexp)
   "Search for all REGEXP matches in the current line.
@@ -55,18 +53,6 @@ Display the number of matches and save it to the kill ring."
     (if (not buffer)
         (setq buffer (find-file-noselect file-path)))
     (switch-to-buffer buffer)))
-
-(defun trs-name-to-email (name)
-  "Convert the string NAME to an email address."
-  (let* ((parts (->> name
-                     downcase
-                     split-string))
-         (first (->> (car parts)
-                     string-to-char
-                     string))
-         (last (cadr parts))
-         (domain "@schoology.com"))
-    (concat first last domain)))
 
 (require 'pomodoro)
 (require 'util)
