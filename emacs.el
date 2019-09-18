@@ -8,7 +8,9 @@
 
 ;;; Code:
 
+(add-to-list 'custom-theme-load-path "~/etc/dotfiles/emacs.d/themes")
 (add-to-list 'load-path "~/etc/dotfiles/emacs.d/settings")
+
 (require 'eshell-settings)
 
 (load "~/etc/dotfiles/emacs.d/init-packages")
