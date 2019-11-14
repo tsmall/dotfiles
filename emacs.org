@@ -333,6 +333,12 @@ when I do that.
   (setq js2-strict-trailing-comma-warning nil)
 #+END_SRC
 
+I also generally use two spaces to indent JavaScript code.
+
+#+BEGIN_SRC elisp
+  (setq js2-basic-offset 2)
+#+END_SRC
+
 ** Multiple Cursors
 
 #+BEGIN_SRC elisp :noweb-ref key-bindings
