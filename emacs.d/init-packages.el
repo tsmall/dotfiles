@@ -32,6 +32,7 @@
         magit
         markdown-mode
         multiple-cursors
+        olivetti
         paredit
         parinfer
         perl6-mode
