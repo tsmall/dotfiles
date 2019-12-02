@@ -25,6 +25,7 @@
         haskell-mode
         highlight-symbol
         iy-go-to-char
+        janet-mode
         js2-mode
         json-mode
         julia-mode
