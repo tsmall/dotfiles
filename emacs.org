@@ -928,6 +928,20 @@ human-readable format.
       (message formatted-time)))
 #+END_SRC
 
+** Open JIRA ticket
+
+This function opens the JIRA ticket under point in the system's default
+web browser.
+
+#+BEGIN_SRC elisp
+  (defun trs/jira-open ()
+    "Open JIRA ticket under point in default web browser."
+    (interactive)
+    (let* ((ticket (current-word))
+           (url (concat "https://project.schoologize.com/browse/" ticket)))
+      (browse-url url)))
+#+END_SRC
+
 * Putting it all together
 
 All of the code you've read above is written to a single file, =emacs.lp.el=.
