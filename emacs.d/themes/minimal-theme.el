@@ -76,7 +76,7 @@
    `(gnus-header-from ((t (:foreground ,fg))))
    `(gnus-header-name ((t (:foreground ,fg))))
    `(gnus-header-subject ((t (:foreground ,fg))))
-   `(highlight ((t nil)))
+   `(highlight ((t (:background ,bg-light))))
    `(ido-first-match ((t (:foreground ,fg))))
    `(ido-only-match ((t (:foreground ,fg))))
    `(ido-subdir ((t (:foreground ,fg))))
