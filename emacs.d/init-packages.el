@@ -37,9 +37,9 @@
         olivetti
         paredit
         parinfer
-        perl6-mode
         php-mode
         rainbow-mode
+        raku-mode
         swift-mode
         tuareg
         vimish-fold
