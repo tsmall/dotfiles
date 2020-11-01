@@ -32,6 +32,7 @@
         lua-mode
         magit
         markdown-mode
+        move-text
         multiple-cursors
         olivetti
         paredit
@@ -41,6 +42,7 @@
         rainbow-mode
         swift-mode
         tuareg
+        vimish-fold
         web-mode
         yaml-mode
         yasnippet))
