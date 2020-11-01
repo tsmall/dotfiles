@@ -1,8 +1,8 @@
 (require 'package)
 
 (setq package-archives-additional
-      '(("marmalade" . "http://marmalade-repo.org/packages/")
-        ("melpa" . "http://melpa.milkbox.net/packages/")))
+      '(("melpa" . "https://melpa.org/packages/")
+	    ("marmalade" . "https://marmalade-repo.org/packages/")))
 
 (dolist (archive package-archives-additional)
   (add-to-list 'package-archives archive))
