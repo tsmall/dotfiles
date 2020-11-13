@@ -393,6 +393,17 @@ Then tweak web-mode's indentation settings to match the style I use.
   (yas-global-mode 1)
 #+END_SRC
 
+** zap-to-char
+
+By default, the zap-to-char package binds Meta-z to the =zap-to-char= function.
+But I've found that I want to leave the character much more often than I want
+to delete it. Luckily zap-to-char also provides the =zap-up-to-char= function.
+I've rebound the normal Meta-z key binding to that function instead.
+
+#+BEGIN_SRC elisp
+  (global-set-key (kbd "M-z") 'zap-up-to-char)
+#+END_SRC
+
 * Org Mode
 :PROPERTIES:
 :header-args: :noweb-ref org-mode-settings
