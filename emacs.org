@@ -1015,6 +1015,36 @@ web browser.
       (browse-url url)))
 #+END_SRC
 
+** Save and restore windows
+
+This code is courtesy of Erick Navarro, from his blog post [[https://erick.navarro.io/blog/save-and-restore-window-configuration-in-emacs/][Save and Restore
+Window Configuration in Emacs]].
+
+#+BEGIN_SRC elisp
+  (defvar trs/window-snapshots '())
+
+  (defun trs/save-window-snapshot ()
+    "Save the current window configuration into `trs/window-snapshots` alist."
+    (interactive)
+    (let ((key (read-string "Enter a name for the snapshot: ")))
+      (setf (alist-get key trs/window-snapshots) (current-window-configuration))
+      (message "%s window snapshot saved!" key)))
+
+  (defun trs/get-window-snapshot (key)
+    "Given a KEY return the saved value in `trs/window-snapshots` alist."
+    (let ((value (assoc key trs/window-snapshots)))
+      (cdr value)))
+
+  (defun trs/restore-window-snapshot ()
+    "Restore a window snapshot from the trs/window-snapshots alist."
+    (interactive)
+    (let* ((snapshot-name (completing-read "Choose snapshot: " (mapcar #'car trs/window-snapshots)))
+           (snapshot (trs/get-window-snapshot snapshot-name)))
+      (if snapshot
+          (set-window-configuration snapshot)
+        (message "Snapshot %s not found" snapshot-name))))
+#+END_SRC
+
 * Putting it all together
 
 All of the code you've read above is written to a single file, =emacs.lp.el=.
