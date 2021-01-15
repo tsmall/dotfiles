@@ -42,7 +42,9 @@
         rainbow-mode
         raku-mode
         swift-mode
+        tide
         tuareg
+        typescript-mode
         vimish-fold
         web-mode
         yaml-mode

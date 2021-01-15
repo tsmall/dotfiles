@@ -365,6 +365,68 @@ So we need to teach Emacs about them.
   (add-to-list 'auto-mode-alist '("\\.module$" . php-mode))
 #+END_SRC
 
+** TypeScript mode
+
+I'm using a combination of the =typescript-mode= package (for syntax
+highlighting) and =tide= (for type checking and other IDE features).
+
+*** General TypeScript configuration
+
+This function sets up typescript-mode with a few other features that make
+editing TypeScript code a little easier.
+
+#+begin_src elisp
+  (defun trs/setup-typescript-mode ()
+    (interactive)
+    (subword-mode +1))
+#+end_src
+
+I want these settings on for every TypeScript buffer, so I add it to the hook.
+
+#+begin_src elisp
+  (add-hook 'typescript-mode-hook #'trs/setup-typescript-mode)
+#+end_src
+
+*** TypeScript "compilation"
+
+It's helpful to be able to kick off yarn tests, lints, and builds from right
+inside Emacs. I can use the built-in =compile= function to do most of the work.
+But it's convenient to have some wrappers around it.
+
+#+begin_src elisp
+  (defun yarn-lint ()
+    (interactive)
+    (compile "yarn lint"))
+
+  (defun yarn-test ()
+    (interactive)
+    (compile "yarn test"))
+
+  (defun yarn-build ()
+    (interactive)
+    (compile "yarn build"))
+#+end_src
+
+*** Tide configuration
+
+This function sets up tide mode with all of the configurations I want:
+
+#+begin_src elisp
+  (defun setup-tide-mode ()
+    (interactive)
+    (tide-setup)
+    (flycheck-mode +1)
+    (setq flycheck-check-syntax-automatically '(save mode-enabled))
+    (eldoc-mode +1)
+    (tide-hl-identifier-mode +1))
+#+end_src
+
+Then this turns it on whenever I open a TypeScript file:
+
+#+begin_src elisp
+  (add-hook 'typescript-mode-hook #'setup-tide-mode)
+#+end_src
+
 ** Web mode
 
 Web mode is the best solution I've found so far for working with HTML files,
