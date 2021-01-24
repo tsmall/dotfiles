@@ -15,6 +15,7 @@
         crystal-mode
         csv-mode
         editorconfig
+        elfeed
         elixir-mode
         elm-mode
         erlang

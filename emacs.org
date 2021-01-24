@@ -853,6 +853,160 @@ Move the habit graphs further to the right in my agenda views, to leave more spa
   (setq org-habit-graph-column 65)
 #+END_SRC
 
+* RSS feeds
+:PROPERTIES:
+:header-args: :noweb-ref elfeed-settings
+:END:
+
+I use elfeed to read my RSS and Atom feeds. Here are the RSS feeds that I
+subscribe to.
+
+** Family and friends
+
+These are feeds of things my family and friends do online. (Sadly Facebook and
+Twitter are where most of that stuff ends up now, and they don't play well with
+the open web. So this is a pretty anemic list.)
+
+#+begin_src elisp
+  (setq elfeed-feeds/family
+        (map 'list (lambda (url) (list url 'family))
+             '("http://mselroy.blogspot.com/feeds/posts/default?alt=rss"
+               "https://www.nestingdollkay.com/blog?format=RSS")))
+#+end_src
+
+** News
+
+While I find it distracting and unhelpful to read the news too often, I do try
+to keep informed. And I like to try to get a view on what people on many
+different sides of an issue say.
+
+*** Local news
+
+#+begin_src elisp
+  (setq elfeed-feeds/news-local
+        (map 'list (lambda (url) (list url 'news 'local))
+             '("https://theotherhudsonvalley.com/feed/"
+               "https://therivernewsroom.com/feed/")))
+#+end_src
+
+*** National news
+
+#+begin_src elisp
+  (setq elfeed-feeds/news-national
+        (map 'list (lambda (url) (list url 'news 'national))
+             '("http://newsrss.bbc.co.uk/rss/newsonline_world_edition/front_page/rss.xml"
+               "http://feeds.foxnews.com/foxnews/latest"
+               "http://www.noonan.dns2go.com/content/rss/drudge.xml"
+               "http://www.nytimes.com/services/xml/rss/nyt/HomePage.xml")))
+#+end_src
+
+** Random stuff
+
+These are things I enjoy, that don't really fit into any of the other
+categories.
+
+#+begin_src elisp
+  (setq elfeed-feeds/random
+        (map 'list (lambda (url) (list url 'random))
+             '("http://feeds.kottke.org/json"
+               "http://www.justinobeirne.com/rss?format=rss"
+               "https://noeldemartin.com/blog/rss.xml"
+               "https://onefoottsunami.com/feed/json/")))
+#+end_src
+
+** Tech news
+
+I split these up into two groups: "fast" and "slow" feeds.
+
+*** Fast feeds
+
+The "fast" ones are feeds that are updated often and produce a lot of data:
+
+#+begin_src elisp
+  (setq elfeed-feeds/tech-fast
+        (map 'list (lambda (url) (list url 'tech 'fast))
+             '("http://om.co/feed/"
+               "https://daringfireball.net/feeds/json"
+               "http://www.techspot.com/backend.xml"
+               "http://rss.slashdot.org/Slashdot/slashdot"
+               "https://sixcolors.com/feed.json"
+               "https://inessential.com/feed.json"
+               "https://cate.blog/feed/"
+               "https://www.reddit.com/r/programming/.rss"
+               "http://www.loopinsight.com/feed/"
+               "http://beckyhansmeyer.com/feed/"
+               "https://hnrss.org/frontpage"
+               "https://shopify.engineering/blog.atom")))
+#+end_src
+
+*** Slow feeds
+
+The "slow" ones are updated far less frequently. They're more likely to be
+things I don't want to miss, so being able to see only them saves me a lot of
+time scanning.
+
+#+begin_src elisp
+  (setq elfeed-feeds/tech-slow
+        (map 'list (lambda (url) (list url 'tech 'slow))
+             '("http://adactio.com/articles/rss"
+               "http://adactio.com/journal/rss"
+               "http://blog.couchdb.org/feed/"
+               "http://blog.golang.org/feeds/posts/default"
+               "http://blog.jetbrains.com/kotlin/feed/"
+               "http://blogs.perl.org/users/damian_conway/atom.xml"
+               "http://chneukirchen.org/trivium/index.json"
+               "http://ericasadun.com/feed/"
+               "http://hypercritical.co/feeds/main"
+               "http://jvns.ca/atom.xml"
+               "http://redecentralize.org/blog/feed.rss"
+               "http://staltz.com/feed.xml"
+               "http://tonsky.me/blog/atom.xml"
+               "http://www.omnigroup.com/blog/rss/"
+               "https://alistapart.com/main/feed/"
+               "https://blog.ploeh.dk/rss.xml"
+               "https://blog.standardnotes.org/rss/"
+               "https://blog.workflowy.com/feed/"
+               "https://brave.com/feed/"
+               "https://clojure.org/feed.xml"
+               "https://cognitect.com/feed.xml"
+               "https://lexi-lambda.github.io/feeds/all.rss.xml"
+               "https://listed.standardnotes.org/@sn/feed.rss"
+               "https://medium.com/feed/@steve.yegge"
+               "https://medium.com/feed/darklang"
+               "https://nnw.ranchero.com/feed.json"
+               "https://randsinrepose.com/feed/"
+               "https://swift.org/atom.xml"
+               "https://whispersystems.org/blog/rss.xml"
+               "https://www.discoverdev.io/rss.xml"
+               "https://www.pine64.org/feed/")))
+#+end_src
+
+*** Advent calendars
+
+I also have a few "advent calendar" blogs that I like to follow:
+
+#+begin_src elisp
+  (setq elfeed-feeds/tech-advent
+        (map 'list (lambda (url) (list url 'tech 'advent))
+             '("https://rakuadventcalendar.wordpress.com/feed/"
+               "http://feeds.feedburner.com/24ways?format=xml"
+               "http://www.perladvent.org/2020/atom.xml")))
+#+end_src
+
+** Putting it all together
+
+#+begin_src elisp
+  (setq elfeed-feeds
+        (append
+         elfeed-feeds/family
+         elfeed-feeds/news-local
+         elfeed-feeds/news-national
+         elfeed-feeds/random
+         elfeed-feeds/tech-advent
+         elfeed-feeds/tech-fast
+         elfeed-feeds/tech-slow))
+#+end_src
+
 * Helpers and utilities
 :PROPERTIES:
 :header-args: :noweb-ref custom-functions
@@ -1073,4 +1227,8 @@ All of the code you've read above is written to a single file, =emacs.lp.el=.
   ;;; Key bindings
 
   <<key-bindings>>
+
+  ;;; Elfeed settings
+
+  <<elfeed-settings>>
 #+END_SRC
