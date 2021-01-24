@@ -45,10 +45,12 @@
         tide
         tuareg
         typescript-mode
+        vala-mode
         vimish-fold
         web-mode
         yaml-mode
-        yasnippet))
+        yasnippet
+        zig-mode))
 
 ;; activate all the packages
 (package-initialize)
