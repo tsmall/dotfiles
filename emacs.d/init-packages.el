@@ -18,6 +18,7 @@
         elfeed
         elixir-mode
         elm-mode
+        elpher
         erlang
         exec-path-from-shell
         expand-region
