@@ -1,0 +1,15 @@
+; Elpher bookmarks file
+
+; Bookmarks are stored as a list of (label URL) items.
+; Feel free to edit by hand, but take care to ensure
+; the list structure remains intact.
+
+(("2020-07-26 - Discussions toward radically sustainable computing" "gemini://gemini.circumlunar.space/~solderpunk/gemlog/discussions-toward-radically-sustainable-computing.gmi")
+ ("CNN International" "gopher://codevoid.de/1/cnn")
+ ("twtxt gateway for gopher" "gopher://shroom.party/1/twtxt")
+ ("Gopherproject.org" "gopher://gopherproject.org/1")
+ ("logout's Bongusta aggregator for Gopher." "gopher://i-logout.cz/1/bongusta/")
+ ("Solderpunk versus the windmills" "gemini://gemini.circumlunar.space/~solderpunk/gemlog/")
+ ("Drew DeVault's gemenispace" "gemini://drewdevault.com/")
+ ("A low-key gemlog" "gemini://low-key.me/gemlog/")
+ ("Project Gemeni home page" "gemini://gemini.circumlunar.space/"))
