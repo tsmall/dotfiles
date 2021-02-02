@@ -406,6 +406,14 @@ I want these settings on for every TypeScript buffer, so I add it to the hook.
   (add-hook 'typescript-mode-hook #'trs/setup-typescript-mode)
 #+end_src
 
+*** File extensions
+
+Tell emacs that files that end in =.tsx= are also TypeScript files.
+
+#+begin_src elisp
+  (add-to-list 'auto-mode-alist '("\\.tsx\\'" . typescript-mode))
+#+end_src
+
 *** TypeScript "compilation"
 
 It's helpful to be able to kick off yarn tests, lints, and builds from right
