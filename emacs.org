@@ -888,9 +888,9 @@ the open web. So this is a pretty anemic list.)
 
 #+begin_src elisp
   (setq elfeed-feeds/family
-        (map 'list (lambda (url) (list url 'family))
-             '("http://mselroy.blogspot.com/feeds/posts/default?alt=rss"
-               "https://www.nestingdollkay.com/blog?format=RSS")))
+        (cl-map 'list (lambda (url) (list url 'family))
+                '("http://mselroy.blogspot.com/feeds/posts/default?alt=rss"
+                  "https://www.nestingdollkay.com/blog?format=RSS")))
 #+end_src
 
 ** News
@@ -903,20 +903,20 @@ different sides of an issue say.
 
 #+begin_src elisp
   (setq elfeed-feeds/news-local
-        (map 'list (lambda (url) (list url 'news 'local))
-             '("https://theotherhudsonvalley.com/feed/"
-               "https://therivernewsroom.com/feed/")))
+        (cl-map 'list (lambda (url) (list url 'news 'local))
+                '("https://theotherhudsonvalley.com/feed/"
+                  "https://therivernewsroom.com/feed/")))
 #+end_src
 
 *** National news
 
 #+begin_src elisp
   (setq elfeed-feeds/news-national
-        (map 'list (lambda (url) (list url 'news 'national))
-             '("http://newsrss.bbc.co.uk/rss/newsonline_world_edition/front_page/rss.xml"
-               "http://feeds.foxnews.com/foxnews/latest"
-               "http://www.noonan.dns2go.com/content/rss/drudge.xml"
-               "http://www.nytimes.com/services/xml/rss/nyt/HomePage.xml")))
+        (cl-map 'list (lambda (url) (list url 'news 'national))
+                '("http://newsrss.bbc.co.uk/rss/newsonline_world_edition/front_page/rss.xml"
+                  "http://feeds.foxnews.com/foxnews/latest"
+                  "http://www.noonan.dns2go.com/content/rss/drudge.xml"
+                  "http://www.nytimes.com/services/xml/rss/nyt/HomePage.xml")))
 #+end_src
 
 ** Random stuff
@@ -926,11 +926,11 @@ categories.
 
 #+begin_src elisp
   (setq elfeed-feeds/random
-        (map 'list (lambda (url) (list url 'random))
-             '("http://feeds.kottke.org/main"
-               "http://www.justinobeirne.com/rss?format=rss"
-               "https://noeldemartin.com/blog/rss.xml"
-               "https://onefoottsunami.com/feed/json/")))
+        (cl-map 'list (lambda (url) (list url 'random))
+                '("http://feeds.kottke.org/main"
+                  "http://www.justinobeirne.com/rss?format=rss"
+                  "https://noeldemartin.com/blog/rss.xml"
+                  "https://onefoottsunami.com/feed/json/")))
 #+end_src
 
 ** Tech news
@@ -943,18 +943,18 @@ The "fast" ones are feeds that are updated often and produce a lot of data:
 
 #+begin_src elisp
   (setq elfeed-feeds/tech-fast
-        (map 'list (lambda (url) (list url 'tech 'fast))
-             '("http://om.co/feed/"
-               "https://daringfireball.net/feeds/main"
-               "http://www.techspot.com/backend.xml"
-               "http://rss.slashdot.org/Slashdot/slashdot"
-               "https://sixcolors.com/feed.json"
-               "https://inessential.com/feed.json"
-               "https://cate.blog/feed/"
-               "http://www.loopinsight.com/feed/"
-               "http://beckyhansmeyer.com/feed/"
-               "https://hnrss.org/frontpage"
-               "https://shopify.engineering/blog.atom")))
+        (cl-map 'list (lambda (url) (list url 'tech 'fast))
+                '("http://om.co/feed/"
+                  "https://daringfireball.net/feeds/main"
+                  "http://www.techspot.com/backend.xml"
+                  "http://rss.slashdot.org/Slashdot/slashdot"
+                  "https://sixcolors.com/feed.json"
+                  "https://inessential.com/feed.json"
+                  "https://cate.blog/feed/"
+                  "http://www.loopinsight.com/feed/"
+                  "http://beckyhansmeyer.com/feed/"
+                  "https://hnrss.org/frontpage"
+                  "https://shopify.engineering/blog.atom")))
 #+end_src
 
 *** Slow feeds
@@ -965,38 +965,38 @@ time scanning.
 
 #+begin_src elisp
   (setq elfeed-feeds/tech-slow
-        (map 'list (lambda (url) (list url 'tech 'slow))
-             '("http://adactio.com/articles/rss"
-               "http://adactio.com/journal/rss"
-               "http://blog.couchdb.org/feed/"
-               "https://blog.elementary.io/feed.xml"
-               "http://blog.golang.org/feeds/posts/default"
-               "http://blog.jetbrains.com/kotlin/feed/"
-               "http://blogs.perl.org/users/damian_conway/atom.xml"
-               "http://leahneukirchen.org/trivium/index.atom"
-               "http://ericasadun.com/feed/"
-               "http://hypercritical.co/feeds/main"
-               "http://jvns.ca/atom.xml"
-               "http://redecentralize.org/blog/feed.rss"
-               "http://staltz.com/feed.xml"
-               "http://tonsky.me/blog/atom.xml"
-               "http://www.omnigroup.com/blog/rss/"
-               "https://alistapart.com/main/feed/"
-               "https://blog.ploeh.dk/rss.xml"
-               "https://blog.standardnotes.org/rss/"
-               "https://blog.workflowy.com/feed/"
-               "https://brave.com/feed/"
-               "https://clojure.org/feed.xml"
-               "https://cognitect.com/feed.xml"
-               "https://lexi-lambda.github.io/feeds/all.rss.xml"
-               "https://listed.standardnotes.org/@sn/feed.rss"
-               "https://medium.com/feed/@steve.yegge"
-               "https://medium.com/feed/darklang"
-               "https://randsinrepose.com/feed/"
-               "https://swift.org/atom.xml"
-               "https://whispersystems.org/blog/rss.xml"
-               "https://www.discoverdev.io/rss.xml"
-               "https://www.pine64.org/feed/")))
+        (cl-map 'list (lambda (url) (list url 'tech 'slow))
+                '("http://adactio.com/articles/rss"
+                  "http://adactio.com/journal/rss"
+                  "http://blog.couchdb.org/feed/"
+                  "https://blog.elementary.io/feed.xml"
+                  "http://blog.golang.org/feeds/posts/default"
+                  "http://blog.jetbrains.com/kotlin/feed/"
+                  "http://blogs.perl.org/users/damian_conway/atom.xml"
+                  "http://leahneukirchen.org/trivium/index.atom"
+                  "http://ericasadun.com/feed/"
+                  "http://hypercritical.co/feeds/main"
+                  "http://jvns.ca/atom.xml"
+                  "http://redecentralize.org/blog/feed.rss"
+                  "http://staltz.com/feed.xml"
+                  "http://tonsky.me/blog/atom.xml"
+                  "http://www.omnigroup.com/blog/rss/"
+                  "https://alistapart.com/main/feed/"
+                  "https://blog.ploeh.dk/rss.xml"
+                  "https://blog.standardnotes.org/rss/"
+                  "https://blog.workflowy.com/feed/"
+                  "https://brave.com/feed/"
+                  "https://clojure.org/feed.xml"
+                  "https://cognitect.com/feed.xml"
+                  "https://lexi-lambda.github.io/feeds/all.rss.xml"
+                  "https://listed.standardnotes.org/@sn/feed.rss"
+                  "https://medium.com/feed/@steve.yegge"
+                  "https://medium.com/feed/darklang"
+                  "https://randsinrepose.com/feed/"
+                  "https://swift.org/atom.xml"
+                  "https://whispersystems.org/blog/rss.xml"
+                  "https://www.discoverdev.io/rss.xml"
+                  "https://www.pine64.org/feed/")))
 #+end_src
 
 *** Advent calendars
@@ -1005,10 +1005,10 @@ I also have a few "advent calendar" blogs that I like to follow:
 
 #+begin_src elisp
   (setq elfeed-feeds/tech-advent
-        (map 'list (lambda (url) (list url 'tech 'advent))
-             '("https://rakuadventcalendar.wordpress.com/feed/"
-               "http://feeds.feedburner.com/24ways?format=xml"
-               "http://www.perladvent.org/2020/atom.xml")))
+        (cl-map 'list (lambda (url) (list url 'tech 'advent))
+                '("https://rakuadventcalendar.wordpress.com/feed/"
+                  "http://feeds.feedburner.com/24ways?format=xml"
+                  "http://www.perladvent.org/2020/atom.xml")))
 #+end_src
 
 ** Putting it all together
