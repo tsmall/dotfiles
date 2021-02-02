@@ -908,7 +908,7 @@ categories.
 #+begin_src elisp
   (setq elfeed-feeds/random
         (map 'list (lambda (url) (list url 'random))
-             '("http://feeds.kottke.org/json"
+             '("http://feeds.kottke.org/main"
                "http://www.justinobeirne.com/rss?format=rss"
                "https://noeldemartin.com/blog/rss.xml"
                "https://onefoottsunami.com/feed/json/")))
@@ -926,7 +926,7 @@ The "fast" ones are feeds that are updated often and produce a lot of data:
   (setq elfeed-feeds/tech-fast
         (map 'list (lambda (url) (list url 'tech 'fast))
              '("http://om.co/feed/"
-               "https://daringfireball.net/feeds/json"
+               "https://daringfireball.net/feeds/main"
                "http://www.techspot.com/backend.xml"
                "http://rss.slashdot.org/Slashdot/slashdot"
                "https://sixcolors.com/feed.json"
@@ -954,7 +954,7 @@ time scanning.
                "http://blog.golang.org/feeds/posts/default"
                "http://blog.jetbrains.com/kotlin/feed/"
                "http://blogs.perl.org/users/damian_conway/atom.xml"
-               "http://chneukirchen.org/trivium/index.json"
+               "http://leahneukirchen.org/trivium/index.atom"
                "http://ericasadun.com/feed/"
                "http://hypercritical.co/feeds/main"
                "http://jvns.ca/atom.xml"
@@ -973,7 +973,6 @@ time scanning.
                "https://listed.standardnotes.org/@sn/feed.rss"
                "https://medium.com/feed/@steve.yegge"
                "https://medium.com/feed/darklang"
-               "https://nnw.ranchero.com/feed.json"
                "https://randsinrepose.com/feed/"
                "https://swift.org/atom.xml"
                "https://whispersystems.org/blog/rss.xml"
