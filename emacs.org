@@ -932,7 +932,6 @@ The "fast" ones are feeds that are updated often and produce a lot of data:
                "https://sixcolors.com/feed.json"
                "https://inessential.com/feed.json"
                "https://cate.blog/feed/"
-               "https://www.reddit.com/r/programming/.rss"
                "http://www.loopinsight.com/feed/"
                "http://beckyhansmeyer.com/feed/"
                "https://hnrss.org/frontpage"
