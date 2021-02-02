@@ -355,6 +355,25 @@ I also generally use two spaces to indent JavaScript code.
 
 ** PHP mode
 
+*** General configuration
+
+This function sets up php-mode with a few other features that make editing PHP
+code a little easier.
+
+#+begin_src elisp
+  (defun trs/setup-php-mode ()
+    (interactive)
+    (subword-mode +1))
+#+end_src
+
+I want these settings on for every PHP buffer, so I add it to the hook.
+
+#+begin_src elisp
+  (add-hook 'php-mode-hook #'trs/setup-php-mode)
+#+end_src
+
+*** Drupal file extensions
+
 When working with Drupal code,
 some PHP code is in files with different extensions.
 So we need to teach Emacs about them.
