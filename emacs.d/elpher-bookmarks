@@ -4,7 +4,9 @@
 ; Feel free to edit by hand, but take care to ensure
 ; the list structure remains intact.
 
-(("2020-08-02 - The standard salvaged computing platform" "gemini://gemini.circumlunar.space/~solderpunk/gemlog/the-standard-salvaged-computing-platform.gmi")
+(("Gopher.black" "gopher://gopher.black/1")
+ ("gopher://zaibatsu.circumlunar.space:70/1/~solderpunk/gemini" "gopher://zaibatsu.circumlunar.space/1/~solderpunk/gemini")
+ ("2020-08-02 - The standard salvaged computing platform" "gemini://gemini.circumlunar.space/~solderpunk/gemlog/the-standard-salvaged-computing-platform.gmi")
  ("Universal Basic Internet" "gemini://sunshinegardens.org/~xj9/posts/2020-universal-basic-internet.gmi")
  ("2020-07-26 - Discussions toward radically sustainable computing" "gemini://gemini.circumlunar.space/~solderpunk/gemlog/discussions-toward-radically-sustainable-computing.gmi")
  ("CNN International" "gopher://codevoid.de/1/cnn")
