@@ -950,6 +950,7 @@ time scanning.
              '("http://adactio.com/articles/rss"
                "http://adactio.com/journal/rss"
                "http://blog.couchdb.org/feed/"
+               "https://blog.elementary.io/feed.xml"
                "http://blog.golang.org/feeds/posts/default"
                "http://blog.jetbrains.com/kotlin/feed/"
                "http://blogs.perl.org/users/damian_conway/atom.xml"
