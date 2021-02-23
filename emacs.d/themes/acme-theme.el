@@ -26,10 +26,6 @@
 ;; the Acme editor itself (http://acme.cat-v.org/)
 ;; and the acme-colors Vim theme (https://github.com/plan9-for-vimspace/acme-colors).
 
-;;; To Do:
-
-;; - Make hl-line-mode work
-
 ;;; Code:
 
 (deftheme acme
@@ -89,8 +85,8 @@
    `(ido-only-match ((t nil)))
    `(ido-subdir ((t nil)))
    `(isearch ((t (:background ,highlight-color))))
-   `(highlight ((t (:background ,selection-color))))
-   `(lazy-highlight ((t (:background ,selection-color))))
+   `(highlight ((t (:background ,highlight-color))))
+   `(lazy-highlight ((t (:background ,highlight-color))))
    `(link ((t (:slant italic))))
 
    ;; mode line and minibuffer
