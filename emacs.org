@@ -983,6 +983,7 @@ time scanning.
                   "http://blogs.perl.org/users/damian_conway/atom.xml"
                   "http://leahneukirchen.org/trivium/index.atom"
                   "http://ericasadun.com/feed/"
+                  "https://www.gingerbill.org/article/index.xml"
                   "http://hypercritical.co/feeds/main"
                   "http://jvns.ca/atom.xml"
                   "http://redecentralize.org/blog/feed.rss"
