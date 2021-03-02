@@ -4,7 +4,8 @@
 ; Feel free to edit by hand, but take care to ensure
 ; the list structure remains intact.
 
-(("Gopher.black" "gopher://gopher.black/1")
+(("gemini://gemini.conman.org" "gemini://gemini.conman.org/")
+ ("Gopher.black" "gopher://gopher.black/1")
  ("gopher://zaibatsu.circumlunar.space:70/1/~solderpunk/gemini" "gopher://zaibatsu.circumlunar.space/1/~solderpunk/gemini")
  ("2020-08-02 - The standard salvaged computing platform" "gemini://gemini.circumlunar.space/~solderpunk/gemlog/the-standard-salvaged-computing-platform.gmi")
  ("Universal Basic Internet" "gemini://sunshinegardens.org/~xj9/posts/2020-universal-basic-internet.gmi")
