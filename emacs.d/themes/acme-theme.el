@@ -85,8 +85,8 @@
    `(ido-only-match ((t nil)))
    `(ido-subdir ((t nil)))
    `(isearch ((t (:background ,highlight-color))))
-   `(highlight ((t (:background ,highlight-color))))
-   `(lazy-highlight ((t (:background ,highlight-color))))
+   `(highlight ((t (:background ,selection-color))))
+   `(lazy-highlight ((t (:background ,selection-color))))
    `(link ((t (:slant italic))))
 
    ;; mode line and minibuffer
