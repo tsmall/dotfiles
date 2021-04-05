@@ -339,6 +339,19 @@ I also generally use two spaces to indent JavaScript code.
   (setq js2-basic-offset 2)
 #+END_SRC
 
+** Magit (& Transients)
+
+Magit extensively uses the Emacs Transient feature. The Transient system works
+by defining a "level" for each transient command. By default that level is 4.
+The maximum is 7. Every transient command that is at the default level or below
+are available.
+
+I want to have all options available by default. So I set my default to 7.
+
+#+begin_src elisp
+  (setq transient-default-level 7)
+#+end_src
+
 ** Multiple Cursors
 
 #+BEGIN_SRC elisp :noweb-ref key-bindings
