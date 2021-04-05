@@ -67,8 +67,8 @@ One of my top interests is typography. So I end up switching which font I use
 in my text editors and IDEs often. This is my latest combination:
 
 #+BEGIN_SRC elisp
-  (trs/set-default-font "LucidaMonoEF" 140)
-  (trs/set-variable-font "Lucida Sans" 140)
+  (trs/set-default-font "DM Mono" 160)
+  (trs/set-variable-font "DM Sans" 160)
 #+END_SRC
 
 Some of those fonts have ligatures for common coding character combinations
