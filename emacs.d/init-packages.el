@@ -23,6 +23,7 @@
         exec-path-from-shell
         expand-region
         fiplr
+        fsharp-mode
         full-ack
         go-mode
         haskell-mode
