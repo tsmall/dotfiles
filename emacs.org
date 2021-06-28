@@ -249,28 +249,6 @@ Turn on EditorConfig support.
   (global-set-key (kbd "C-=") 'er/expand-region)
 #+END_SRC
 
-** Fiplr
-
-Bind fiplr's find file mode to a convenient keyboard shortcut:
-
-#+BEGIN_SRC elisp :noweb-ref key-bindings
-  (global-set-key (kbd "C-c t") 'fiplr-find-file)
-#+END_SRC
-
-Tell fiplr to ignore any source control files,
-and a few other file types that shouldn't show up too.
-
-#+BEGIN_SRC elisp
-  (setq fiplr-ignored-globs
-        '((directories
-           (".git" ".svn" ".hg" ".bzr"
-            "bower_components" "node_modules"))
-          (files
-           (".#*" "*~" "*.so"
-            "*.jpg" "*.png" "*.gif"
-            "*.gz" "*.pdf" "*.pyc" "*.zip"))))
-#+END_SRC
-
 ** Haskell
 
 Turn on a few of haskell-mode's useful features:
@@ -395,6 +373,20 @@ So we need to teach Emacs about them.
   (add-to-list 'auto-mode-alist '("\\.inc$" . php-mode))
   (add-to-list 'auto-mode-alist '("\\.install$" . php-mode))
   (add-to-list 'auto-mode-alist '("\\.module$" . php-mode))
+#+END_SRC
+
+** Projectile
+
+Enable projectile-mode:
+
+#+begin_src elisp
+  (projectile-mode +1)
+#+end_src
+
+Bind Projectile to a convenient keyboard shortcut:
+
+#+BEGIN_SRC elisp :noweb-ref key-bindings
+  (define-key projectile-mode-map (kbd "C-c t") 'projectile-command-map)
 #+END_SRC
 
 ** TypeScript mode

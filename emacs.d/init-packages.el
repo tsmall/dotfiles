@@ -22,7 +22,6 @@
         erlang
         exec-path-from-shell
         expand-region
-        fiplr
         fsharp-mode
         full-ack
         go-mode
@@ -42,6 +41,7 @@
         paredit
         parinfer
         php-mode
+        projectile
         rainbow-mode
         raku-mode
         swift-mode
