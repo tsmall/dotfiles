@@ -46,6 +46,7 @@
         raku-mode
         swift-mode
         tide
+        treemacs
         tuareg
         typescript-mode
         vala-mode
