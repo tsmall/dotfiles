@@ -26,6 +26,7 @@
         full-ack
         go-mode
         haskell-mode
+        helm-rg
         highlight-symbol
         iy-go-to-char
         janet-mode
@@ -44,6 +45,7 @@
         projectile
         rainbow-mode
         raku-mode
+        rg
         swift-mode
         tide
         treemacs
