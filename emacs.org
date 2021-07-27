@@ -330,6 +330,16 @@ I want to have all options available by default. So I set my default to 7.
   (setq transient-default-level 7)
 #+end_src
 
+** Markdown mode
+
+Markdown is all about writing, so I like to use Olivetti mode to format the
+buffer cleanly, and automatically turn on spell checking (via =flyspell-mode=).
+
+#+BEGIN_SRC elisp
+  (add-hook 'markdown-mode-hook 'flyspell-mode)
+  (add-hook 'markdown-mode-hook 'olivetti-mode)
+#+END_SRC
+
 ** Multiple Cursors
 
 #+BEGIN_SRC elisp :noweb-ref key-bindings
