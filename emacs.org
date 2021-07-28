@@ -525,6 +525,7 @@ modules, so I need to turn those on when setting up Org Mode.
 
 #+BEGIN_SRC elisp :noweb yes
   (require 'org)
+  (require 'org-mouse)
   <<org-modules>>
 #+END_SRC
 
