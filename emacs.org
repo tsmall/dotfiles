@@ -896,6 +896,16 @@ Move the habit graphs further to the right in my agenda views, to leave more spa
   (setq org-habit-graph-column 65)
 #+END_SRC
 
+** Presenting in Org Mode
+
+I find Org Mode files to be a great way to present information, especially to
+technical audiences. These are some enhancements I found that make presenting
+in Org Mode even better.
+
+#+begin_src elisp
+  (load "org-present")
+#+end_src
+
 * RSS feeds
 :PROPERTIES:
 :header-args: :noweb-ref elfeed-settings
