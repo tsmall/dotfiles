@@ -179,7 +179,10 @@
    `(markup-typewriter-face ((t nil)))
    `(markup-verbatim-face ((t nil)))
    `(markup-emphasis-face ((t (:slant italic))))
-   `(markup-strong-face ((t (:weight bold))))))
+   `(markup-strong-face ((t (:weight bold))))
+
+   ;; hl-line-mode
+   `(hl-line ((t (:background ,yellow-light))))))
 
 ;;;###autoload
 (when load-file-name
