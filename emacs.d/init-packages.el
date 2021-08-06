@@ -33,6 +33,7 @@
         js2-mode
         json-mode
         julia-mode
+        ledger-mode
         lua-mode
         magit
         markdown-mode
