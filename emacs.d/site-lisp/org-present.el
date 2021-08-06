@@ -27,20 +27,34 @@
   (interactive "p")
   (beginning-of-buffer)
   (widen)
-  (outline-forward-same-level ARG)
+  (condition-case nil
+      (outline-forward-same-level ARG)
+    (error (message "No more headings at this level")))
   (org-narrow-to-subtree))
 
 (defun trs/present-previous (ARG)
   (interactive "p")
   (beginning-of-buffer)
   (widen)
-  (outline-backward-same-level ARG)
+  (condition-case nil
+      (outline-backward-same-level ARG)
+    (error (message "No more headings at this level")))
+  (org-narrow-to-subtree))
+
+(defun trs/present-up (ARG)
+  (interactive "p")
+  (beginning-of-buffer)
+  (widen)
+  (condition-case nil
+      (outline-up-heading ARG)
+    (error (message "Already at top level")))
   (org-narrow-to-subtree))
 
 (defvar org-demo-minor-mode-map
   (let ((map (make-sparse-keymap)))
     (define-key map (kbd "C-<down>") 'trs/present-next)
     (define-key map (kbd "C-<up>") 'trs/present-previous)
+    (define-key map (kbd "C-S-<up>") 'trs/present-up)
     (define-key map (kbd "C-c C-s") 'trs/present)
     (define-key map (kbd "C-c C-q") 'org-demo-minor-mode)
     map))
