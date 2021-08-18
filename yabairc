@@ -1,0 +1,14 @@
+yabai -m config layout       bsp
+yabai -m config auto_balance off
+
+yabai -m config window_gap     10
+yabai -m config top_padding    10
+yabai -m config bottom_padding 10
+yabai -m config left_padding   10
+yabai -m config right_padding  10
+
+# rules
+yabai -m rule --add app="^Activity Monitor$" manage=off
+yabai -m rule --add app="^Stickies$" manage=off
+yabai -m rule --add app="^Stocks$" manage=off
+yabai -m rule --add app="^System Preferences$" manage=off

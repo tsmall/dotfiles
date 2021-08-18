@@ -1,0 +1,54 @@
+# change focus
+alt + shift - i : yabai -m window --focus north
+alt + shift - k : yabai -m window --focus south
+alt + shift - j : yabai -m window --focus west
+alt + shift - l : yabai -m window --focus east
+
+# swap windows
+alt + shift + ctrl - i : yabai -m window --swap north
+alt + shift + ctrl - k : yabai -m window --swap south
+alt + shift + ctrl - j : yabai -m window --swap west
+alt + shift + ctrl - l : yabai -m window --swap east
+
+# warp windows
+alt + shift + cmd + ctrl - i : yabai -m window --warp north
+alt + shift + cmd + ctrl - k : yabai -m window --warp south
+alt + shift + cmd + ctrl - j : yabai -m window --warp west
+alt + shift + cmd + ctrl - l : yabai -m window --warp east
+
+# set insertion point in focused container
+alt + shift + cmd - i : yabai -m window --insert north
+alt + shift + cmd - k : yabai -m window --insert south
+alt + shift + cmd - j : yabai -m window --insert west
+alt + shift + cmd - l : yabai -m window --insert east
+
+# stack windows
+alt + shift - w : yabai -m window --stack north
+alt + shift - s : yabai -m window --stack south
+alt + shift - a : yabai -m window --stack west
+alt + shift - d : yabai -m window --stack east
+alt + shift - q : yabai -m window --toggle float; yabai -m window --toggle float
+
+# change focus between stacked windows
+alt + shift + Cmd - 0x21 : yabai -m window --focus stack.prev
+alt + shift + Cmd - 0x1E : yabai -m window --focus stack.next
+
+# rebalance windows
+alt + shift - 0x18 : yabai -m space --balance
+
+# toggle window properties
+alt + shift - y : yabai -m window --toggle split
+alt + shift - f : yabai -m window --toggle float
+alt + shift - g : yabai -m window --toggle zoom-fullscreen
+
+# send window to space
+alt + shift - 1 : yabai -m window --space 1
+alt + shift - 2 : yabai -m window --space 2
+alt + shift - 3 : yabai -m window --space 3
+alt + shift - 4 : yabai -m window --space 4
+alt + shift - 5 : yabai -m window --space 5
+alt + shift - 6 : yabai -m window --space 6
+alt + shift - 7 : yabai -m window --space 7
+alt + shift - 8 : yabai -m window --space 8
+alt + shift - 9 : yabai -m window --space 9
+alt + shift - 0 : yabai -m window --space 10
