@@ -54,20 +54,41 @@ alt + shift - 8 : yabai -m window --space 8
 alt + shift - 9 : yabai -m window --space 9
 alt + shift - 0 : yabai -m window --space 10
 
-# resizing
+# ------------------------------------------------------------------------------
+# adjustment mode
+#
+# This mode is inspired by the keyboard shortcuts for tiling windows
+# in Pop!_OS. This makes it possible to do most window commands either
+# via modifiers or modally.
 
-:: resize @
+:: adjust @
 
-alt + shift - r ; resize
+alt + shift - return ; adjust
 
-resize < q ; default
+adjust < q ; default
+adjust < return ; default
 
-resize < i : yabai -m window --resize top:0:-20
-resize < k : yabai -m window --resize bottom:0:20
-resize < j : yabai -m window --resize left:-20:0
-resize < l : yabai -m window --resize right:20:0
+adjust < i : yabai -m window --swap north
+adjust < k : yabai -m window --swap south
+adjust < j : yabai -m window --swap west
+adjust < l : yabai -m window --swap east
 
-resize < shift - k : yabai -m window --resize top:0:20
-resize < shift - i : yabai -m window --resize bottom:0:-20
-resize < shift - j : yabai -m window --resize right:-20:0
-resize < shift - l : yabai -m window --resize left:20:0
+adjust < ctrl - i : yabai -m window --focus north
+adjust < ctrl - k : yabai -m window --focus south
+adjust < ctrl - j : yabai -m window --focus west
+adjust < ctrl - l : yabai -m window --focus east
+
+adjust < cmd - i : yabai -m window --warp north
+adjust < cmd - k : yabai -m window --warp south
+adjust < cmd - j : yabai -m window --warp west
+adjust < cmd - l : yabai -m window --warp east
+
+adjust < shift - i : yabai -m window --resize top:0:-20
+adjust < shift - k : yabai -m window --resize bottom:0:20
+adjust < shift - j : yabai -m window --resize left:-20:0
+adjust < shift - l : yabai -m window --resize right:20:0
+
+adjust < shift + ctrl - i : yabai -m window --resize bottom:0:-20
+adjust < shift + ctrl - k : yabai -m window --resize top:0:20
+adjust < shift + ctrl - j : yabai -m window --resize right:-20:0
+adjust < shift + ctrl - l : yabai -m window --resize left:20:0
