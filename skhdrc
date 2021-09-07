@@ -1,25 +1,25 @@
 # change focus
-alt + shift - i : yabai -m window --focus north
-alt + shift - k : yabai -m window --focus south
-alt + shift - j : yabai -m window --focus west
+alt + shift - k : yabai -m window --focus north
+alt + shift - j : yabai -m window --focus south
+alt + shift - h : yabai -m window --focus west
 alt + shift - l : yabai -m window --focus east
 
 # swap windows
-alt + shift + ctrl - i : yabai -m window --swap north
-alt + shift + ctrl - k : yabai -m window --swap south
-alt + shift + ctrl - j : yabai -m window --swap west
+alt + shift + ctrl - k : yabai -m window --swap north
+alt + shift + ctrl - j : yabai -m window --swap south
+alt + shift + ctrl - h : yabai -m window --swap west
 alt + shift + ctrl - l : yabai -m window --swap east
 
 # warp windows
-alt + shift + cmd + ctrl - i : yabai -m window --warp north
-alt + shift + cmd + ctrl - k : yabai -m window --warp south
-alt + shift + cmd + ctrl - j : yabai -m window --warp west
+alt + shift + cmd + ctrl - k : yabai -m window --warp north
+alt + shift + cmd + ctrl - j : yabai -m window --warp south
+alt + shift + cmd + ctrl - h : yabai -m window --warp west
 alt + shift + cmd + ctrl - l : yabai -m window --warp east
 
 # set insertion point in focused container
-alt + shift + cmd - i : yabai -m window --insert north
-alt + shift + cmd - k : yabai -m window --insert south
-alt + shift + cmd - j : yabai -m window --insert west
+alt + shift + cmd - k : yabai -m window --insert north
+alt + shift + cmd - j : yabai -m window --insert south
+alt + shift + cmd - h : yabai -m window --insert west
 alt + shift + cmd - l : yabai -m window --insert east
 
 # stack windows
@@ -27,19 +27,19 @@ alt + shift - w : yabai -m window --stack north
 alt + shift - s : yabai -m window --stack south
 alt + shift - a : yabai -m window --stack west
 alt + shift - d : yabai -m window --stack east
-alt + shift - q : yabai -m window --toggle float; yabai -m window --toggle float
+alt + shift - x : yabai -m window --toggle float; yabai -m window --toggle float
 
-# change focus between stacked windows
+# change focus between stacked windows (0x21 is '[', 0x1E is ']')
 alt + shift + cmd - 0x21 : yabai -m window --focus stack.prev
 alt + shift + cmd - 0x1E : yabai -m window --focus stack.next
 
-# rebalance windows
+# rebalance windows (0x18 is '=')
 alt + shift - 0x18 : yabai -m space --balance
 
 # toggle window properties
-alt + shift - y : yabai -m window --toggle split
-alt + shift - f : yabai -m window --toggle float
-alt + shift - g : yabai -m window --toggle zoom-fullscreen
+alt + shift - o : yabai -m window --toggle split
+alt + shift - g : yabai -m window --toggle float
+alt + shift - m : yabai -m window --toggle zoom-fullscreen
 alt + shift - z : yabai -m window --toggle zoom-parent
 
 # send window to space
@@ -68,27 +68,23 @@ alt + shift - return ; adjust
 adjust < q ; default
 adjust < return ; default
 
-adjust < i : yabai -m window --swap north
-adjust < k : yabai -m window --swap south
-adjust < j : yabai -m window --swap west
+adjust < k : yabai -m window --swap north
+adjust < j : yabai -m window --swap south
+adjust < h : yabai -m window --swap west
 adjust < l : yabai -m window --swap east
 
-adjust < ctrl - i : yabai -m window --focus north
-adjust < ctrl - k : yabai -m window --focus south
-adjust < ctrl - j : yabai -m window --focus west
+adjust < ctrl - k : yabai -m window --focus north
+adjust < ctrl - j : yabai -m window --focus south
+adjust < ctrl - h : yabai -m window --focus west
 adjust < ctrl - l : yabai -m window --focus east
 
-adjust < cmd - i : yabai -m window --warp north
-adjust < cmd - k : yabai -m window --warp south
-adjust < cmd - j : yabai -m window --warp west
+adjust < cmd - k : yabai -m window --warp north
+adjust < cmd - j : yabai -m window --warp south
+adjust < cmd - h : yabai -m window --warp west
 adjust < cmd - l : yabai -m window --warp east
 
-adjust < shift - i : yabai -m window --resize top:0:-20
-adjust < shift - k : yabai -m window --resize bottom:0:20
-adjust < shift - j : yabai -m window --resize left:-20:0
+adjust < shift - k : yabai -m window --resize bottom:0:-20
+adjust < shift - j : yabai -m window --resize bottom:0:20
+adjust < shift - h : yabai -m window --resize right:-20:0
 adjust < shift - l : yabai -m window --resize right:20:0
 
-adjust < shift + ctrl - i : yabai -m window --resize bottom:0:-20
-adjust < shift + ctrl - k : yabai -m window --resize top:0:20
-adjust < shift + ctrl - j : yabai -m window --resize right:-20:0
-adjust < shift + ctrl - l : yabai -m window --resize left:20:0
