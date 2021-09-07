@@ -10,6 +10,7 @@ yabai -m config right_padding  10
 # rules
 yabai -m rule --add app="^Activity Monitor$" manage=off
 yabai -m rule --add app="^Calculator$" manage=off
+yabai -m rule --add app="^Dictionary$" manage=off
 yabai -m rule --add app="^Kap$" manage=off
 yabai -m rule --add app="^Stickies$" manage=off
 yabai -m rule --add app="^Stocks$" manage=off
