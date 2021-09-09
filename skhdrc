@@ -54,6 +54,10 @@ alt + shift - 8 : yabai -m window --space 8
 alt + shift - 9 : yabai -m window --space 9
 alt + shift - 0 : yabai -m window --space 10
 
+# change space layout
+alt + shift - t : yabai -m space --layout bsp
+alt + shift - y : yabai -m space --layout float
+
 # ------------------------------------------------------------------------------
 # adjustment mode
 #
