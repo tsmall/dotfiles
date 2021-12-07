@@ -66,6 +66,7 @@ The main features of this prompt are that it:
 - replaces the HOME path with the tilde (~) character
 - shows the current git branch if you're in a git repo"
   (concat
+   "[" (format-time-string "%D %R") "] "
    (cur-dir-git-branch-string (eshell/pwd))
    (pwd-shorten-dirs (pwd-replace-home (eshell/pwd)))
    "$ "))
