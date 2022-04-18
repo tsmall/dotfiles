@@ -1,5 +1,6 @@
 #+TITLE: Tom's Emacs Configuration
 #+AUTHOR: Tom Small <tsmall3@gmail.com>
+#+STARTUP: overview
 
 * Introduction
 
