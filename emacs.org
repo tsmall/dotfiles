@@ -1053,6 +1053,7 @@ different sides of an issue say.
         (cl-map 'list (lambda (url) (list url 'news 'national))
                 '("http://newsrss.bbc.co.uk/rss/newsonline_world_edition/front_page/rss.xml"
                   "http://feeds.foxnews.com/foxnews/latest"
+                  "https://feeds.npr.org/1001/rss.xml"
                   "http://www.noonan.dns2go.com/content/rss/drudge.xml"
                   "http://www.nytimes.com/services/xml/rss/nyt/HomePage.xml")))
 #+end_src
@@ -1092,7 +1093,8 @@ The "fast" ones are feeds that are updated often and produce a lot of data:
                   "http://www.loopinsight.com/feed/"
                   "http://beckyhansmeyer.com/feed/"
                   "https://hnrss.org/frontpage"
-                  "https://shopify.engineering/blog.atom")))
+                  "https://shopify.engineering/blog.atom"
+                  "https://www.eff.org/rss/updates.xml")))
 #+end_src
 
 *** Slow feeds
@@ -1111,6 +1113,7 @@ time scanning.
                   "http://blog.golang.org/feeds/posts/default"
                   "http://blog.jetbrains.com/kotlin/feed/"
                   "http://blogs.perl.org/users/damian_conway/atom.xml"
+                  "https://drewdevault.com/blog/index.xml"
                   "http://leahneukirchen.org/trivium/index.atom"
                   "http://ericasadun.com/feed/"
                   "https://www.gingerbill.org/article/index.xml"
@@ -1128,8 +1131,8 @@ time scanning.
                   "https://clojure.org/feed.xml"
                   "https://cognitect.com/feed.xml"
                   "https://lexi-lambda.github.io/feeds/all.rss.xml"
-                  "https://listed.standardnotes.org/@sn/feed.rss"
-                  "https://medium.com/feed/@steve.yegge"
+                  "https://listed.to/@Listed/feed"
+                  "https://medium.com/feed/@steve-yegge"
                   "https://medium.com/feed/darklang"
                   "https://randsinrepose.com/feed/"
                   "https://swift.org/atom.xml"
