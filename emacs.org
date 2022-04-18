@@ -839,7 +839,9 @@ the agenda.
       run again after your override code.
 
 #+BEGIN_SRC elisp
-  (setq org-agenda-files org-roam-directory)
+  (setq org-agenda-files
+        (list org-roam-directory
+              (concat org-roam-directory "/" org-roam-dailies-directory)))
 #+END_SRC
 
 *** Behavior
