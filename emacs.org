@@ -591,12 +591,23 @@ them in my themes.
   (setq org-fontify-done-headline t)
 #+END_SRC
 
+** Link abbreviations
+
+Org Mode provides a very helpful shortcut: you can provide your own link
+abbreviations, which will be expanded into the full link. I find this very
+helpful for things like work tickets.
+
+#+begin_src elisp
+  (setq org-link-abbrev-alist
+        '(("PE" . "https://powerschoolgroup.atlassian.net/browse/PE-")))
+#+end_src
+
 ** Todo settings
 
 Mark the date and time I finish every task.
 
 #+BEGIN_SRC elisp
-  (setq org-log-done 'time)
+  (setq org-log-done nil)
 #+END_SRC
 
 Don't let me mark a todo item as done if it has children that aren't done.
@@ -698,14 +709,127 @@ Target every todo item with the "PROJ" tag and every heading in the current file
                              (nil :maxlevel . 2)))
 #+END_SRC
 
+** Habit tracking
+
+I've started using Org Mode's /habit/ module to track some of my recurring tasks
+that have looser recurring dates. One very nice feature of this module is that
+it shows a little graph next to the item in the agenda that shows how well I've
+done the habit.
+
+To start, we need to turn on the module.
+
+#+BEGIN_SRC elisp :noweb-ref org-modules
+  (require 'org-habit)
+  (add-to-list 'org-modules 'org-habit)
+#+END_SRC
+
+Move the habit graphs further to the right in my agenda views, to leave more space for the actual item's text.
+
+#+BEGIN_SRC elisp
+  (setq org-habit-graph-column 65)
+#+END_SRC
+
+** Presenting in Org Mode
+
+I find Org Mode files to be a great way to present information, especially to
+technical audiences. These are some enhancements I found that make presenting
+in Org Mode even better.
+
+#+begin_src elisp
+  (load "org-present")
+#+end_src
+
+** Org-roam
+
+Org-roam is an extension to Org Mode that brings some features of Roam
+Research, Logseq, and others to org files in Emacs. It makes it easy to link
+between documents, to see backlinks, and to query your notes.
+
+*** Initialization
+
+We have to tell Emacs to load the Org-roam code and do some initialization.
+
+#+begin_src elisp
+  (require 'org-roam)
+  (org-roam-db-autosync-mode)
+#+end_src
+
+*** Notes location
+
+This defaults to expecting my Org-roam notes to be stored in my Documents
+folder, but this can be overridden later (in my =.emacs= file, for example).
+
+*Note:* You need to override some of the Org Agenda settings below if you
+      override this setting.
+
+#+begin_src elisp
+  (setq org-roam-directory (file-truename "~/Documents/notes/org-roam"))
+#+end_src
+
+*** Dailies
+
+For what Org-roam calls "fleeting notes", it provides a daily journal, again
+just like Roam Research, Logseq, and others. Following the suggestion in the
+Org-roam info file, I've chosen to put it in a directory called "daily".
+
+*Note:* This directory is relative to the =org-roam-directory=, so it doesn't need
+      to change even if you override that directory.
+
+I also set up the daily journal template, again using the suggestion provided
+by the Org-roam info file.
+
+#+begin_src elisp
+  (setq org-roam-dailies-directory "daily/")
+  (setq org-roam-dailies-capture-templates
+        '(("d" "default" entry
+           "* %?"
+           :target (file+head "%<%Y-%m-%d>.org"
+                              "#+title: %<%Y-%m-%d>\n"))))
+#+end_src
+
+*** Key bindings
+
+Org-roam (probably wisely) doesn't provide any of its own key bindings. Instead
+it lets you define your own. Based on a suggestion I saw online, I chose to
+start all of them with the =C-c n= prefix, which is happily unused.
+
+#+begin_src elisp
+  (global-set-key (kbd "C-c n b") 'org-roam-buffer-toggle)
+  (global-set-key (kbd "C-c n f") 'org-roam-node-find)
+  (global-set-key (kbd "C-c n i") 'org-roam-node-insert)
+  (global-set-key (kbd "C-c n d") 'org-roam-dailies-goto-date)
+  (global-set-key (kbd "C-c n t") 'org-roam-dailies-goto-today)
+  (global-set-key (kbd "C-c n m") 'org-roam-dailies-goto-tomorrow)
+#+end_src
+
+*** Backlink buffer
+
+Backlinks (and some other data) are shown in their own buffer. I've followed
+the Org-roam info file's suggestion to make this a regular buffer, that opens
+up to the right of the current buffer.
+
+#+begin_src elisp
+  (add-to-list 'display-buffer-alist
+               '("\\*org-roam\\*"
+                 (display-buffer-in-direction)
+                 (direction . right)
+                 (window-width . 0.5)
+                 (window-height . fit-window-to-buffer)))
+#+end_src
+
 ** Agenda
 
 *** Files
 
-Include all files in my =~/org= directory in my agenda.
+I keep all of my tasks in my Org-roam notes and dailies, so use those files for
+the agenda.
+
+*Note:* This variable also needs to be overridden if you override the Org-roam
+      directory, above. You can probably do that by just copying this line to
+      run again after your override code.
 
 #+BEGIN_SRC elisp
-  (setq org-agenda-files '("~/org"))
+  (setq org-agenda-files org-roam-directory)
 #+END_SRC
 
 *** Behavior
@@ -738,7 +862,7 @@ Don't show any tasks that are scheduled for the future in any of my todo lists.
 Move the tags further to the right, to allow more space for the item text.
 
 #+BEGIN_SRC elisp
-  (setq org-agenda-tags-column -105)
+  (setq org-agenda-tags-column 'auto)
 #+END_SRC
 
 *** Views
@@ -875,36 +999,6 @@ them in agenda views.
       "P1+TODO=\"PROJ\""
       ((org-agenda-dim-blocked-tasks nil))))
 #+END_SRC
-
-** Habit tracking
-
-I've started using Org Mode's /habit/ module to track some of my recurring tasks
-that have looser recurring dates. One very nice feature of this module is that
-it shows a little graph next to the item in the agenda that shows how well I've
-done the habit.
-
-To start, we need to turn on the module.
-
-#+BEGIN_SRC elisp :noweb-ref org-modules
-  (require 'org-habit)
-  (add-to-list 'org-modules 'org-habit)
-#+END_SRC
-
-Move the habit graphs further to the right in my agenda views, to leave more space for the actual item's text.
-
-#+BEGIN_SRC elisp
-  (setq org-habit-graph-column 65)
-#+END_SRC
-
-** Presenting in Org Mode
-
-I find Org Mode files to be a great way to present information, especially to
-technical audiences. These are some enhancements I found that make presenting
-in Org Mode even better.
-
-#+begin_src elisp
-  (load "org-present")
-#+end_src
 
 * RSS feeds
 :PROPERTIES:
