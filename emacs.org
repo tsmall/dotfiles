@@ -62,6 +62,15 @@ That's just wasteful. Let's put things the way they should be.
   (setq sentence-end-double-space nil)    ; Let one space end a sentence
 #+END_SRC
 
+** Bell
+
+By default, Emacs makes a noise when you do a lot of things. It happens /all the
+time/ and kind of drives my nuts. So I turn that off.
+
+#+begin_src elisp
+  (setq ring-bell-function 'ignore)
+#+end_src
+
 ** Fonts
 
 One of my top interests is typography. So I end up switching which font I use
