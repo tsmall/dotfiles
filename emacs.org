@@ -1227,14 +1227,14 @@ See [[*Fonts][Fonts]] to see where I'm using these functions.
       (set-face-attribute font-name nil
                           :family family
                           :height (or height 100)
-                          :weight (or weight 'medium))))
+                          :weight (or weight 'normal))))
 
   (defun trs/set-variable-font (family &optional height weight)
     "Set the variable width font."
     (set-face-attribute 'variable-pitch nil
                         :family family
                         :height (or height 100)
-                        :weight (or weight 'medium)))
+                        :weight (or weight 'normal)))
 #+END_SRC
 
 ** Clear the buffer
