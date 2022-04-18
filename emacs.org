@@ -810,6 +810,8 @@ start all of them with the =C-c n= prefix, which is happily unused.
   (global-set-key (kbd "C-c n d") 'org-roam-dailies-goto-date)
   (global-set-key (kbd "C-c n t") 'org-roam-dailies-goto-today)
   (global-set-key (kbd "C-c n m") 'org-roam-dailies-goto-tomorrow)
+  (global-set-key (kbd "C-c n ]") 'org-roam-dailies-goto-next-note)
+  (global-set-key (kbd "C-c n [") 'org-roam-dailies-goto-previous-note)
 #+end_src
 
 *** Backlink buffer
