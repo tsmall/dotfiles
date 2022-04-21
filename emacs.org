@@ -1345,8 +1345,8 @@ human-readable format.
   (defun trs/epoch-to-string ()
     "Convert a timestamp in the Unix epoch format to a human-readable string."
     (interactive)
-    (let* ((epoch (current-word))
-           (format-string "%a %D %r")
+    (let* ((epoch (string-to-number (current-word)))
+           (format-string "%a %D %T")
            (time (seconds-to-time epoch))
            (formatted-time (format-time-string format-string time)))
       (kill-new formatted-time)
