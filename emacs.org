@@ -362,6 +362,8 @@ buffer cleanly, and automatically turn on spell checking (via =flyspell-mode=).
 
   (global-set-key (kbd "C-c C-r") 'mc/edit-lines)
   (global-set-key (kbd "M-<kp-enter>") 'set-rectangular-region-anchor)
+
+  (global-set-key (kbd "M-C-<mouse-1>") 'mc/add-cursor-on-click)
 #+END_SRC
 
 ** PHP mode
