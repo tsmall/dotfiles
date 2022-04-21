@@ -1058,9 +1058,7 @@ different sides of an issue say.
   (setq elfeed-feeds/news-national
         (cl-map 'list (lambda (url) (list url 'news 'national))
                 '("http://newsrss.bbc.co.uk/rss/newsonline_world_edition/front_page/rss.xml"
-                  "http://feeds.foxnews.com/foxnews/latest"
                   "https://feeds.npr.org/1001/rss.xml"
-                  "http://www.noonan.dns2go.com/content/rss/drudge.xml"
                   "http://www.nytimes.com/services/xml/rss/nyt/HomePage.xml")))
 #+end_src
 
@@ -1080,7 +1078,7 @@ categories.
 
 ** Tech news
 
-I split these up into two groups: "fast" and "slow" feeds.
+I split these up into a few groups.
 
 *** Fast feeds
 
@@ -1115,36 +1113,53 @@ time scanning.
                 '("http://adactio.com/articles/rss"
                   "http://adactio.com/journal/rss"
                   "http://blog.couchdb.org/feed/"
-                  "https://blog.elementary.io/feed.xml"
                   "http://blog.golang.org/feeds/posts/default"
-                  "http://blog.jetbrains.com/kotlin/feed/"
                   "http://blogs.perl.org/users/damian_conway/atom.xml"
-                  "https://drewdevault.com/blog/index.xml"
-                  "http://leahneukirchen.org/trivium/index.atom"
                   "http://ericasadun.com/feed/"
-                  "https://www.gingerbill.org/article/index.xml"
                   "http://hypercritical.co/feeds/main"
                   "http://jvns.ca/atom.xml"
+                  "http://leahneukirchen.org/trivium/index.atom"
                   "http://redecentralize.org/blog/feed.rss"
                   "http://staltz.com/feed.xml"
                   "http://tonsky.me/blog/atom.xml"
                   "http://www.omnigroup.com/blog/rss/"
                   "https://alistapart.com/main/feed/"
+                  "https://blog.elementary.io/feed.xml"
                   "https://blog.ploeh.dk/rss.xml"
                   "https://blog.standardnotes.org/rss/"
                   "https://blog.workflowy.com/feed/"
                   "https://brave.com/feed/"
                   "https://clojure.org/feed.xml"
                   "https://cognitect.com/feed.xml"
+                  "https://drewdevault.com/blog/index.xml"
                   "https://lexi-lambda.github.io/feeds/all.rss.xml"
                   "https://listed.to/@Listed/feed"
                   "https://medium.com/feed/@steve-yegge"
                   "https://medium.com/feed/darklang"
                   "https://randsinrepose.com/feed/"
-                  "https://swift.org/atom.xml"
                   "https://whispersystems.org/blog/rss.xml"
                   "https://www.discoverdev.io/rss.xml"
+                  "https://www.gingerbill.org/article/index.xml"
                   "https://www.pine64.org/feed/")))
+#+end_src
+
+*** Work
+
+These are feeds that I subscribe to that are directly relevant to my current
+job. There's definitely some overlap with the "slow" category, but I find it
+useful to be able to filter to just these.
+
+#+begin_src elisp
+  (setq elfeed-feeds/tech-work
+        (cl-map 'list (lambda (url) (list url 'tech 'slow 'work))
+                '("https://android-developers.googleblog.com/feeds/posts/default"
+                  "https://aws.amazon.com/blogs/aws/feed/"
+                  "https://blog.chromium.org/feeds/posts/default"
+                  "https://blog.jetbrains.com/kotlin/feed/"
+                  "https://devblogs.microsoft.com/typescript/feed/"
+                  "https://hacks.mozilla.org/feed/"
+                  "https://swift.org/atom.xml"
+                  "https://www.php.net/feed.atom")))
 #+end_src
 
 *** Advent calendars
@@ -1159,6 +1174,21 @@ I also have a few "advent calendar" blogs that I like to follow:
                   "http://www.perladvent.org/2020/atom.xml")))
 #+end_src
 
+** EdTech
+
+These are feeds I follow to keep up with what's going on in the world of
+education and education technology.
+
+#+begin_src elisp
+  (setq elfeed-feeds/edtech
+        (cl-map 'list (lambda (url) (list url 'edtech))
+                '("https://www.edsurge.com/articles_rss"
+                  "http://feeds.feedburner.com/EdTechK12"
+                  "https://www.highereddive.com/feeds/news/"
+                  "http://feeds.feedburner.com/edweek/marketbrief"
+                  "https://www.powerschool.com/feed/")))
+#+end_src
+
 ** Putting it all together
 
 #+begin_src elisp
@@ -1170,7 +1200,9 @@ I also have a few "advent calendar" blogs that I like to follow:
          elfeed-feeds/random
          elfeed-feeds/tech-advent
          elfeed-feeds/tech-fast
-         elfeed-feeds/tech-slow))
+         elfeed-feeds/tech-slow
+         elfeed-feeds/tech-work
+         elfeed-feeds/edtech))
 #+end_src
 
 * Helpers and utilities
