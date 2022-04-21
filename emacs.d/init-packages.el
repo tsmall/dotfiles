@@ -22,6 +22,7 @@
         erlang
         exec-path-from-shell
         expand-region
+        feature-mode
         fsharp-mode
         full-ack
         go-mode
@@ -33,6 +34,7 @@
         js2-mode
         json-mode
         julia-mode
+        kotlin-mode
         ledger-mode
         lua-mode
         magit
@@ -57,6 +59,7 @@
         vimish-fold
         web-mode
         yaml-mode
+        yafolding
         yasnippet
         zig-mode))
 
