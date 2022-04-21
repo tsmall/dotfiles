@@ -1363,7 +1363,7 @@ web browser.
     "Open JIRA ticket under point in default web browser."
     (interactive)
     (let* ((ticket (current-word))
-           (url (concat "https://project.schoologize.com/browse/" ticket)))
+           (url (concat "https://powerschoolgroup.atlassian.net/browse/" ticket)))
       (browse-url url)))
 #+END_SRC
 
