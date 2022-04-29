@@ -1,0 +1,84 @@
+[buildPlans.iosevka-perfected]
+family = "Iosevka Perfected"
+spacing = "fontconfig-mono"
+serifs = "sans"
+no-cv-ss = true
+no-ligation = true
+
+  [buildPlans.iosevka-perfected.variants]
+  inherits = "ss13"
+
+    [buildPlans.iosevka-perfected.variants.design]
+    capital-g = "toothless-corner-serifless-hooked"
+    capital-i = "serifed"
+    capital-j = "flat-hook-serifless"
+    capital-q = "crossing"
+    capital-r = "straight-open"
+    capital-w = "straight"
+    a = "single-storey-earless-corner-serifless"
+    b = "toothless-corner"
+    d = "toothless-corner-serifless"
+    e = "flat-crossbar"
+    f = "flat-hook"
+    g = "single-storey-earless-corner-flat-hook"
+    j = "diagonal-tailed-serifless"
+    l = "flat-tailed"
+    p = "earless-corner"
+    q = "earless-corner-tailed"
+    r = "corner-hooked"
+    t = "diagonal-tailed-short-neck2"
+    u = "toothless-corner"
+    y = "straight"
+    zero = "slashed-split"
+    one = "no-base"
+    two = "straight-neck"
+    three = "flat-top"
+    four = "open"
+    five = "vertical-upper-left-bar"
+    six = "straight-bar"
+    seven = "straight-serifless"
+    eight = "crossing-asymmetric"
+    nine = "straight-bar"
+    asterisk = "hex-low"
+    underscore = "high"
+    paren = "normal"
+    brace = "straight"
+    number-sign = "upright"
+    ampersand = "et-toothless-corner"
+    at = "short"
+    dollar = "open"
+    cent = "through"
+    percent = "dots"
+    question = "corner-flat-hooked"
+    punctuation-dot = "square"
+
+    [buildPlans.iosevka-perfected.variants.italic]
+    f = "flat-hook-diagonal-tailed"
+    k = "symmetric-touching-serifless"
+
+[buildPlans.iosevka-perfected.weights.regular]
+shape = 400
+menu = 400
+css = 400
+
+[buildPlans.iosevka-perfected.weights.extrabold]
+shape = 800
+menu = 800
+css = 800
+
+[buildPlans.iosevka-perfected.widths.normal]
+shape = 600
+menu = 5
+css = "normal"
+
+[buildPlans.iosevka-perfected.slopes.upright]
+angle = 0
+shape = "upright"
+menu = "upright"
+css = "normal"
+
+[buildPlans.iosevka-perfected.slopes.italic]
+angle = 9.4
+shape = "italic"
+menu = "italic"
+css = "italic"
