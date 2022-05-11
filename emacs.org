@@ -778,7 +778,8 @@ We have to tell Emacs to load the Org-roam code and do some initialization.
 
 #+begin_src elisp
   (require 'org-roam)
-  (org-roam-db-autosync-mode)
+  ;; TODO: Fix this so it doesn't fail if directory doesn't exist.
+  ;; (org-roam-db-autosync-mode)
 #+end_src
 
 *** Notes location
