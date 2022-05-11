@@ -77,8 +77,8 @@ One of my top interests is typography. So I end up switching which font I use
 in my text editors and IDEs often. This is my latest combination:
 
 #+BEGIN_SRC elisp
-  (trs/set-default-font "Cascadia Mono" 140)
-  (trs/set-variable-font "Selawik" 140)
+  (trs/set-default-font "Iosevka Perfected" 160)
+  (trs/set-variable-font "DejaVu Sans" 160)
 #+END_SRC
 
 Some of those fonts have ligatures for common coding character combinations
@@ -88,8 +88,23 @@ this setting:
 
 #+BEGIN_SRC elisp
   (if (boundp 'mac-auto-operator-composition-mode)
-      (mac-auto-operator-composition-mode))
+      (mac-auto-operator-composition-mode 0))
 #+END_SRC
+
+Here are characters that I want my fonts to render well:
+
+#+begin_example
+  ABCDEFGHIJKLMNOPQRSTUVWXYZ
+  abcdefghijklmnopqrstuvwxyz
+  0123456789 () [] <> {}
+  ← → ✓ × ☐ ¼ ½ ¾ ⅓ ⅔ ∪ ∩ ∈
+  0OI1l wwwv qpdb
+  -> => --> ==> := ::
+  == != === !== <= >= >>=
+  ,* ** *** ****
+  # ## ### ####
+  - -- --- ----
+#+end_example
 
 ** Tabs vs. spaces
 
