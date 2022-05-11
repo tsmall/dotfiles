@@ -1147,15 +1147,19 @@ time scanning.
                   "https://clojure.org/feed.xml"
                   "https://cognitect.com/feed.xml"
                   "https://drewdevault.com/blog/index.xml"
+                  "https://go.dev/blog/feed.atom"
+                  "https://harelang.org/blog/index.xml"
                   "https://lexi-lambda.github.io/feeds/all.rss.xml"
                   "https://listed.to/@Listed/feed"
                   "https://medium.com/feed/@steve-yegge"
                   "https://medium.com/feed/darklang"
+                  "https://protesilaos.com/codelog.xml"
                   "https://randsinrepose.com/feed/"
                   "https://whispersystems.org/blog/rss.xml"
                   "https://www.discoverdev.io/rss.xml"
                   "https://www.gingerbill.org/article/index.xml"
-                  "https://www.pine64.org/feed/")))
+                  "https://www.pine64.org/feed/"
+                  "https://ziglang.org/news/index.xml")))
 #+end_src
 
 *** Work
