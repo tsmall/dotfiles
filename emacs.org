@@ -1139,7 +1139,6 @@ time scanning.
                   "http://staltz.com/feed.xml"
                   "http://tonsky.me/blog/atom.xml"
                   "http://www.omnigroup.com/blog/rss/"
-                  "https://alistapart.com/main/feed/"
                   "https://blog.elementary.io/feed.xml"
                   "https://blog.ploeh.dk/rss.xml"
                   "https://blog.standardnotes.org/rss/"
@@ -1168,14 +1167,17 @@ useful to be able to filter to just these.
 #+begin_src elisp
   (setq elfeed-feeds/tech-work
         (cl-map 'list (lambda (url) (list url 'tech 'slow 'work))
-                '("https://android-developers.googleblog.com/feeds/posts/default"
+                '("https://alistapart.com/main/feed/"
+                  "https://android-developers.googleblog.com/feeds/posts/default"
                   "https://aws.amazon.com/blogs/aws/feed/"
                   "https://blog.chromium.org/feeds/posts/default"
                   "https://blog.jetbrains.com/kotlin/feed/"
                   "https://devblogs.microsoft.com/typescript/feed/"
                   "https://hacks.mozilla.org/feed/"
                   "https://swift.org/atom.xml"
-                  "https://www.php.net/feed.atom")))
+                  "https://www.php.net/feed.atom"
+                  "https://web.dev/feed.xml"
+                  "https://webkit.org/feed/")))
 #+end_src
 
 *** Advent calendars
