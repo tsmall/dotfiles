@@ -1146,6 +1146,7 @@ time scanning.
                   "https://brave.com/feed/"
                   "https://clojure.org/feed.xml"
                   "https://cognitect.com/feed.xml"
+                  "https://devblogs.microsoft.com/sustainable-software/feed/"
                   "https://drewdevault.com/blog/index.xml"
                   "https://go.dev/blog/feed.atom"
                   "https://harelang.org/blog/index.xml"
