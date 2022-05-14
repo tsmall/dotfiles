@@ -1211,6 +1211,47 @@ education and education technology.
                   "https://www.powerschool.com/feed/")))
 #+end_src
 
+** Podcasts
+
+These are the podcasts I like to listen to.
+
+#+begin_src elisp
+  (setq elfeed-feeds/podcasts
+        (cl-map 'list (lambda (url) (list url 'podcast))
+                '("http://feed.songexploder.net/SongExploder"
+                  "http://feed.thisamericanlife.org/talpodcast"
+                  "http://feeds.feedburner.com/cognicast"
+                  "http://feeds.megaphone.fm/20k"
+                  "http://feeds.wnyc.org/radiolab"
+                  "http://www.wnycstudios.org/feeds/shows/deathsexmoney"
+                  "http://www.wnycstudios.org/feeds/shows/experiment"
+                  "https://changelog.com/podcast/feed"
+                  "https://corecursive.com/feed"
+                  "https://feeds.eff.org/howtofixtheinternet"
+                  "https://feeds.megaphone.fm/decoderring"
+                  "https://feeds.npr.org/344098539/podcast.xml"
+                  "https://feeds.npr.org/510307/podcast.xml"
+                  "https://feeds.npr.org/510312/podcast.xml"
+                  "https://feeds.simplecast.com/BqbsxVfO"
+                  "https://feeds.simplecast.com/L9810DOa"
+                  "https://feeds.simplecast.com/_EGvSe3D"
+                  "https://feeds.simplecast.com/kwWc0lhf"
+                  "https://feeds.simplecast.com/rZ0cYk12"
+                  "https://feeds.transistor.fm/thoughts-on-functional-programming-podcast-by-eric-normand"
+                  "https://files.manager-tools.com/files/public/feeds/career_tools_podcasts.xml"
+                  "https://files.manager-tools.com/files/public/feeds/manager-tools-podcasts.xml"
+                  "https://handmade.network/podcast/podcast.xml"
+                  "https://omny.fm/shows/the-take/playlists/podcast.rss"
+                  "https://radioopensource.org/feed/"
+                  "https://rss.art19.com/call-me-curious"
+                  "https://rss.wbur.org/endlessthread/podcast"
+                  "https://seradio.libsyn.com/rss"
+                  "https://www.omnycontent.com/d/playlist/3aeeb75f-3358-42d4-8232-acad017ea3bd/dac5a742-0a1b-4f4b-b917-acb7015564f7/e7e10a67-651c-4ddf-9c47-acb70155651d/podcast.rss"
+                  "https://www.omnycontent.com/d/playlist/e73c998e-6e60-432f-8610-ae210140c5b1/cfb428ef-eafc-44d0-9d09-ae2701747e6f/fb626e1f-112c-4246-a40d-ae2701747e7d/podcast.rss"
+                  "https://www.qdnow.com/grammar.xml")))
+
+#+end_src
+
 ** Putting it all together
 
 #+begin_src elisp
@@ -1219,12 +1260,32 @@ education and education technology.
          elfeed-feeds/family
          elfeed-feeds/news-local
          elfeed-feeds/news-national
+         elfeed-feeds/podcasts
          elfeed-feeds/random
          elfeed-feeds/tech-advent
          elfeed-feeds/tech-fast
          elfeed-feeds/tech-slow
          elfeed-feeds/tech-work
          elfeed-feeds/edtech))
+#+end_src
+
+* Managing podcasts with Elfeed and Bongo
+:PROPERTIES:
+:header-args: :noweb-ref elfeed-bongo
+:END:
+
+I'm trying out using Emacs--specifically Elfeed and Bongo--to manage my
+podcasts. Credit goes to Protesilaos Stavrou (Prot) for the code that makes
+this integration possible. See =prot-elfeed-bongo.el= for that code, which I have
+made a few tweaks to to get everything working.
+
+#+begin_src elisp
+  (with-eval-after-load 'elfeed
+    (load "~/.emacs.d/site-lisp/prot-elfeed-bongo.el")
+    (let ((map elfeed-search-mode-map))
+      (define-key map (kbd "b") #'prot-elfeed-bongo-insert-item))
+    (let ((map elfeed-show-mode-map))
+      (define-key map (kbd "b") #'prot-elfeed-bongo-insert-item)))
 #+end_src
 
 * Helpers and utilities
@@ -1451,4 +1512,5 @@ All of the code you've read above is written to a single file, =emacs.lp.el=.
   ;;; Elfeed settings
 
   <<elfeed-settings>>
+  <<elfeed-bongo>>
 #+END_SRC

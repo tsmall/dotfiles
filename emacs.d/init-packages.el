@@ -10,6 +10,7 @@
 
 (setq package-list
       '(ace-jump-mode
+        bongo
         cider
         clojure-mode
         crystal-mode
