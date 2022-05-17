@@ -1285,9 +1285,9 @@ made a few tweaks to to get everything working.
   (with-eval-after-load 'elfeed
     (load "~/.emacs.d/site-lisp/prot-elfeed-bongo.el")
     (let ((map elfeed-search-mode-map))
-      (define-key map (kbd "b") #'prot-elfeed-bongo-insert-item))
+      (define-key map (kbd "Q") #'prot-elfeed-bongo-insert-item))
     (let ((map elfeed-show-mode-map))
-      (define-key map (kbd "b") #'prot-elfeed-bongo-insert-item)))
+      (define-key map (kbd "Q") #'prot-elfeed-bongo-insert-item)))
 #+end_src
 
 * Helpers and utilities
