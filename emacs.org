@@ -1049,7 +1049,8 @@ the open web. So this is a pretty anemic list.)
 #+begin_src elisp
   (setq elfeed-feeds/family
         (cl-map 'list (lambda (url) (list url 'family))
-                '("http://mselroy.blogspot.com/feeds/posts/default?alt=rss"
+                '("https://medium.com/feed/@sarahmiller_22747"
+                  "http://mselroy.blogspot.com/feeds/posts/default?alt=rss"
                   "https://www.nestingdollkay.com/blog?format=RSS")))
 #+end_src
 
