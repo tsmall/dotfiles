@@ -1049,7 +1049,8 @@ the open web. So this is a pretty anemic list.)
 #+begin_src elisp
   (setq elfeed-feeds/family
         (cl-map 'list (lambda (url) (list url 'family))
-                '("http://mselroy.blogspot.com/feeds/posts/default?alt=rss"
+                '("https://medium.com/feed/@sarahmiller_22747"
+                  "http://mselroy.blogspot.com/feeds/posts/default?alt=rss"
                   "https://www.nestingdollkay.com/blog?format=RSS")))
 #+end_src
 
@@ -1285,9 +1286,9 @@ made a few tweaks to to get everything working.
   (with-eval-after-load 'elfeed
     (load "~/.emacs.d/site-lisp/prot-elfeed-bongo.el")
     (let ((map elfeed-search-mode-map))
-      (define-key map (kbd "b") #'prot-elfeed-bongo-insert-item))
+      (define-key map (kbd "Q") #'prot-elfeed-bongo-insert-item))
     (let ((map elfeed-show-mode-map))
-      (define-key map (kbd "b") #'prot-elfeed-bongo-insert-item)))
+      (define-key map (kbd "Q") #'prot-elfeed-bongo-insert-item)))
 #+end_src
 
 * Helpers and utilities
