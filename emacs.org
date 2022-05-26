@@ -1228,6 +1228,7 @@ These are the podcasts I like to listen to.
                   "http://www.wnycstudios.org/feeds/shows/experiment"
                   "https://changelog.com/podcast/feed"
                   "https://corecursive.com/feed"
+                  "https://feeds.buzzsprout.com/1411126.rss"
                   "https://feeds.eff.org/howtofixtheinternet"
                   "https://feeds.megaphone.fm/decoderring"
                   "https://feeds.npr.org/344098539/podcast.xml"
