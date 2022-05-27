@@ -1282,6 +1282,22 @@ These are the podcasts I like to listen to.
          elfeed-feeds/edtech))
 #+end_src
 
+* Playing music with Bongo
+:PROPERTIES:
+:header-args: :noweb-ref bongo-settings
+:END:
+
+#+begin_src elisp
+  (require 'bongo)
+
+  (setq bongo-display-inline-playback-progress t)
+  (setq bongo-mark-played-tracks t)
+
+  (set-face-attribute 'bongo-elapsed-track-part nil
+                      :background "pale goldenrod"
+                      :strike-through nil)
+#+end_src
+
 * Managing podcasts with Elfeed and Bongo
 :PROPERTIES:
 :header-args: :noweb-ref elfeed-bongo
@@ -1521,6 +1537,10 @@ All of the code you've read above is written to a single file, =emacs.lp.el=.
   ;;; Key bindings
 
   <<key-bindings>>
+
+  ;;; Bongo settings
+
+  <<bongo-settings>>
 
   ;;; Elfeed settings
 
