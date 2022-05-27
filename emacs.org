@@ -62,6 +62,15 @@ That's just wasteful. Let's put things the way they should be.
   (setq sentence-end-double-space nil)    ; Let one space end a sentence
 #+END_SRC
 
+** Frame title
+
+I don't really like having the system name in the frame (window) title, but
+otherwise the standard format is good.
+
+#+begin_src elisp
+  (setq frame-title-format '(multiple-frames "%b" ("" "%b - GNU Emacs")))
+#+end_src
+
 ** Bell
 
 By default, Emacs makes a noise when you do a lot of things. It happens /all the
