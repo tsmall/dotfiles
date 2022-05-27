@@ -1132,6 +1132,7 @@ time scanning.
                   "http://blog.couchdb.org/feed/"
                   "http://blog.golang.org/feeds/posts/default"
                   "http://blogs.perl.org/users/damian_conway/atom.xml"
+                  "http://blogs.perl.org/users/psc/atom.xml"
                   "http://ericasadun.com/feed/"
                   "http://hypercritical.co/feeds/main"
                   "http://jvns.ca/atom.xml"
