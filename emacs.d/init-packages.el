@@ -43,7 +43,6 @@
         move-text
         multiple-cursors
         olivetti
-        org-roam
         paredit
         parinfer
         php-mode
