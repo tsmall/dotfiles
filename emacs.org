@@ -421,6 +421,19 @@ So we need to teach Emacs about them.
   (add-to-list 'auto-mode-alist '("\\.module$" . php-mode))
 #+END_SRC
 
+*** PHP REPL
+
+I find it very useful to be able to quickly open a PHP REPL to run experiments,
+so I created this command to make that quick and easy in Emacs.
+
+#+begin_src elisp
+  (defun trs/php-repl ()
+    (interactive)
+    (let ((buffer (make-comint "php" "php" nil "-a")))
+      (switch-to-buffer-other-window buffer)
+      (setq comint-process-echoes t)))
+#+end_src
+
 ** Projectile
 
 Enable projectile-mode:
