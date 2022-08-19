@@ -1330,6 +1330,119 @@ made a few tweaks to to get everything working.
       (define-key map (kbd "Q") #'prot-elfeed-bongo-insert-item)))
 #+end_src
 
+* Databases
+:PROPERTIES:
+:header-args: :noweb-ref databases
+:END:
+
+** SQL databases
+
+Emacs has built-in support for connecting to SQL databases and working with
+them in a REPL-like manner with its =sql-mode=. See that mode's documentation to
+set up your database connections (look for =sql-connection-alist=).
+
+** Encrypted passwords
+
+What Emacs /doesn't/ have built-in is a way to store encrypted passwords.
+Luckily, Emacs being Emacs, it provides all the tools you need; you just need
+to put them together.
+
+*** Create encrypted passwords file
+
+First, you need to create a file =passwords.el.gpg= somewhere in your load path.
+(That's probably going to be in the =emacs.d/site-lisp= directory.) That file
+needs to set a variable named =trs/db-passwords=, which is an alist of connection
+prefix to password. Here's an example:
+
+#+begin_example
+  (setq trs/db-passwords
+        '((staging . "StagingPassword")
+          (prod    . "ProdPassword")))
+#+end_example
+
+It also needs to /provide/ the ='passwords= feature:
+
+#+begin_example
+  (provide 'passwords)
+#+end_example
+
+By ending the file name with =.gpg=, emacs will automatically use GnuPG to
+symmetrically encrypt the file whenever it opens or saves it. So you need to
+have GnuPG installed and available in your path. (See troubleshooting tips
+below if you hit any snags.)
+
+*** Custom connection function
+
+Now we need to teach Emacs how to use those passwords when connecting to the
+database. The default =sql-connect= command doesn't know they exist. So I created
+my own function that wraps that, adding the password logic.
+
+First is this function that finds the correct password for the requested DB
+connection, based on the connection name's prefix.
+
+#+begin_src elisp
+  (defun trs/get-db-password (connection-name)
+    (let* ((name   (symbol-name connection-name))
+           (parts  (split-string name "-"))
+           (prefix (first parts))
+           (key    (intern prefix)))
+      (alist-get key sgy-db-password)))
+#+end_src
+
+Then this function defines a new command, =trs/sql-connect=, which I use to
+connect instead of the default =sql-connect= command. (This function is based on
+the one shared by Tran Truang [[https://truongtx.me/2014/08/23/setup-emacs-as-an-sql-database-client][on his blog]].)
+
+#+begin_src elisp
+  (defun trs/sql-connect (connection-name)
+    ;; Get parameters from the user interactively.
+    (interactive
+     (if sql-connection-alist
+         (list (intern (sql-read-connection "Connection: ")))
+       (user-error "No SQL Connections defined")))
+
+    ;; Add the password to the connection info.
+    (require 'passwords "passwords.el.gpg")
+    (let ((connection-info (assoc connection-name sql-connection-alist))
+          (password        (trs/get-db-password connection-name)))
+      (delete sql-password connection-info)
+      (nconc connection-info `((sql-password ,password)))
+      (setq sql-connection-alist (assq-delete-all connection-name sql-connection-alist))
+      (add-to-list 'sql-connection-alist connection-info))
+
+    ;; Connect to the database.
+    (sql-connect connection-name))
+#+end_src
+
+*** Troubleshooting
+
+If you see this error when trying to encrypt the =passwords.el.gpg= file:
+
+#+begin_example
+  gpg-agent forwarding: inappropriate ioctl for device
+#+end_example
+
+Then follow these steps (from [[https://stackoverflow.com/a/59170001][this StackOverflow answer]]).
+
+Add these lines to =~/.gnupg/gpg.conf=, creating it if it doesn't exist:
+
+#+begin_example
+  use-agent
+  pinentry-mode loopback
+#+end_example
+
+Add this to =~/.gnupg/gpg-agent.conf=, creating it if it doesn't exist:
+
+#+begin_example
+  allow-loopback-pinentry
+#+end_example
+
+Then restart the agent by running:
+
+#+begin_example
+  echo RELOADAGENT | gpg-connect-agent
+#+end_example
+
 * Helpers and utilities
 :PROPERTIES:
 :header-args: :noweb-ref custom-functions
@@ -1546,6 +1659,10 @@ All of the code you've read above is written to a single file, =emacs.lp.el=.
   ;;; Org Mode
 
   <<org-mode-settings>>
+
+  ;;; Databases
+
+  <<databases>>
 
   ;;; Key bindings
 
