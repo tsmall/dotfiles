@@ -791,6 +791,16 @@ Move the habit graphs further to the right in my agenda views, to leave more spa
   (setq org-habit-graph-column 65)
 #+END_SRC
 
+** Org Babel
+
+#+begin_src elisp
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   '((emacs-lisp . t)
+     (python . t)
+     (shell . t)))
+#+end_src
+
 ** Presenting in Org Mode
 
 I find Org Mode files to be a great way to present information, especially to
