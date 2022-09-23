@@ -971,6 +971,13 @@ them in agenda views.
       ((org-agenda-dim-blocked-tasks nil))))
 #+END_SRC
 
+** Verb
+
+#+begin_src elisp
+  (with-eval-after-load 'org
+    (define-key org-mode-map (kbd "C-c C-r") verb-command-map))
+#+end_src
+
 * RSS feeds
 :PROPERTIES:
 :header-args: :noweb-ref elfeed-settings
