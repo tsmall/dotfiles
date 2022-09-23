@@ -1,0 +1,16 @@
+# -*- mode: snippet -*-
+# name: PHP Unit Test Function
+# key: test
+# --
+public function test$1()
+{
+    // === Arrange ===
+
+    $0
+
+    // === Act ===
+
+
+    // === Assert ===
+
+}

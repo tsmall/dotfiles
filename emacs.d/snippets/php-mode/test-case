@@ -1,0 +1,14 @@
+# -*- mode: snippet -*-
+# name: New PHP Test Case
+# key: testcase
+# --
+<?php
+
+namespace SgyCore\\$1;
+
+use SgyCore\BaseTestCase;
+
+class $2Test extends BaseTestCase
+{
+    $0
+}

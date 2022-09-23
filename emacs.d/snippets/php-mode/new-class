@@ -1,0 +1,12 @@
+# -*- mode: snippet -*-
+# name: New PHP class
+# key: class
+# --
+<?php
+
+namespace $1;
+
+class $2
+{
+    $0
+}
