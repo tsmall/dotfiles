@@ -16,6 +16,7 @@
         clojure-mode
         crystal-mode
         csv-mode
+        denote
         editorconfig
         elfeed
         elixir-mode
