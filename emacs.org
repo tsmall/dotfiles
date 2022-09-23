@@ -1290,7 +1290,7 @@ connection, based on the connection name's prefix.
            (parts  (split-string name "-"))
            (prefix (first parts))
            (key    (intern prefix)))
-      (alist-get key sgy-db-password)))
+      (alist-get key trs/db-passwords)))
 #+end_src
 
 Then this function defines a new command, =trs/sql-connect=, which I use to
@@ -1298,6 +1298,8 @@ connect instead of the default =sql-connect= command. (This function is based on
 the one shared by Tran Truang [[https://truongtx.me/2014/08/23/setup-emacs-as-an-sql-database-client][on his blog]].)
 
 #+begin_src elisp
+  (require 'sql)
+
   (defun trs/sql-connect (connection-name)
     ;; Get parameters from the user interactively.
     (interactive
