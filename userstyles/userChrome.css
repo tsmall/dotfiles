@@ -1,0 +1,15 @@
+/*
+   INSTRUCTIONS
+
+   You have to follow a few steps to enable this custom stylesheet for Firefox.
+
+   1. In about:config, set toolkit.legacyUserProfileCustomizations.stylesheets to true.
+   2. In about:support, find your profile path.
+   3. Copy this file into that path, in a "chrome" subdirectory.
+   4. Restart Firefox.
+*/
+
+/* hide native (top) tabs */
+#TabsToolbar {
+  visibility: collapse;
+}
