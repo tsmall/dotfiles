@@ -39,6 +39,7 @@
         julia-mode
         kotlin-mode
         ledger-mode
+        loccur
         lua-mode
         magit
         markdown-mode
