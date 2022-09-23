@@ -10,6 +10,7 @@
 
 (setq package-list
       '(ace-jump-mode
+        adaptive-wrap
         bongo
         cider
         clojure-mode
