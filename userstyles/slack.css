@@ -1,0 +1,20 @@
+[lang] body,                             /* rendered text */
+[lang] .ql-editor,                       /* text input */
+div.c-texty_input_unstyled.ql-container  /* text input placeholder */
+{
+    font-family: "Roboto";
+}
+
+code,
+pre,
+.c-texty_input_unstyled__container .ql-editor .ql-code-block
+{
+    font-family: "Roboto Mono" !important;
+    /*font-size: 13px;*/
+    color: black;
+}
+
+blockquote
+{
+    border-left-width: 0px;
+}
