@@ -40,6 +40,7 @@
         kotlin-mode
         ledger-mode
         loccur
+        lsp-mode
         lua-mode
         magit
         markdown-mode
