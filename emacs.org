@@ -86,8 +86,8 @@ One of my top interests is typography. So I end up switching which font I use
 in my text editors and IDEs often. This is my latest combination:
 
 #+BEGIN_SRC elisp
-  (trs/set-default-font "Iosevka Perfected" 160)
-  (trs/set-variable-font "DejaVu Sans" 160)
+  (trs/set-default-font "Berkeley Mono" 150)
+  (trs/set-variable-font "Verdana" 140)
 #+END_SRC
 
 Some of those fonts have ligatures for common coding character combinations
