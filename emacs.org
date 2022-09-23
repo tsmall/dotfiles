@@ -190,6 +190,19 @@ already fixed that problem for us. We just have to call
     (exec-path-from-shell-initialize))
 #+END_SRC
 
+** Window splitting
+
+Emacs's default window splitting behavior often doesn't do what I want. It will
+often split horizontally and open a new window instead of use the existing
+vertical split. These settings effectively set the threshold for the heuristic
+so high that Emacs will reuse my existing splits, making it more manual than
+dynamic.
+
+#+begin_src elisp
+  (setq split-height-threshold 1200)
+  (setq split-width-threshold 2000)
+#+end_src
+
 * Mode-specific settings
 :PROPERTIES:
 :header-args: :noweb-ref mode-specific-settings
