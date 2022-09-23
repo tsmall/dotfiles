@@ -60,6 +60,7 @@
         tuareg
         typescript-mode
         vala-mode
+        verb
         vimish-fold
         web-mode
         yaml-mode
