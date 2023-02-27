@@ -660,7 +660,17 @@ ID (in YYYYMMDDHHMM format). And links to the files are just their IDs. By
 default Org Mode doesn't know how to open those links. But Projectile does!
 
 #+begin_src elisp
-  (add-to-list 'org-open-at-point-functions 'projectile-find-file-dwim)
+  (defun trs-org-open-zettel-link ()
+    "Attempts to open an org link using a Zettelkasten ID."
+    (let* ((project-root (projectile-acquire-root))
+           (project-files (projectile-project-files project-root))
+           (files (projectile-select-files project-files))
+           (file (car files)))
+      (if (= (length files) 1)
+          (find-file (expand-file-name file project-root))
+        nil)))
+
+  (add-to-list 'org-open-at-point-functions 'trs-org-open-zettel-link)
 #+end_src
 
 ** Link abbreviations
