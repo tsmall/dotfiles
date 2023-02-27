@@ -653,6 +653,16 @@ them in my themes.
   (setq org-fontify-done-headline t)
 #+END_SRC
 
+** Wiki Links
+
+I use the Zettelkasten method for my notes. So each file starts with a unique
+ID (in YYYYMMDDHHMM format). And links to the files are just their IDs. By
+default Org Mode doesn't know how to open those links. But Projectile does!
+
+#+begin_src elisp
+  (add-to-list 'org-open-at-point-functions 'projectile-find-file-dwim)
+#+end_src
+
 ** Link abbreviations
 
 Org Mode provides a very helpful shortcut: you can provide your own link
