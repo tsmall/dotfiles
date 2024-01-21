@@ -144,6 +144,15 @@ and letting you choose one with fewer keystrokes with fuzzy matching.
   (fido-vertical-mode 1)
 #+END_SRC
 
+** Image viewing
+
+By default, Emacs can't view webp images. But this simple setting
+fixes that.
+
+#+begin_src elisp
+  (setq image-use-external-converter t)
+#+end_src
+
 ** "Uniquify" buffers
 
 In some projects it's very likely that you'll end up with multiple files opened
