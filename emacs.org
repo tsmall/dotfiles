@@ -634,6 +634,12 @@ Indent bullets to make the hierarchy easier to see.
   (setq org-startup-indented t)
 #+END_SRC
 
+Fold lists too.
+
+#+begin_src elisp
+  (setq org-cycle-include-plain-lists 'integrate)
+#+end_src
+
 Leave blank lines in between sections when they're folded. (I don't love having
 them there always, but the default behavior is often confusing to me; I never
 know where the blank lines are going to end up when moving things around.)
