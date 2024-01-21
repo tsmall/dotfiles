@@ -304,6 +304,7 @@ Turn on a few of haskell-mode's useful features:
 #+BEGIN_SRC elisp
   (add-hook 'haskell-mode-hook 'turn-on-haskell-doc-mode)
   (add-hook 'haskell-mode-hook 'turn-on-haskell-indentation)
+  (add-hook 'haskell-mode-hook 'interactive-haskell-mode)
 #+END_SRC
 
 ** Highlight Symbol
