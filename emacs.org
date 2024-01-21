@@ -473,6 +473,16 @@ Bind Projectile to a convenient keyboard shortcut:
   (define-key projectile-mode-map (kbd "C-c t") 'projectile-command-map)
 #+END_SRC
 
+** Taskpaper mode
+
+Taskpaper is a great outline format, especially for checklists. Emacs's
+taskpaper-mode is a great implementation of it.
+
+#+begin_src elisp
+  (use-package taskpaper-mode
+    :ensure t)
+#+end_src
+
 ** TypeScript mode
 
 I'm using a combination of the =typescript-mode= package (for syntax
