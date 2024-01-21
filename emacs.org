@@ -133,15 +133,15 @@ reasonable default to me. So four spaces it is.
   (setq-default indent-tabs-mode nil)     ; Insert spaces instead of tabs
 #+END_SRC
 
-** Ido-mode
+** Completion
 
-Ido-mode makes it much easier to switch buffers, open files, and to do many of
+fido-mode makes it much easier to switch buffers, open files, and to do many of
 the things you do many times a day. It does that by showing all of your options
 and letting you choose one with fewer keystrokes with fuzzy matching.
 
 #+BEGIN_SRC elisp
-  (ido-mode t)                            ; Turn on ido-mode
-  (setq ido-enable-flex-matching t)       ; Turn on flexible matching
+  (fido-mode 1)
+  (fido-vertical-mode 1)
 #+END_SRC
 
 ** "Uniquify" buffers
