@@ -997,6 +997,27 @@ them in agenda views.
   (set-face-attribute 'org-column-title nil :inherit 'default)
 #+end_src
 
+* PDF Viewing
+:PROPERTIES:
+:header-args: :noweb-ref pdf-viewing
+:END:
+
+The =pdf-tools= package improves the way Emacs renders PDFs, making it a great
+viewer. I've now started using it more often than Firefox to read PDFs. It's
+especially great with the =org-pdftools= package that lets you add links to
+specific pages in PDFs.
+
+#+begin_src elisp
+  (use-package pdf-tools
+    :ensure t
+    :init
+    (pdf-loader-install))
+
+  (use-package org-pdftools
+    :ensure t
+    :hook (org-mode . org-pdftools-setup-link))
+#+end_src
+
 * RSS feeds
 :PROPERTIES:
 :header-args: :noweb-ref elfeed-settings
@@ -1612,6 +1633,10 @@ All of the code you've read above is written to a single file, =emacs.lp.el=.
   ;;; Org Mode
 
   <<org-mode-settings>>
+
+  ;;; PDF Viewing
+
+  <<pdf-viewing>>
 
   ;;; Databases
 
