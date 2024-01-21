@@ -47,8 +47,8 @@
                      (forward-line)
                      (not (looking-at "^$")))
               (when (looking-at prop-regex)
-                (let ((time (match-string 1)))
-                  (add-to-list 'entries (list current-date time)))))))))
+                (let ((value (match-string 1)))
+                  (push (list current-date value) entries))))))))
     (with-output-to-temp-buffer "*bujo:property-report*"
       (princ "BuJo Property Report\n")
       (princ "--------------------\n")
