@@ -33,8 +33,7 @@
 
 (defun gwd--parse-header ()
   ;; TODO Documentation string
-  (let ((header (make-hash-table))
-        line)
+  (let ((header (make-hash-table)))
     ;; TODO Replace this with more general "skip whitespace" logic.
     (forward-line 2)
     (while (progn
@@ -43,15 +42,15 @@
       (cond
        ((looking-at "[0-9]\\{4\\}-[0-9]\\{2\\}-[0-9]\\{2\\}")
         (puthash 'date (match-string 0) header))
-       ((looking-at "Total (7): \\([0-9]+\\)")
+       ((looking-at "\\(?:  :\\)?Total (7): \\([0-9]+\\)")
         (puthash 'score (string-to-number (match-string 1)) header)
         (puthash 'rounds 7 header))
        ((looking-at "Total: \\([0-9]+\\)")
         (puthash 'score (string-to-number (match-string 1)) header)
         (puthash 'rounds 8 header))
-       ((looking-at "Team: \\(.+\\)$")
+       ((looking-at "\\(?:  :\\)?Team: \\(.+\\)$")
         (puthash 'team (match-string 1) header))
-       ((looking-at "QM: \\(.+\\)$")
+       ((looking-at "\\(?:  :\\)?QM: \\(.+\\)$")
         (puthash 'qm (match-string 1) header))))
     header))
 
@@ -61,7 +60,7 @@
     (goto-char (point-min))
     (let ((headers '()))
       (while (search-forward "-----" nil t)
-        (setq headers (cons (gwd--parse-header) headers)))
+        (push (gwd--parse-header) headers))
       headers)))
 
 (defun gwd-analyze ()
@@ -85,8 +84,8 @@
                (team  (gethash 'team  header)))
           (when (= (gethash 'rounds header) 7)
             (progn
-              (incf game-count)
-              (incf (alist-get team team-counts 0 nil #'equal))
+              (cl-incf game-count)
+              (cl-incf (alist-get team team-counts 0 nil #'equal))
               (when (> score best-score)
                 (setq best-score score)
                 (setq best-date (gethash 'date header))
@@ -96,13 +95,13 @@
                 (setq worst-date (gethash 'date header))
                 (setq worst-team team))
               (when (not (member team teams))
-                (add-to-list 'teams team))
+                (push team teams))
               (when (> score (alist-get team best-by-team 0 nil #'equal))
                 (setf (alist-get team best-by-team nil nil #'equal) score))
               (when (< score (alist-get team worst-by-team most-positive-fixnum nil #'equal))
                 (setf (alist-get team worst-by-team nil nil #'equal) score))
               (if-let ((qm (gethash 'qm header)))
-                  (incf (alist-get qm qm-counts 0 nil #'equal)))))))
+                  (cl-incf (alist-get qm qm-counts 0 nil #'equal)))))))
     (with-output-to-temp-buffer "*gwd:analysis*"
       (princ "GWD Analysis\n")
       (princ "============\n\n")
@@ -119,7 +118,7 @@
       (princ "Teams\n")
       (princ "-----\n\n")
       (dolist (team (sort teams #'string<))
-        (princ (format "%2d %2d %2d   %s\n"
+        (princ (format "%4d %3d %3d   %s\n"
                        (alist-get team team-counts)
                        (alist-get team best-by-team)
                        (alist-get team worst-by-team)
