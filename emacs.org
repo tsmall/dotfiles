@@ -1444,8 +1444,16 @@ See [[*Fonts][Fonts]] to see where I'm using these functions.
 #+BEGIN_SRC elisp
   (defun trs/set-default-font (family &optional height weight)
     "Set the default font."
-    (dolist (font-name (list 'default 'fixed-pitch-serif))
-      (set-face-attribute font-name nil
+    (dolist (face (list 'default 'fixed-pitch-serif))
+      (set-face-attribute face nil
+                          :family family
+                          :height (or height 100)
+                          :weight (or weight 'normal))))
+
+  (defun trs/set-comment-font (family &optional height weight)
+    "Set the comment font."
+    (dolist (face (list 'font-lock-comment-face 'font-lock-doc-face))
+      (set-face-attribute face nil
                           :family family
                           :height (or height 100)
                           :weight (or weight 'normal))))
