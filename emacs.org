@@ -1009,6 +1009,13 @@ them in agenda views.
     (define-key org-mode-map (kbd "C-c C-r") verb-command-map))
 #+end_src
 
+** Column Properties
+
+#+begin_src elisp
+  (set-face-attribute 'org-column nil :inherit 'default)
+  (set-face-attribute 'org-column-title nil :inherit 'default)
+#+end_src
+
 * RSS feeds
 :PROPERTIES:
 :header-args: :noweb-ref elfeed-settings
