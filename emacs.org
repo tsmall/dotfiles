@@ -283,6 +283,25 @@ Then we need to teach it how to properly indent Hoplon's macros:
                                      (car (last pair))))))
 #+END_SRC
 
+** EAT
+
+=eat= (Emulate A Terminal) is a big improvement over =shell= and =term=.
+
+#+begin_src elisp
+  (use-package eat
+    :ensure t
+    :config
+    (eat-compile-terminfo))
+#+end_src
+
+You also need to add this to your =.zshrc= file for tighter integration between
+Eat, Emacs, and the shell.
+
+#+begin_example
+  [ -n "$EAT_SHELL_INTEGRATION_DIR" ] && \
+    source "$EAT_SHELL_INTEGRATION_DIR/zsh"
+#+end_example
+
 ** EditorConfig
 
 Turn on EditorConfig support.
