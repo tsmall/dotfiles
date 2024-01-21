@@ -60,6 +60,7 @@ That's just wasteful. Let's put things the way they should be.
   (fset 'yes-or-no-p 'y-or-n-p)           ; Make answering yes or no easier
   (setq-default fill-column 79)           ; Wrap at 79 columns by default
   (setq sentence-end-double-space nil)    ; Let one space end a sentence
+  (setq-default Man-width fill-column)    ; Wrap man pages at fill-column
 #+END_SRC
 
 ** Frame title
@@ -140,7 +141,6 @@ and letting you choose one with fewer keystrokes with fuzzy matching.
 #+BEGIN_SRC elisp
   (ido-mode t)                            ; Turn on ido-mode
   (setq ido-enable-flex-matching t)       ; Turn on flexible matching
-  (setq-default Man-width fill-column)    ; Wrap man pages at fill-column
 #+END_SRC
 
 ** "Uniquify" buffers
