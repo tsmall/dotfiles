@@ -144,15 +144,6 @@ and letting you choose one with fewer keystrokes with fuzzy matching.
   (fido-vertical-mode 1)
 #+END_SRC
 
-** Image viewing
-
-By default, Emacs can't view webp images. But this simple setting
-fixes that.
-
-#+begin_src elisp
-  (setq image-use-external-converter t)
-#+end_src
-
 ** "Uniquify" buffers
 
 In some projects it's very likely that you'll end up with multiple files opened
@@ -1016,11 +1007,32 @@ them in agenda views.
   (set-face-attribute 'org-column-title nil :inherit 'default)
 #+end_src
 
-* PDF Viewing
+* Viewing non-text files
 :PROPERTIES:
-:header-args: :noweb-ref pdf-viewing
+:header-args: :noweb-ref non-text-viewing
 :END:
 
+** EPUBs
+
+The =nov= package makes Emacs a great epub reader.
+
+#+begin_src elisp
+  (use-package nov
+    :ensure t
+    :init
+    (add-to-list 'auto-mode-alist '("\\.epub\\'" . nov-mode)))
+#+end_src
+
+** Images
+
+By default, Emacs can't view webp images. But this simple setting
+fixes that.
+
+#+begin_src elisp
+  (setq image-use-external-converter t)
+#+end_src
+
+** PDFs
 The =pdf-tools= package improves the way Emacs renders PDFs, making it a great
 viewer. I've now started using it more often than Firefox to read PDFs. It's
 especially great with the =org-pdftools= package that lets you add links to
@@ -1655,7 +1667,7 @@ All of the code you've read above is written to a single file, =emacs.lp.el=.
 
   ;;; PDF Viewing
 
-  <<pdf-viewing>>
+  <<non-text-viewing>>
 
   ;;; Databases
 
