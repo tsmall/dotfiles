@@ -328,6 +328,16 @@ indentation. I'll use 4 spaces for indentation there.
   (setq sgml-basic-offset 4)
 #+END_SRC
 
+** iedit
+
+iedit complements multiple cursors by making it quick to select all instances
+of a word in a buffer and edit them all at once.
+
+#+begin_src elisp
+  (use-package iedit
+    :ensure t)
+#+end_src
+
 ** iy-go-to-char
 
 This mode teaches Emacs about a very efficient navigation feature
