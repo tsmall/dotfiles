@@ -48,7 +48,6 @@
         multiple-cursors
         olivetti
         paredit
-        parinfer
         php-mode
         projectile
         rainbow-mode
