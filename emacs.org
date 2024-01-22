@@ -540,6 +540,13 @@ taskpaper-mode is a great implementation of it.
            ("C-S-<up>" . taskpaper-outline-up-level)))
 #+end_src
 
+** Transpose frame
+
+#+begin_src elisp
+  (use-package transpose-frame
+    :ensure t)
+#+end_src
+
 ** TypeScript mode
 
 I'm using a combination of the =typescript-mode= package (for syntax
