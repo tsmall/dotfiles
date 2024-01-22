@@ -535,7 +535,9 @@ taskpaper-mode is a great implementation of it.
 
 #+begin_src elisp
   (use-package taskpaper-mode
-    :ensure t)
+    :ensure t
+    :bind (:map taskpaper-mode-map
+           ("C-S-<up>" . taskpaper-outline-up-level)))
 #+end_src
 
 ** TypeScript mode
