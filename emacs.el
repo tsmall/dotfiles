@@ -105,13 +105,6 @@ Display the number of matches and save it to the kill ring."
 (set-face-attribute 'diff-removed nil :foreground "red3")
 (set-face-attribute 'diff-changed nil :foreground "purple")
 
-;; pcomplete
-(add-to-list 'load-path "~/etc/dotfiles/emacs.d/site-lisp/pcmpl-git-el")
-(require 'pcmpl-git)
-
-;; transpose-frame
-(require 'transpose-frame)
-
 ;; -----------------------------------------------------------------------------
 ;; jabber-mode
 ;; -----------------------------------------------------------------------------
