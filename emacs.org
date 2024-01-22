@@ -1496,6 +1496,19 @@ the one shared by Tran Truang [[https://truongtx.me/2014/08/23/setup-emacs-as-an
 
 *** Troubleshooting
 
+**** No usable configuration
+
+If you see a message that says "no usable configuration", then you likely don't
+have GPG installed.
+
+On macOS, you can install it with Homebrew:
+
+#+begin_example
+  $ brew install gpg
+#+end_example
+
+**** Inappropriate ioctl
+
 If you see this error when trying to encrypt the =passwords.el.gpg= file:
 
 #+begin_example
