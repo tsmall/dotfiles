@@ -1064,7 +1064,19 @@ them in agenda views.
       ((org-agenda-dim-blocked-tasks nil))))
 #+END_SRC
 
-** Verb
+** Extensions
+
+*** Aggregate
+
+Aggregate lets you do SQL-like aggregations of data from other Org tables. See
+my =youearnedit.org= file for an example.
+
+#+begin_src elisp
+  (use-package orgtbl-aggregate
+    :ensure t)
+#+end_src
+
+*** Verb
 
 #+begin_src elisp
   (with-eval-after-load 'org
