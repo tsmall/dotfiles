@@ -107,7 +107,7 @@ Here are characters that I want my fonts to render well:
 #+begin_example
   ABCDEFGHIJKLMNOPQRSTUVWXYZ
   abcdefghijklmnopqrstuvwxyz
-  0123456789 () [] <> {}
+  0123456789 @ () [] <> {}
   ← → ✓ × ☐ ¼ ½ ¾ ⅓ ⅔ ∪ ∩ ∈
   0OI1l wwwv qpdb
   -> => --> ==> := ::
@@ -129,7 +129,7 @@ But it seems like, in general, four spaces has won. And that seems like a
 reasonable default to me. So four spaces it is.
 
 #+BEGIN_SRC elisp
-  (setq-default tab-width 4)              ; Interpret tab char as 4 places
+  (setq-default tab-width 2)              ; Interpret tab char as 2 places
   (setq-default indent-tabs-mode nil)     ; Insert spaces instead of tabs
 #+END_SRC
 
@@ -283,9 +283,9 @@ Then we need to teach it how to properly indent Hoplon's macros:
                                      (car (last pair))))))
 #+END_SRC
 
-** EAT
+** Eat
 
-=eat= (Emulate A Terminal) is a big improvement over =shell= and =term=.
+[[https://codeberg.org/akib/emacs-eat][Eat]] (Emulate A Terminal) is a fast, pure Elisp terminal emulator.
 
 #+begin_src elisp
   (use-package eat
@@ -294,10 +294,18 @@ Then we need to teach it how to properly indent Hoplon's macros:
     (eat-compile-terminfo))
 #+end_src
 
-You also need to add this to your =.zshrc= file for tighter integration between
-Eat, Emacs, and the shell.
+(NOTE: I'm not sure I have to run =eat-compile-terminfo= every time I load the
+library, but it seems OK. See [[https://codeberg.org/akib/emacs-eat/issues/45][this issue]] for why it's necessary at all.)
+
+To get full shell integration with Emacs -- directory tracking, seeing exit
+codes, etc. -- you have to add the following lines to your shell config:
 
 #+begin_example
+  # For Bash:
+  [ -n "$EAT_SHELL_INTEGRATION_DIR" ] && \
+    source "$EAT_SHELL_INTEGRATION_DIR/bash"
+
+  # For Zsh:
   [ -n "$EAT_SHELL_INTEGRATION_DIR" ] && \
     source "$EAT_SHELL_INTEGRATION_DIR/zsh"
 #+end_example
@@ -349,17 +357,36 @@ indentation. I'll use 4 spaces for indentation there.
 
 ** Hyperbole
 
-Hyperbole is a suite of tools that add hypermedia features to Emacs.
+Hyperbole is a suite of tools. The three big features I've discovered so far
+are (1) adding hypermedia controls to any text file, (2) an outliner named
+Koutliner, and (3) a contact management system named Rolo.
 
 #+begin_src elisp
   (use-package hyperbole
     :ensure t)
 #+end_src
 
+*** Custom Hyperlinks
+
+#+begin_src elisp
+  (defib jira ()
+    "Open JIRA ticket in browser."
+    (let ((ticket (current-word))
+          start-pos end-pos)
+      (when (string-match-p "PE-[0-9]+" ticket)
+        (save-excursion
+          (search-backward "PE-")
+          (setq start-pos (point))
+          (forward-word 2)
+          (setq end-pos (point)))
+        (ibut:label-set "JIRA" start-pos end-pos)
+        (hact #'trs/jira-open))))
+#+end_src
+
 ** iedit
 
-iedit complements multiple cursors by making it quick to select all instances
-of a word in a buffer and edit them all at once.
+This is another way to edit multiple pieces of text at the same time. It
+complements multiple-cursor-mode.
 
 #+begin_src elisp
   (use-package iedit
