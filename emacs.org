@@ -1087,9 +1087,20 @@ my =youearnedit.org= file for an example.
 
 *** Verb
 
+Verb is an extension to Org Mode that turns it into an API client.
+
 #+begin_src elisp
   (with-eval-after-load 'org
     (define-key org-mode-map (kbd "C-c C-r") verb-command-map))
+#+end_src
+
+Verb doesn't come with support for OAuth out of the box, but I often need it.
+Luckily it does provide an API and hooks that made it possible for me to
+implement it myself. My =verb-oauth1= package implements a Verb Request Mapping
+Function to sign outgoing requests.
+
+#+begin_src elisp
+  (require 'verb-oauth1)
 #+end_src
 
 ** Column Properties
