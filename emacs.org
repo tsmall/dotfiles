@@ -1440,10 +1440,12 @@ These are the podcasts I like to listen to.
          elfeed-feeds/edtech))
 #+end_src
 
-* Playing music with Bongo
+* Playing music
 :PROPERTIES:
-:header-args: :noweb-ref bongo-settings
+:header-args: :noweb-ref music-settings
 :END:
+
+** With Bongo
 
 #+begin_src elisp
   (require 'bongo)
@@ -1456,23 +1458,13 @@ These are the podcasts I like to listen to.
                       :strike-through nil)
 #+end_src
 
-* Managing podcasts with Elfeed and Bongo
-:PROPERTIES:
-:header-args: :noweb-ref elfeed-bongo
-:END:
-
-I'm trying out using Emacs--specifically Elfeed and Bongo--to manage my
-podcasts. Credit goes to Protesilaos Stavrou (Prot) for the code that makes
-this integration possible. See =prot-elfeed-bongo.el= for that code, which I have
-made a few tweaks to to get everything working.
+** With "Ready Player Mode"
 
 #+begin_src elisp
-  (with-eval-after-load 'elfeed
-    (load "~/.emacs.d/site-lisp/prot-elfeed-bongo.el")
-    (let ((map elfeed-search-mode-map))
-      (define-key map (kbd "Q") #'prot-elfeed-bongo-insert-item))
-    (let ((map elfeed-show-mode-map))
-      (define-key map (kbd "Q") #'prot-elfeed-bongo-insert-item)))
+  (use-package ready-player
+    :ensure t
+    :config
+    (ready-player-mode +1))
 #+end_src
 
 * Databases
@@ -1840,12 +1832,11 @@ All of the code you've read above is written to a single file, =emacs.lp.el=.
 
   <<key-bindings>>
 
-  ;;; Bongo settings
+  ;;; Music settings
 
-  <<bongo-settings>>
+  <<music-settings>>
 
   ;;; Elfeed settings
 
   <<elfeed-settings>>
-  <<elfeed-bongo>>
 #+END_SRC
