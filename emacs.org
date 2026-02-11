@@ -87,9 +87,9 @@ One of my top interests is typography. So I end up switching which font I use
 in my text editors and IDEs often. This is my latest combination:
 
 #+BEGIN_SRC elisp
-  (trs/set-default-font "JetBrains Mono NL" 130)
-  (trs/set-comment-font "JetBrains Mono NL" 130)
-  (trs/set-variable-font "Amazon Ember" 140)
+  (trs/set-default-font  "Lexia Mono"     130)
+  (trs/set-comment-font  "Lexia Mono"     130)
+  (trs/set-variable-font "BBC Reith Sans" 140)
 #+END_SRC
 
 Some of those fonts have ligatures for common coding character combinations
@@ -1154,6 +1154,23 @@ The =nov= package makes Emacs a great epub reader.
     :ensure t
     :init
     (add-to-list 'auto-mode-alist '("\\.epub\\'" . nov-mode)))
+#+end_src
+
+By default it fills to the window, which is too large.
+
+#+begin_src elisp
+  (setq nov-text-width 72)
+#+end_src
+
+I also like using a serif font for this, even though I use sans-serif for my
+normal variable-pitch font.
+
+#+begin_src elisp
+  (setq nov-variable-pitch nil)
+  (defun trs/nov-font-setup ()
+    (buffer-face-set :family "BBC Reith Serif"
+                     :height 180))
+  (add-hook 'nov-mode-hook 'trs/nov-font-setup)
 #+end_src
 
 ** Images
