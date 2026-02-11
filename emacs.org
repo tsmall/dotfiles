@@ -369,34 +369,6 @@ indentation. I'll use 4 spaces for indentation there.
   (setq sgml-basic-offset 4)
 #+END_SRC
 
-** Hyperbole
-
-Hyperbole is a suite of tools. The three big features I've discovered so far
-are (1) adding hypermedia controls to any text file, (2) an outliner named
-Koutliner, and (3) a contact management system named Rolo.
-
-#+begin_src elisp
-  (use-package hyperbole
-    :ensure t)
-#+end_src
-
-*** Custom Hyperlinks
-
-#+begin_src elisp
-  (defib jira ()
-    "Open JIRA ticket in browser."
-    (let ((ticket (current-word))
-          start-pos end-pos)
-      (when (string-match-p "PE-[0-9]+" ticket)
-        (save-excursion
-          (search-backward "PE-")
-          (setq start-pos (point))
-          (forward-word 2)
-          (setq end-pos (point)))
-        (ibut:label-set "JIRA" start-pos end-pos)
-        (hact #'trs/jira-open))))
-#+end_src
-
 ** iedit
 
 This is another way to edit multiple pieces of text at the same time. It
