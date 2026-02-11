@@ -201,6 +201,17 @@ dynamic.
   (setq split-width-threshold 2000)
 #+end_src
 
+** Tab View
+
+Recent versions of tab-bar-mode take key bindings that I use in other places,
+for example to cycle visibility in taskpaper-mode. This undoes that.
+
+#+begin_src elisp
+  (with-eval-after-load 'tab-bar
+    (define-key tab-bar-mode-map (kbd "C-<tab>") nil)
+    (define-key tab-bar-mode-map (kbd "C-S-<tab>") nil))
+#+end_src
+
 * Mode-specific settings
 :PROPERTIES:
 :header-args: :noweb-ref mode-specific-settings
