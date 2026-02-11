@@ -769,6 +769,20 @@ them in my themes.
   (setq org-fontify-done-headline t)
 #+END_SRC
 
+** Colored text
+
+I like being able to color some of the text in my notes. This code makes that possible with custom links.
+
+#+begin_src elisp
+  (require 'org-colored-text)
+#+end_src
+
+But it doesn't (currently) play well with the way org mode folds text. This seems to fix it.
+
+#+begin_src elisp
+  (setq org-fold-core-style 'text-properties)
+#+end_src
+
 ** Links
 
 *** Abbreviations
