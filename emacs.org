@@ -696,6 +696,26 @@ Hide the emphasis markers to make the text more like a live preview.
   (setq org-hide-emphasis-markers t)
 #+END_SRC
 
+But make it easy to toggle them on for easier editing.
+
+#+begin_src elisp
+  (defun trs/toggle-org-markup ()
+    "Toggle visibility of Org markup (bold, italics, etc) and links in current buffer."
+    (interactive)
+    (if org-hide-emphasis-markers
+        (progn
+          (setq-local org-hide-emphasis-markers nil)
+          (setq-local org-link-descriptive nil)
+          (message "Org markup and links shown"))
+      (setq-local org-hide-emphasis-markers t)
+      (setq-local org-link-descriptive t)
+      (message "Org markup and links hidden"))
+    (font-lock-flush)
+    (font-lock-ensure))
+
+  (define-key org-mode-map (kbd "C-c C-t") #'trs/toggle-org-markup)
+#+end_src
+
 Indent bullets to make the hierarchy easier to see.
 
 #+BEGIN_SRC elisp
