@@ -1,0 +1,16 @@
+# -*- mode: snippet -*-
+# name: Daily Log
+# key: daily-log
+# --
+** [`(format-time-string "%Y-%m-%d %a")`]
+*** ⏱️ Timesheet
+- [[color:gray][0.00]] | UIHN-96280 | Assessment Loader
+  (+ 0.00  ;; 
+     )
+- [[color:gray][0.00]] | PSECL-327 | Rubrics
+  (+ 0.00  ;; 
+     )
+*** 📅 Events
+*** 📓 Journal
+*** 📚 Reading
+*** 📺 Watching
