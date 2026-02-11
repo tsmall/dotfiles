@@ -125,11 +125,8 @@ whatever a project has decided, or whatever the standard is for a language.
 (This is also one of the reasons I really like Go and Lisps: there's one way to
 format your code, and that's it.)
 
-But it seems like, in general, four spaces has won. And that seems like a
-reasonable default to me. So four spaces it is.
-
 #+BEGIN_SRC elisp
-  (setq-default tab-width 2)              ; Interpret tab char as 2 places
+  (setq-default tab-width 8)
   (setq-default indent-tabs-mode nil)     ; Insert spaces instead of tabs
 #+END_SRC
 
