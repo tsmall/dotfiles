@@ -455,6 +455,7 @@ buffer cleanly, and automatically turn on spell checking (via =flyspell-mode=).
 #+BEGIN_SRC elisp
   (add-hook 'markdown-mode-hook 'flyspell-mode)
   (add-hook 'markdown-mode-hook 'olivetti-mode)
+  (add-hook 'markdown-mode-hook 'adaptive-wrap-prefix-mode)
 #+END_SRC
 
 ** Multiple Cursors
