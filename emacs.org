@@ -873,7 +873,7 @@ Target every todo item with the "PROJ" tag and every heading in the current file
 
 #+BEGIN_SRC elisp
   (setq org-refile-targets '((nil :todo . "PROJ")
-                             (nil :maxlevel . 2)))
+                             (nil :maxlevel . 4)))
 #+END_SRC
 
 ** Habit tracking
