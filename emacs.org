@@ -749,7 +749,9 @@ them in my themes.
   (setq org-fontify-done-headline t)
 #+END_SRC
 
-** Link abbreviations
+** Links
+
+*** Abbreviations
 
 Org Mode provides a very helpful shortcut: you can provide your own link
 abbreviations, which will be expanded into the full link. I find this very
@@ -758,6 +760,13 @@ helpful for things like work tickets.
 #+begin_src elisp
   (setq org-link-abbrev-alist
         '(("PE" . "https://powerschoolgroup.atlassian.net/browse/PE-")))
+#+end_src
+
+*** Linking with org-id
+
+#+begin_src elisp
+  (require 'org-id)
+  (setq org-id-link-to-org-use-id 'create-if-interactive)
 #+end_src
 
 ** Todo settings
