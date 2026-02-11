@@ -315,6 +315,12 @@ Turn on EditorConfig support.
   (editorconfig-mode 1)
 #+END_SRC
 
+** Emacs Lisp Mode
+
+#+begin_src elisp
+  (add-hook 'emacs-lisp-mode-hook 'enable-paredit-mode)
+#+end_src
+
 ** Expand Region
 
 #+BEGIN_SRC elisp :noweb-ref key-bindings
