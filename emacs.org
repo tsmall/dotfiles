@@ -757,13 +757,19 @@ them in my themes.
 I like being able to color some of the text in my notes. This code makes that possible with custom links.
 
 #+begin_src elisp
-  (require 'org-colored-text)
+  ;; (require 'org-colored-text)
 #+end_src
 
 But it doesn't (currently) play well with the way org mode folds text. This seems to fix it.
 
 #+begin_src elisp
-  (setq org-fold-core-style 'text-properties)
+  ;; (setq org-fold-core-style 'text-properties)
+#+end_src
+
+I'm actually switching to a custom implementation that uses custom faces instead. That seems to be both much easier and much better behaved. Once I've migrated everything I'll probably delete the options above.
+
+#+begin_src elisp
+  (require 'org-custom-faces)
 #+end_src
 
 ** Links
