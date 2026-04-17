@@ -66,6 +66,14 @@
   '((t (:inherit default :foreground "red" :weight bold)))
   "Face for due dates.")
 
+(defface type-highlight
+  '((t (:inherit default :background "#FFF085")))
+  "Face for highlighting text.")
+
+(defface type-holiday
+  '((t (:inherit default :foreground "#82B6FA" :slant italic)))
+  "Face for holidays.")
+
 (defface type-info
   '((t (:inherit default :foreground "darkgray")))
   "Face for info.")
@@ -81,6 +89,10 @@
 (defface type-sunday
   '((t (:inherit default :foreground "blue" :weight bold)))
   "Face for Sundays.")
+
+(defface type-tag
+  '((t (:inherit default :foreground "lightgray" :slant italic :height 0.9)))
+  "Face for tags.")
 
 (defface type-time
   '((t (:inherit default :foreground "blue")))
